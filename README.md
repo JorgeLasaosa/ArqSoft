@@ -1,5 +1,6 @@
 # Appnime
 Asignatura: Arquitectura Software
+
 Integrantes del equipo:
 - Marcos Ruiz
 - Jorge Lasaosa

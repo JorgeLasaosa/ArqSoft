@@ -1,5 +1,9 @@
 # Appnime
-Arquitectura Software
+Asignatura: Arquitectura Software
+Integrantes del equipo:
+- Marcos Ruiz
+- Jorge Lasaosa
+- Lucas Lopez
 
 ## Normas de código
 - Comentarios en español

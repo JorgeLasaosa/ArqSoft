@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html ng-app="anime">
+   <head>
+      <title>Login Form</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles/login.css"/>
+      <script type="text/javascript" src="scripts/angular.js"></script>
+      <script type="text/javascript" src="scripts/angular-cookies.js"></script>
+      <script type="text/javascript" src="scripts/app.js"></script>
+   </head>
+
+   <body ng-controller="LoginController as loginCtrl">
+      <form action="index.html" target="_top" method="POST">
+         <table>
+            <caption> Todos los campos son obligatorios. </caption>
+            <tr>
+               <td class="id"> Nombre de usuario </td>
+               <td class="text"> <input type="text" name="name" ng-model="loginCtrl.name" placeholder="Nombre de usuario" maxlength="20" autofocus required/> </td>
+            </tr>
+            <tr>
+               <td class="id"> Contraseña </td>
+               <td class="text"> <input type="password" name="password" placeholder="Contraseña" maxlength="20"/> </td>
+            </tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr>
+               <td class="id"> <input ng-click="loginCtrl.putName()" type="submit" value="Iniciar sesión"> </td>
+               <td class="text"> <input type="reset" value="Reiniciar campos"> </td>
+            </tr>
+         </table>
+      </form>
+   </body>
+</html>

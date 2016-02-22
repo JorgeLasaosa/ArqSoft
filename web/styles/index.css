@@ -1,0 +1,20 @@
+article
+{
+   width: 80%;
+   height: 600px;
+   background-color: Gainsboro;
+   position: relative;
+   left: 10%;
+}
+
+footer
+{
+   background: black;
+   color: white;
+   text-align: center;
+   position: fixed;
+   clear: both;
+   bottom: 0px;
+   width: 80%;
+   left: 10%;
+}

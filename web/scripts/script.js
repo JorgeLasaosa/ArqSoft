@@ -1,0 +1,3 @@
+$scope.valorados = [
+   'lucas'
+]

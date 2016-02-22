@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html ng-app="anime">
+   <head>
+      <title>Elementos de inicio</title>
+      <link rel="stylesheet" href="styles/start.css"/>
+      <script type="text/javascript" src="scripts/angular.js"></script>
+      <script type="text/javascript" src="scripts/angular-cookies.js"></script>
+      <script type="text/javascript" src="scripts/app.js"></script>
+   </head>
+
+   <body>
+      <div id="most-rated" ng-app="myApp" ng-controller="customersCtrl">
+         <table align="center">
+            <thead><h3>Mas valoradas</h3></thead>
+            <tr ng-repeat="x in myData| orderBy : 'start_year'">
+               <td>{{ x.title}}</td>
+               <td>{{ x.start_year}}</td>
+            </tr>
+         </table>
+      </div>
+
+      <div id="most-searched">
+         <table align="center">
+            <thead><h3>Mas buscadas</h3></thead>
+            <tr ng-repeat="x in valorados">
+               <td>{{ x.title}}</td>
+               <td>{{ x.rating}}</td>
+            </tr>
+         </table>
+      </div>
+
+      <script>
+         var app = angular.module('myApp', []);
+         app.controller('customersCtrl', function ($scope, $http) {
+            $http.get("customers.php").then(function (response) {
+               $scope.myData = response.data.records;
+            });
+         });
+      </script>
+   </body>
+</html>

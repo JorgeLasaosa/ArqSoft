@@ -16,7 +16,7 @@
       <script type="text/javascript" src="scripts/app.js"></script>
    </head>
 
-   <body ng-controller="CookieCtrl as getLoginCookie">
+   <body ng-controller="CookieGetter">
       <div id="page-header">
          <div id="header-top">
             <div class="cpanel top-wrapper">
@@ -40,11 +40,14 @@
                   </form>
                </div>
 
-               <div id="user-login-container" ng-hide="getLoginCookie.name">
-                  <span id="login-register"><a href="login.html" target="central">Iniciar sesión</a> / <a href="register.html" target="central">Registrarse</a></span>
+               <div id="user-login-container" ng-hide="loggedName">
+                  <span id="login-register"><a href="login.html" target="central">Iniciar sesión</a> / 
+                     <a href="register.html" target="central">Registrarse</a></span>
                </div>
-               <div id="user-login-container" ng-show="getLoginCookie.name">
-                  <span id="update-data"><a href="update.html" target="central">Hola {{ getLoginCookie.name | lowercase }}</a></span>
+
+               <div id="user-login-container" ng-show="loggedName">
+                  <span id="update-data"><a href="update.html" target="central">Hola {{ loggedName | lowercase}}</a> /
+                     <a ng-click="clearCookieValue()" href="index.html" >Cerrar sesión</a></span></span>
                </div>
             </div>
          </div>
@@ -54,7 +57,7 @@
          <iframe id="central"
                  src="start.html"
                  style="border: none; width: 100%; height: 100%;
-                        overflow-x: hidden; overflow-y: scroll">
+                 overflow-x: hidden; overflow-y: scroll">
          </iframe>
       </article>
 

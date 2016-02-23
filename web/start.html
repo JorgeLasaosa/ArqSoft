@@ -9,13 +9,13 @@
       <script type="text/javascript" src="scripts/app.js"></script>
    </head>
 
-   <body>
-      <div id="most-rated" ng-app="myApp" ng-controller="customersCtrl">
+   <body ng-controller="AudiovisualInformation as anime">
+      <div id="most-rated">
          <table align="center">
             <thead><h3>Mas valoradas</h3></thead>
-            <tr ng-repeat="x in myData| orderBy : 'start_year'">
-               <td>{{ x.title}}</td>
-               <td>{{ x.start_year}}</td>
+            <tr ng-repeat="work in anime.works">
+               <td>{{ work.title}}</td>
+               <td>{{ work.start_year}}</td>
             </tr>
          </table>
       </div>
@@ -23,20 +23,11 @@
       <div id="most-searched">
          <table align="center">
             <thead><h3>Mas buscadas</h3></thead>
-            <tr ng-repeat="x in valorados">
-               <td>{{ x.title}}</td>
-               <td>{{ x.rating}}</td>
+            <tr ng-repeat="work in anime.works | orderBy : 'start_year'">
+               <td>{{ work.title}}</td>
+               <td>{{ work.start_year}}</td>
             </tr>
          </table>
       </div>
-
-      <script>
-         var app = angular.module('myApp', []);
-         app.controller('customersCtrl', function ($scope, $http) {
-            $http.get("customers.php").then(function (response) {
-               $scope.myData = response.data.records;
-            });
-         });
-      </script>
    </body>
 </html>

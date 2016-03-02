@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html ng-app="anime">
+   <head>
+      <title>Página de anime y red social.</title>
+      <meta name="author" content="Lucas López Azcona"/>
+      <meta name="keywords" content="anime, cosplay, sexy, pikachu, netflix"/>
+      <meta name="description" content="Página de anime y red social"/>
+      <meta charset="UTF-8">
+      <link rel="icon" href="images/favicon.png" sizes="32x32"/>
+      <link rel="stylesheet" href="styles/header.css"/>
+      <link rel="stylesheet" href="styles/index.css"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script type="text/javascript" src="scripts/angular.js"></script>
+      <script type="text/javascript" src="scripts/angular-cookies.js"></script>
+      <script type="text/javascript" src="scripts/app.js"></script>
+   </head>
+
+   <body ng-controller="CookieGetter">
+      <div id="page-header">
+         <div id="header-top">
+            <div class="cpanel top-wrapper">
+               <div id="logo-container">
+                  <a href="index.html">
+                     <img alt="Imagen de cabecera"
+                          src="images/LogoNegro.png"
+                          style="height: 50px">
+                  </a>
+               </div>
+
+               <div id="topsearch">
+                  <form action="Search" method="POST" accept-charset="UTF-8">
+                     <input id="top-search-input" type="text" name="search_text" size="25" placeholder = "Búscate algo...">
+                     <select name="search_type">
+                        <option value="all">Cualquiera</option>
+                        <option value="author">Autor</option>
+                        <option value="title">Título</option>
+                        <option value="cast">Personaje</option>
+                     </select>
+                  </form>
+               </div>
+
+               <div id="user-login-container" ng-hide="loggedName">
+                  <span id="login-register"><a href="login.html" target="central">Iniciar sesión</a> / 
+                     <a href="register.html" target="central">Registrarse</a></span>
+               </div>
+
+               <div id="user-login-container" ng-show="loggedName">
+                  <span id="update-data"><a href="update.html" target="central">Hola {{ loggedName | lowercase}}</a> /
+                     <a ng-click="clearCookieValue()" href="index.html" >Cerrar sesión</a></span></span>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <article>
+         <iframe id="central"
+                 src="start.html"
+                 style="border: none; width: 100%; height: 100%;
+                 overflow-x: hidden; overflow-y: scroll">
+         </iframe>
+      </article>
+
+      <footer>
+         Copyright © Grupo 3
+      </footer>
+   </body>
+</html>

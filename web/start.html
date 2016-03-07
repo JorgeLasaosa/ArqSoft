@@ -1,33 +1,37 @@
-<!DOCTYPE html>
+<link rel="stylesheet" href="styles/start.css"/>
 
-<html ng-app="anime">
-   <head>
-      <title>Elementos de inicio</title>
-      <link rel="stylesheet" href="styles/start.css"/>
-      <script type="text/javascript" src="scripts/angular.js"></script>
-      <script type="text/javascript" src="scripts/angular-cookies.js"></script>
-      <script type="text/javascript" src="scripts/app.js"></script>
-   </head>
+<section ng-controller="PanelSelector as panel">
+   <div class="row centered">
+      <ul class="nav nav-pills">
+         <li ng-class="{ active: panel.selectedPanel(1) }">
+            <a href ng-click="panel.selectPanel(1)">
+               Mas valoradas
+            </a>
+         </li>
+         <li ng-class="{ active: panel.selectedPanel(2) }">
+            <a href ng-click="panel.selectPanel(2)">
+               Mas criticadas
+            </a>
+         </li>
+         <li ng-class="{ active: panel.selectedPanel(3) }">
+            <a href ng-click="panel.selectPanel(3)">
+               Nuevas incorporaciones
+            </a>
+         </li>
+      </ul>
+   </div>
 
-   <body ng-controller="AudiovisualInformation as anime">
-      <div id="most-rated">
-         <table align="center">
-            <thead><h3>Mas valoradas</h3></thead>
-            <tr ng-repeat="work in anime.works">
-               <td>{{ work.title}}</td>
-               <td>{{ work.start_year}}</td>
-            </tr>
-         </table>
+   <div class="row">
+      <div class="col-md-offset-2 col-md-8" ng-show="panel.selectedPanel(1)">
+         <most-rated-thumbnail></most-rated-thumbnail>
       </div>
 
-      <div id="most-searched">
-         <table align="center">
-            <thead><h3>Mas buscadas</h3></thead>
-            <tr ng-repeat="work in anime.works | orderBy : 'start_year'">
-               <td>{{ work.title}}</td>
-               <td>{{ work.start_year}}</td>
-            </tr>
-         </table>
+      <div class="col-md-offset-2 col-md-8" ng-show="panel.selectedPanel(2)">
+         <most-reviewed-thumbnail></most-reviewed-thumbnail>
       </div>
-   </body>
-</html>
+
+      <div class="col-md-offset-2 col-md-8" ng-show="panel.selectedPanel(3)">
+         <new-arrivals-thumbnail></new-arrivals-thumbnail>
+      </div>
+   </div>
+</section>

@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="styles/search.css"/>
+
+<div class="boxed">
+   <p> {{work.title}}</p>
+   <p>
+      <span ng-show="work.start_year"> {{work.start_year}} </span>
+      <span ng-show="work.end_year"> - {{work.end_year}} </span>
+   </p>
+
+   <ul id="menu" ng-show="work.directors">
+      <li>Director(s)</li>
+      <li id="italic" ng-repeat="director in work.directors">
+         {{director.name}}
+      </li>
+   </ul>
+
+   <ul id="menu" ng-show="work.casts">
+      <li>Cast</li>
+      <li id="italic" ng-repeat="cast in work.casts">
+         {{cast.name}}
+      </li>
+   </ul>
+
+   <ul id="menu" ng-show="work.categories">
+      <li>Categories:</li>
+      <li ng-repeat="category in work.categories">
+         {{category.name}}
+      </li>
+   </ul>
+</div>
+<div class="spacer"></div>

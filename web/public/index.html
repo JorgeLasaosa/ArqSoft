@@ -1,67 +1,80 @@
 <!DOCTYPE html>
 
-<html ng-app="anime">
+<html ng-app="animeFfinityAPP">
    <head>
       <title>Página de anime y red social.</title>
-      <meta name="author" content="Lucas López Azcona"/>
-      <meta name="keywords" content="anime, cosplay, sexy, pikachu, netflix"/>
-      <meta name="description" content="Página de anime y red social"/>
       <meta charset="UTF-8">
-      <link rel="icon" href="images/favicon.png" sizes="32x32"/>
-      <link rel="stylesheet" href="styles/header.css"/>
-      <link rel="stylesheet" href="styles/index.css"/>
+      <meta name="description" content="Página de anime y red social"/>
+      <meta name="keywords" content="anime, cosplay, sexy, pikachu, netflix"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script type="text/javascript" src="scripts/angular.js"></script>
-      <script type="text/javascript" src="scripts/angular-cookies.js"></script>
+      <link rel="icon" href="images/favicon.png" sizes="32x32"/>
+      <link href="styles/bootstrap.min.css" rel="stylesheet"/>
+      <link href="styles/index.css" rel="stylesheet"/>
+      <script type="text/javascript" src="scripts/1.5.0/angular.min.js"></script>
+      <script type="text/javascript" src="scripts/1.5.0/angular-cookies.js"></script>
       <script type="text/javascript" src="scripts/app.js"></script>
    </head>
 
-   <body ng-controller="CookieGetter">
-      <div id="page-header">
-         <div id="header-top">
-            <div class="cpanel top-wrapper">
-               <div id="logo-container">
-                  <a href="index.html">
-                     <img alt="Imagen de cabecera"
-                          src="images/LogoNegro.png"
-                          style="height: 50px">
-                  </a>
-               </div>
+   <body ng-controller="FrameSelector as fs">
+      <div id="header-page" ng-controller="LoginCookieHandler as lch">
+         <div class="top-wrapper">
+            <div id="logo-container" class="col-md-offset-1 col-md-1">
+               <a href ng-click="fs.selectFrame('start.html')">
+                  <img alt="Imagen de cabecera"
+                      src="images/LogoNegro.png"
+                      style="height: 50px">
+               </a>
+            </div>
 
+<<<<<<< HEAD:web/public/index.html
                <div id="topsearch">
                   <form action="Search" method="POST" accept-charset="UTF-8">
                      <input id="top-search-input" type="text" name="search_text" size="25" placeholder = "Búscate algo...">
                      <select name="search_type">
                         <option value="all">Cualquiera</option>
                         <option value="author">Autor</option>
+=======
+            <div class="col-md-offset-5">
+               <form role="form" class="form-inline" action="Search" ng-click="fs.selectFrame('search.html')" method="POST" accept-charset="UTF-8">
+                  <div id="topchef" class="form-group">
+                     <label class="control-label sr-only" for="search_text">Buscar:</label>
+                     <input id="search_text" class="form-control" type="text" name="search_text" placeholder="Buscate algo...">
+                  </div>
+                  <div id="topchef" class="form-group">
+                     <label class="control-label sr-only"></label>
+                     <select name="search_type" class="form-control">
+                        <option value="all">Cualquier campo</option>
+>>>>>>> origin/presentation_layer:web/index.html
                         <option value="title">Título</option>
+                        <option value="author">Autor</option>
+                        <option value="director">Director</option>
                         <option value="cast">Personaje</option>
                      </select>
-                  </form>
+                  </div>
+               </form>
+            </div>
+
+            <div id="user-login-container" class="col-md-offset-7 col-md-3">
+               <div ng-hide="lch.loggedName || DoLogin">
+                  <span id="login-register">
+                     <a ng-click="fs.selectFrame('login.html')">Iniciar sesión</a> /
+                     <a ng-click="fs.selectFrame('register.html')">Registrarse</a>
+                  </span>
                </div>
 
-               <div id="user-login-container" ng-hide="loggedName">
-                  <span id="login-register"><a href="login.html" target="central">Iniciar sesión</a> / 
-                     <a href="register.html" target="central">Registrarse</a></span>
-               </div>
-
-               <div id="user-login-container" ng-show="loggedName">
-                  <span id="update-data"><a href="update.html" target="central">Hola {{ loggedName | lowercase}}</a> /
-                     <a ng-click="clearCookieValue()" href="index.html" >Cerrar sesión</a></span></span>
+               <div ng-show="lch.loggedName">
+                  <span id="update-data">
+                     <a ng-click="fs.selectFrame('update.html')">Hola {{lch.loggedName}}</a> /
+                     <a ng-click="fs.selectFrame('login.html')">Iniciar sesión</a> /
+                     <a ng-click="fs.selectFrame('register.html')">Registrarse</a>
+                     <!--<a ng-click="lch.clearCookieValue()" ng-click="lch.clearCookieValue() && fs.selectFrame('start.html')">Cerrar sesión</a>-->
+                  </span>
                </div>
             </div>
          </div>
       </div>
-
-      <article>
-         <iframe id="central"
-                 src="start.html"
-                 style="border: none; width: 100%; height: 100%;
-                 overflow-x: hidden; overflow-y: scroll">
-         </iframe>
-      </article>
-
-      <footer>
+      <div id="central" class="col-md-offset-1 col-md-10" ng-include="fs.selectedFrame()"></div>
+      <footer class="col-md-offset-1 col-md-10 text-center navbar-fixed-bottom">
          Copyright © Grupo 3
       </footer>
    </body>

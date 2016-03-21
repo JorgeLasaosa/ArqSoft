@@ -1,27 +1,6 @@
-form
+.login-panel
 {
-   display: inline;
-   border-width: 10px;
-   border-radius: 25px;
-   border-color: blanchedalmond;
-   background: gold;
-}
-
-table
-{
-   margin-top: 100px;
-   margin-bottom: auto;
-   margin-left: auto;
-   margin-right: auto;
-   background: blueviolet;
-}
-
-table.id
-{
-   text-align: left;
-}
-
-table.text
-{
-   text-align: center;
+   margin-top: 50px;
+   text-align: center; 
+   background-color: #96B5C5;
 }

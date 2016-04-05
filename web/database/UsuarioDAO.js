@@ -40,7 +40,7 @@ UsuarioDAO.prototype.insertUsuario = function(username, password, nombre, apelli
  *	username : Nombre de cuenta del usuario.
  *	password : Contraseña de la cuenta del usuario.	 
  */
-UsuarioDAO.prototype.loginUsuario = function(username, password) {
+UsuarioDAO.prototype.findUsuario = function(username, password) {
 	pool.getConnection(function(err, conn) {
 		conn.query("select * from Usuario where nombre_usuario = ? AND contraseña = ?", [username, password] , function(err, rows) {
 			conn.release();

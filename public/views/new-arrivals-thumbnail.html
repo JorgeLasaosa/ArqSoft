@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="css/start.css"/>
+
+<div class="panel panel-info">
+   <div class="panel-body" ng-controller="WorksTemplate as dt">
+      <table class="table new-arrivals">
+         <tbody>
+            <tr ng-repeat="work in dt.data | orderBy: 'end_year'">
+               <td>
+                  <p> {{work.title}}
+                     (
+                        <span ng-show="work.start_year"> {{work.start_year}} </span>
+                        <span ng-hide="work.start_year"> ??? </span>
+                        <span ng-show="work.end_year"> - {{work.end_year}} </span>
+                     )
+                  </p>
+
+                  <ul id="menu" ng-show="work.directors">
+                     <li>Director(s)</li>
+                     <li id="italic" ng-repeat="director in work.directors">
+                        {{director.name}}
+                     </li>
+                  </ul>
+
+                  <ul id="menu" ng-show="work.casts">
+                     <li>Cast</li>
+                     <li id="italic" ng-repeat="cast in work.casts">
+                        {{cast.name}}
+                     </li>
+                  </ul>
+
+                  <ul id="menu" ng-show="work.categories">
+                     <li>Categories</li>
+                     <li ng-repeat="category in work.categories">
+                        {{category.name}}
+                     </li>
+                  </ul>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+</div>

@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="css/start.css"/>
+
+<section ng-controller="PanelSelector as panel">
+   <div class="row centered">
+      <ul class="nav nav-pills">
+         <li ng-class="{ active: panel.selectedPanel(1) }">
+            <a href ng-click="panel.selectPanel(1)">
+               Mas valoradas
+            </a>
+         </li>
+         <li ng-class="{ active: panel.selectedPanel(2) }">
+            <a href ng-click="panel.selectPanel(2)">
+               Mas criticadas
+            </a>
+         </li>
+         <li ng-class="{ active: panel.selectedPanel(3) }">
+            <a href ng-click="panel.selectPanel(3)">
+               Nuevas incorporaciones
+            </a>
+         </li>
+      </ul>
+   </div>
+
+   <div class="row">
+      <div class="col-md-offset-2 col-md-8" ng-show="panel.selectedPanel(1)">
+         <most-rated-thumbnail></most-rated-thumbnail>
+      </div>
+
+      <div class="col-md-offset-2 col-md-8" ng-show="panel.selectedPanel(2)">
+         <most-reviewed-thumbnail></most-reviewed-thumbnail>
+      </div>
+
+      <div class="col-md-offset-2 col-md-8" ng-show="panel.selectedPanel(3)">
+         <new-arrivals-thumbnail></new-arrivals-thumbnail>
+      </div>
+   </div>
+</section>

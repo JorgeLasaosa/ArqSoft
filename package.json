@@ -1,12 +1,33 @@
 {
-  "name"         : "Animeffinity",
-  "version"      : "0.0.0",
-  "description"  : "Aplicacion de Prueba",
-  "main"         : "server.js",
-  "author"       : "Grupo 3",
-  "dependencies" : {
-    "express"    : "~4.7.2",
-    "mysql"		 : "~2.0.0",
-    "body-parser": "~1.5.2"
-    }
+  "name": "animeffinity",
+  "version": "0.0.0",
+  "description": "Aplicacion de Prueba",
+  "main": "server.js",
+  "author": "Grupo 3",
+  "dependencies": {
+    "body-parser": "~1.5.2",
+    "bootstrap": "^3.3.6",
+    "express": "^4.7.4",
+    "mysql": "~2.0.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JorgeLasaosa/ArqSoft.git"
+  },
+  "keywords": [
+    "arquitectura",
+    "del",
+    "software",
+    "jorge",
+    "marcos"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JorgeLasaosa/ArqSoft/issues"
+  },
+  "homepage": "https://github.com/JorgeLasaosa/ArqSoft#readme"
 }

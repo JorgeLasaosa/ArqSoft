@@ -12,33 +12,24 @@
     <title>Animeffinity</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap-select core CSS -->
-    <link href="../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<link href="../node_modules/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
+    <link href="node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="navbar-fixed-top.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!--<script src="../node_modules/bootstrap/assets/js/ie-emulation-modes-warning.js"></script>-->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="css/navbar-fixed-top.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
-    
+    <link href="css/signin.css" rel="stylesheet">
+
+    <!-- angular js -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+
   </head>
 
-  <body>
+  <body ng-app="animeffinity">
 
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -54,25 +45,26 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+
             <!-- search -->
-            <div class="btn-group" role="group">
+            <div ng-controller="appCtrl" class="btn-group" role="group">
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
+                  <input type="text" class="form-control" placeholder="Search" ng-model="formSearch.text">
                   <select class="selectpicker" data-width="fit">
                     <option value="all">All</option>
-                    <option value="none">Title</option>
-                    <option value="none">Autor</option>
-                    <option value="none">Director</option>
-                    <option value="none">Character</option>
+                    <option value="title">Title</option>
+                    <option value="autor">Autor</option>
+                    <option value="director">Director</option>
+                    <option value="character">Character</option>
                   </select>
                 </div>
-                <button type="submit" class="btn btn-default">Search</button>
+                <button type="submit" class="btn btn-default" ng-click="search()">Search</button>
               </form>
             </div>
+            <!-- end of search -->
+
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Log In</a></li>
@@ -82,11 +74,10 @@
       </div>
     </nav>
 
-    <div class="container">
-
-
-
-    </div> <!-- /container -->
+    <!-- /container -->
+    <div class="container" id="main-container">
+        <ui-view></ui-view>
+    </div>
 
 
     <!-- Bootstrap core JavaScript
@@ -94,9 +85,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<script src="../node_modules/bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>-->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>

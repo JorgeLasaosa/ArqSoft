@@ -5,10 +5,8 @@
   "main": "server.js",
   "author": "Grupo 3",
   "dependencies": {
-    "body-parser": "^1.5.2",
-    "bootstrap": "^3.3.6",
-    "bootstrap-select": "^1.10.0",
     "express": "^4.7.4",
+    "body-parser": "^1.5.2",
     "mysql": "~2.0.0"
   },
   "scripts": {
@@ -21,7 +19,6 @@
   },
   "keywords": [
     "arquitectura",
-    "del",
     "software",
     "jorge",
     "marcos"

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html ng-app="animeFfinityAPP">
+   <head>
+      <title>Página de anime y red social.</title>
+      <meta charset="UTF-8">
+      <meta name="description" content="Página de anime y red social"/>
+      <meta name="keywords" content="anime, cosplay, sexy, pikachu, netflix"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" href="images/favicon.png" sizes="32x32"/>
+      <link href="css/bootstrap.min.css" rel="stylesheet"/>
+      <link href="css/index.css" rel="stylesheet"/>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-cookies.js"></script>
+      <script src="js/app.js"></script>
+      <!--script src="js/SearchController.js"></script-->
+   </head>
+   <body ng-controller="FrameSelector as fs">
+      <div id="header-page" ng-controller="LoginCookieHandler as lch">
+         <div class="top-wrapper">
+            <div id="logo-container" class="col-md-offset-1 col-md-1">
+               <a href ng-click="fs.selectFrame('views/start.html')">
+                  <img alt="Imagen de cabecera"
+                      src="images/LogoNegro.png"
+                      style="height: 50px">
+               </a>
+            </div>
+
+            <div class="col-md-offset-5">
+               <form name="searchForm" role="form" class="form-inline" accept-charset="UTF-8" ng-submit="search()" ng-controller="SearchController">
+                  <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" hidefocus="true"/>
+                  <div id="topchef" class="form-group">
+                     <label class="control-label sr-only" for="search_text">Buscar:</label>
+                     <input id="search_text" class="form-control" type="text" ng-model="formData.search_text" placeholder="Buscate algo..."/>
+                  </div>
+                  <div id="topchef" class="form-group">
+                     <label class="control-label sr-only"></label>
+                     <select name="search_type" class="form-control">
+                        <option value="all">Cualquier campo</option>
+                        <option value="title">Título</option>
+                        <option value="author">Autor</option>
+                        <option value="director">Director</option>
+                        <option value="cast">Personaje</option>
+                     </select>
+                  </div>
+               </form>
+            </div>
+
+            <div id="user-login-container" class="col-md-offset-7 col-md-3">
+               <div ng-hide="lch.loggedName || DoLogin">
+                  <span id="login-register">
+                     <a ng-click="fs.selectFrame('views/login.html')">Iniciar sesión</a> /
+                     <a ng-click="fs.selectFrame('views/register.html')">Registrarse</a>
+                  </span>
+               </div>
+
+               <div ng-show="lch.loggedName">
+                  <span id="update-data">
+                     <a ng-click="fs.selectFrame('views/update.html')">Hola {{lch.loggedName}}</a> /
+                     <a ng-click="fs.selectFrame('views/login.html')">Iniciar sesión</a> /
+                     <a ng-click="fs.selectFrame('views/register.html')">Registrarse</a>
+                     <!--<a ng-click="lch.clearCookieValue()" ng-click="lch.clearCookieValue() && fs.selectFrame('start.html')">Cerrar sesión</a>-->
+                  </span>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="central" class="col-md-offset-1 col-md-10" ng-include="fs.selectedFrame()"></div>
+      <footer class="col-md-offset-1 col-md-10 text-center navbar-fixed-bottom">
+         Copyright © Grupo 3
+      </footer>
+   </body>
+</html>

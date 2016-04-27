@@ -1,39 +1,38 @@
 <link rel="stylesheet" href="css/register.css"/>
-
 <div class="panel panel-info col-md-offset-4 col-md-4 register-panel">
    <div class="panel-body">
       <form role="form">
          <div class="form-group">
             <label class="sr-only" for="name">Nombre:</label>
-            <input id="name" type="text" class="form-control" placeholder="Nombre">
+            <input id="name" type="text" class="form-control" placeholder="Nombre" ng-model="formData.nombre">
          </div>
 
          <div class="form-group">
             <label class="sr-only" for="surname">Apellidos:</label>
-            <input id="surname" type="text" class="form-control" placeholder="Apellidos">
+            <input id="surname" type="text" class="form-control" placeholder="Apellidos" ng-model="formData.apellidos">
          </div>
 
          <div class="form-group">
             <label class="sr-only" for="email">Correo electronico:</label>
-            <input id="email" type="text" class="form-control" placeholder="Correo electronico">
+            <input id="email" type="text" class="form-control" placeholder="Correo electronico" ng-model="formData.email">
          </div>
 
          <div class="form-group">
             <label class="sr-only" for="username">Nombre de usuario:</label>
-            <input id="username" type="text" class="form-control" placeholder="Nombre de usuario">
+            <input id="username" type="text" class="form-control" placeholder="Nombre de usuario" ng-model="formData.username">
          </div>
 
          <div class="form-group">
             <label class="sr-only" for="password1">Introduzca contraseña:</label>
-            <input id="password1" type="password" class="form-control" placeholder="Introduzca contraseña">
+            <input id="password1" type="password" class="form-control" placeholder="Introduzca contraseña" ng-model="formData.password">
          </div>
 
          <div class="form-group">
             <label class="sr-only" for="password2">Repita contraseña:</label>
-            <input id="password2" type="password" class="form-control" placeholder="Repita contraseña">
+            <input id="password2" type="password" class="form-control" placeholder="Repita contraseña" ng-model="formData.repassword">
          </div>
 
-         <button type="submit" class="btn btn-primary">Registrar usuario</button>
+         <button type="submit" class="btn btn-primary" ng-click="register()">Registrar usuario</button>
       </form>
    </div>
 </div>

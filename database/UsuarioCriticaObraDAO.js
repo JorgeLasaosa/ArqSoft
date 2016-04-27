@@ -12,7 +12,8 @@ function UsuarioCriticaObraDAO(callbackFunction) {
  */
 UsuarioCriticaObraDAO.prototype.findCriticasByUsuario = function(usuarioID) {
 	pool.getConnection(function(err, conn){
-		conn.query("select * from Critica where usuarioID = ? order by fecha desc", usuarioID, function(err, rows) {
+		if (err) throw err;
+		conn.query("select * from Critica where usuarioID = ?", usuarioID, function(err, rows) {
 			conn.release();
 			if (err) {
 				callback(err, null);
@@ -21,6 +22,7 @@ UsuarioCriticaObraDAO.prototype.findCriticasByUsuario = function(usuarioID) {
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 
@@ -33,6 +35,7 @@ UsuarioCriticaObraDAO.prototype.findCriticasByUsuario = function(usuarioID) {
  */
 UsuarioCriticaObraDAO.prototype.insertCritica = function(usuarioID, obraID, texto, puntuacion) {
 	pool.getConnection(function(err, conn) {
+		if (err) throw err;
 		var insert = {usuarioID : usuarioID, obraID : obraID, texto : texto, puntuacion : puntuacion};
 		conn.query("insert into Critica set ?", insert, function(err, rows) {
 			conn.release();
@@ -43,6 +46,7 @@ UsuarioCriticaObraDAO.prototype.insertCritica = function(usuarioID, obraID, text
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 

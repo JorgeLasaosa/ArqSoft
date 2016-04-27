@@ -13,6 +13,7 @@ function ObraDAO(callbackFunction) {
  */
 ObraDAO.prototype.findObrasByTitulo = function(search, orderBy) {
 	pool.getConnection(function(err, conn){
+		if (err) throw err;
 		var query = "";
 	 	if (search != null && search != "") {
 		    var arr = search.split(" ");
@@ -24,7 +25,6 @@ ObraDAO.prototype.findObrasByTitulo = function(search, orderBy) {
 		    }
 		}
 		conn.query("select * from obra" + query, function(err, rows) {
-			conn.release();
 			if (err) {
 				callback(err, null);
 			}
@@ -32,6 +32,7 @@ ObraDAO.prototype.findObrasByTitulo = function(search, orderBy) {
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 

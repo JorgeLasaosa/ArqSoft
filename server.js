@@ -1,6 +1,9 @@
 var express = require("express");
 	bodyParser = require("body-parser");
 	app = express();
+	ObraDAO = require("./database/ObraDAO.js");
+	UsuarioDAO = require("./database/UsuarioDAO.js");
+	UsuarioCriticaObraDAO = require("./database/UsuarioCriticaObraDAO.js");
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json 
@@ -14,46 +17,111 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/public'));
 
-app.post('/search', function(req, res) {
-	console.log(req.body.search_text);
-	var hots =
-	   [
-	      {
-	         "title": "Heroes of the Storm",
-	         "directors":
-	         [
-	            {"name": "Jorge Lasaosa Salinas"}
-	         ],
-	         "casts":
-	         [
-	            {"name": "The Lost Vikings"},
-	            {"name": "Li-Ming"},
-	            {"name": "Kharazim"}
-	         ]
-	      },
-	      {
-	         "title": "Violadores del Verso",
-	         "start_year": 2002,
-	         "end_year": 2007,
-	         "directors":
-	         [
-	            {"name": "BOA TV"},
-	            {"name": "RAP SOLO"}
-	         ],
-	         "casts":
-	         [
-	            {"name": "Kase.O"},
-	            {"name": "Sho-Hai"},
-	            {"name": "Lírico"},
-	            {"name": "R de Rumba"}
-	         ],
-	         "categories":
-	         [
-	            {"name": "anime"}
-	         ]
-	      }
-	  	]
-	res.send(hots);
+app.get('/', function(req, res) {
+    res.sendfile(__dirname + '/index.html');
+});
+
+app.post("/search", function(req, res) {
+	var obraDAO = new ObraDAO(function(err, rows) {
+        if (err) {
+           console.log(err);
+        }
+        else {
+        	console.log(rows);
+        	res.end(JSON.stringify(rows));
+        }
+    });
+    var field = req.body.search_field;
+    if (field == "author") {
+    	obraDAO.findObrasByAutor(req.body.search_text, field);
+    }
+    else if (field == "genre") {
+    	obraDAO.findObrasByGenero(req.body.search_text, field);
+    }
+    else if (field == "cast") {
+    	obraDAO.findObrasByPersonaje(req.body.search_text, field);
+    }
+    else {
+    	obraDAO.findObrasByTitulo(req.body.search_text, field);
+    }
+});
+
+app.post("/register", function(req, res) {
+	var usuarioDAO = new UsuarioDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			console.log("User added");
+		}
+		res.end();
+	});
+	usuarioDAO.insertUsuario(req.body.username, req.body.password, req.body.nombre, req.body.apellidos, req.body.email, null);
+});
+
+app.post("/login", function(req,res) {
+	var usuarioDAO = new UsuarioDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			if (rows.length == 0) {
+				console.log("Usuario no registrado");
+				res.end();
+			}
+			else {
+				console.log("User logged in");
+				res.end(JSON.stringify(rows[0]));
+			}
+		}
+	});
+	usuarioDAO.findUsuario(req.body.username, req.body.password);
+});
+
+app.post("/update", function(req, res) {
+	var usuariODAO = new UsuarioDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			console.log("User updated");
+		}
+		res.end();
+	});
+	usuarioDAO.updateUsuario(req.body.user.usuarioID, /* ID usuario a actualizar */ 
+		req.body.formData.username, /* Nuevo Username */
+		req.body.formData.password, /* Nueva Contraseña */
+		req.body.formData.nombre, 	/* Nuevo Nombre */
+		req.body.formData.apellidos,/* Nuevos apellidos */
+		req.body.formData.email,	/* Nuevo E-mail */
+		req.body.formData.imagen	/* Nueva imagen */
+	);
+});
+
+app.post("/delete", function(req, res) {
+	var usuarioDAO = new UsuarioDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			console.log("User deleted");
+		}
+		res.end();
+	});
+	usuarioDAO.deleteUsuario(req.body.user.usuarioID);
+});
+
+app.post("/userReviews", function(req, res) {
+	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+			res.end();
+		}
+		else {
+			res.end(JSON.stringify(rows));
+		}
+	});
+	usuarioCriticaObraDAO.findCriticasByUsuario(req.body.user.usuarioID);
 });
 
 app.listen(8000, function() {

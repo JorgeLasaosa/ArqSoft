@@ -1,92 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="index of animeffinity">
-    <meta name="author" content="Marcos Ruiz Garcia">
-    <link rel="icon" href="/images/favicon.ico">
 
-    <title>Animeffinity</title>
+<html ng-app="animeFfinityAPP">
+   <head>
+      <title>Página de anime y red social.</title>
+      <meta charset="UTF-8">
+      <meta name="description" content="Página de anime y red social"/>
+      <meta name="keywords" content="anime, cosplay, sexy, pikachu, netflix"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" href="images/favicon.png" sizes="32x32"/>
+      <link href="css/bootstrap.min.css" rel="stylesheet"/>
+      <link href="css/index.css" rel="stylesheet"/>
+   </head>
+   <!-- Libraries -->
+   <script src="//ajax.googleapis.com//ajaxlibs/angularjs/1.5.0/angular.min.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+   <script src="app.js"></script>
 
-    <!-- Bootstrap core CSS -->
-    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap-select core CSS -->
-    <link href="node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/navbar-fixed-top.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/signin.css" rel="stylesheet">
-
-    <!-- angular js -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-
-  </head>
-
-  <body ng-app="animeffinity">
-
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Animeffinity</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#about">About</a></li>
-
-            <!-- search -->
-            <div ng-controller="appCtrl" class="btn-group" role="group">
-              <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search" ng-model="formSearch.text">
-                  <select class="selectpicker" data-width="fit">
-                    <option value="all">All</option>
-                    <option value="title">Title</option>
-                    <option value="autor">Autor</option>
-                    <option value="director">Director</option>
-                    <option value="character">Character</option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-default" ng-click="search()">Search</button>
-              </form>
+   <!-- Controllers -->
+   <script src="controllers/RegistrarUsuarioCtrl.js"></script>
+   <script src="controllers/MostRatedCtrl.js"></script>
+   <script src="controllers/LoginUsuarioCtrl.js"></script>
+   <script src="controllers/PaginaPrincipalCtrl.js"></script>
+   <script src="controllers/SearchResultCtrl.js"></script>
+   <script src="controllers/PerfilUsuarioCtrl.js"></script>
+   
+   <body ng-controller="PaginaPrincipalCtrl">
+      <div id="header-page">
+         <div class="top-wrapper">
+            <div id="logo-container" class="col-md-offset-1 col-md-1">
+               <a href="#/">
+                  <img alt="Imagen de cabecera"
+                      src="images/LogoNegro.png"
+                      style="height: 50px">
+               </a>
             </div>
-            <!-- end of search -->
 
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Log In</a></li>
-            <li><a href="#">Sig In</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+            <div class="col-md-offset-5">
+               <form name="searchForm" role="form" class="form-inline" accept-charset="UTF-8" ng-submit="search()">
+                  <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" hidefocus="true"/>
+                  <div id="topchef" class="form-group">
+                     <label class="control-label sr-only" for="search_text">Buscar:</label>
+                     <input id="search_text" class="form-control" type="text" ng-model="formData.search_text" placeholder="Buscate algo..."/>
+                  </div>
+                  <div id="topchef" class="form-group">
+                     <label class="control-label sr-only"></label>
+                     <select name="search_type" class="form-control" ng-model="formData.search_field">
+                        <option value="all">Cualquier campo</option>
+                        <option value="title">Título</option>
+                        <option value="author">Autor</option>
+                        <option value="cast">Personaje</option>
+                        <option value="genre">Género</option>
+                     </select>
+                  </div>
+               </form>
+            </div>
+            <div id="user-login-container" class="col-md-offset-7 col-md-3">
+               <div>
+                  <span id="login-register">
+                  	 <a href="#/profile">Hola {{loggedUser.nombre_usuario}}</a> /
+                     <a href="#/login">Iniciar sesión</a> /
+                     <a href="#/register">Registrarse</a>
+                  </span>
+               </div>
+
+               <!--div ng-show="loggedFlag">
+                  <span id="update-data">
+                     <a href="#/profile">Hola {{loggedUser.nombre_usuario}}</a> /
+                     <a href="#/login">Iniciar sesión</a> /
+                     <a href="#/register">Registrarse</a>
+                  </span>
+               </div-->
+            </div>
+            <div id="central" class="col-md-offset-1 col-md-10" ng-view></div>
+         </div>
       </div>
-    </nav>
-
-    <!-- /container -->
-    <div class="container" id="main-container">
-        <ui-view></ui-view>
-    </div>
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="app.js"></script>
-  </body>
+   </body>
 </html>

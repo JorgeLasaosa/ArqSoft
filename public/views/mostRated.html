@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="css/start.css"/>
 
 <div class="panel panel-info">
-   <div class="panel-body" ng-controller="WorksTemplate as dt">
-      <table class="table new-arrivals">
+   <div class="panel-body">
+      <table class="table most-rated">
          <tbody>
-            <tr ng-repeat="work in dt.data | orderBy: 'end_year'">
+            <tr ng-repeat="work in works | orderBy: 'title'">
                <td>
                   <p> {{work.title}}
                      (

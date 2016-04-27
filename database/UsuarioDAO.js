@@ -17,13 +17,13 @@ function UsuarioDAO(callbackFunction) {
  */
 UsuarioDAO.prototype.insertUsuario = function(username, password, nombre, apellidos, email, imagen) {
 	pool.getConnection(function(err, conn){
+		if (err) throw err;
 		var insert = {nombre_usuario : username, contraseña : password, nombre : nombre, apellidos : apellidos, 
 			          correo_electronico : email};
 		if (imagen != null) {
 			insert.imagen = imagen;
 		}
 		conn.query("insert into Usuario set ?", insert, function(err, rows) {
-			conn.release();
 			if (err) {
 				callback(err, null);
 			}
@@ -31,6 +31,7 @@ UsuarioDAO.prototype.insertUsuario = function(username, password, nombre, apelli
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 
@@ -42,8 +43,8 @@ UsuarioDAO.prototype.insertUsuario = function(username, password, nombre, apelli
  */
 UsuarioDAO.prototype.findUsuario = function(username, password) {
 	pool.getConnection(function(err, conn) {
+		if (err) throw err;
 		conn.query("select * from Usuario where nombre_usuario = ? AND contraseña = ?", [username, password] , function(err, rows) {
-			conn.release();
 			if (err) {
 				callback(err, null);
 			}
@@ -51,6 +52,7 @@ UsuarioDAO.prototype.findUsuario = function(username, password) {
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 
@@ -66,6 +68,8 @@ UsuarioDAO.prototype.findUsuario = function(username, password) {
  */
 UsuarioDAO.prototype.updateUsuario = function(usuarioID, new_username, new_password, new_nombre, new_apellidos, new_email, new_imagen) {
 	pool.getConnection(function(err,conn) {
+		if (err) throw err;
+
 		var newUsuario = {};
 		if (new_username != null && new_username != "") {
 			newUsuario.nombre_usuario = new_username;
@@ -85,9 +89,7 @@ UsuarioDAO.prototype.updateUsuario = function(usuarioID, new_username, new_passw
 		if (new_imagen != null) {
 			newUsuario.imagen = new_imagen;
 		}
-		console.log(newUsuario);
 		conn.query("update Usuario set ? where usuarioID = ?", [newUsuario, usuarioID], function(err, rows) {
-			conn.release();
 			if (err) {
 				callback(err, null);
 			}
@@ -95,6 +97,7 @@ UsuarioDAO.prototype.updateUsuario = function(usuarioID, new_username, new_passw
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 
@@ -104,6 +107,7 @@ UsuarioDAO.prototype.updateUsuario = function(usuarioID, new_username, new_passw
  */
 UsuarioDAO.prototype.deleteUsuario = function(usuarioID) {
 	pool.getConnection(function(err,conn) {
+		if (err) throw err;
 		conn.query("delete from Usuario where usuarioID = ?", usuarioID, function(err, rows) {
 			conn.release();
 			if (err) {
@@ -113,6 +117,7 @@ UsuarioDAO.prototype.deleteUsuario = function(usuarioID) {
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 module.exports = UsuarioDAO;

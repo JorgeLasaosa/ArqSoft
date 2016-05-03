@@ -1,5 +1,3 @@
-var app = angular.module('animeffinity');
-
 app.controller('RegistrarUsuarioCtrl', function($scope, $http) {
     $scope.register = function() {
   		$http.post("/register", $scope.formData)

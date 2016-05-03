@@ -1,5 +1,3 @@
-var app = angular.module('animeffinity');
-
 app.controller('PerfilUsuarioCtrl', function($scope, $http, LoggedUser) {
     $scope.update = function() {
 		$http.post("/update", {user: LoggedUser.getLoggedUser(), formData: $scope.formData})

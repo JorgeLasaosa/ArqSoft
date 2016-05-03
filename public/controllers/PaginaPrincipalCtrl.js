@@ -1,5 +1,3 @@
-var app = angular.module('animeffinity');
-
 app.controller('PaginaPrincipalCtrl', function($scope, $http, SearchResult, LoggedUser) {
 	$scope.loggedUser = LoggedUser.getLoggedUser();
     $scope.search = function() {

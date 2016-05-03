@@ -1,5 +1,3 @@
-var app = angular.module('animeffinity');
-
 app.controller('SearchCtrl', function($scope, $http, SearchResult, $location) {
     $scope.search = function() {
 		$http.post("/search", $scope.formData)

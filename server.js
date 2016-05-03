@@ -6,11 +6,11 @@ var express = require("express");
 	UsuarioCriticaObraDAO = require("./database/UsuarioCriticaObraDAO.js");
 
 // get all data/stuff of the body (POST) parameters
-// parse application/json 
-app.use(bodyParser.json()); 
+// parse application/json
+app.use(bodyParser.json());
 
 // parse application/vnd.api+json as json
-app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -88,7 +88,7 @@ app.post("/update", function(req, res) {
 		}
 		res.end();
 	});
-	usuarioDAO.updateUsuario(req.body.user.usuarioID, /* ID usuario a actualizar */ 
+	usuarioDAO.updateUsuario(req.body.user.usuarioID, /* ID usuario a actualizar */
 		req.body.formData.username, /* Nuevo Username */
 		req.body.formData.password, /* Nueva Contraseña */
 		req.body.formData.nombre, 	/* Nuevo Nombre */
@@ -123,6 +123,9 @@ app.post("/userReviews", function(req, res) {
 	});
 	usuarioCriticaObraDAO.findCriticasByUsuario(req.body.user.usuarioID);
 });
+
+app.post("/mostRated", function(req, res){
+}
 
 app.listen(8000, function() {
 	console.log("Server running on port 8000");

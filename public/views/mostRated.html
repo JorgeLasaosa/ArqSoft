@@ -1,6 +1,6 @@
 <div class="container">
  <div class="row">
-   <div class="col-md-12">
+   <div class="jumbotron">
      <h1>Welcome to Animeffinity</h1>
    </div>
    <div class="row">
@@ -12,13 +12,29 @@
  <div class="row">
    <div class="col-md-4">
      <h2>Estrenos</h2>
-     <div ng-repeat="x in titles" class="container">
-       <h3>{{x.title}}</h3>
-       <p>{{x.description}}</p>
+     <div ng-repeat="work in works">
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4>{{work.titulo}}</h4>
+         </div>
+         <div class="panel-body">
+           <p>{{work.sinopsis}}</p>
+         </div>
+       </div>
      </div>
    </div>
    <div class="col-md-4">
      <h2>Mejor valoradas</h2>
+     <div ng-repeat="work in works">
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4>{{work.titulo}}</h4>
+         </div>
+         <div class="panel-body">
+           <p>{{work.sinopsis}}</p>
+         </div>
+       </div>
+     </div>
    </div>
    <div class="col-md-4">
      <h2>Más comentadas</h2>

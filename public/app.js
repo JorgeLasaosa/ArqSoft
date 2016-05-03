@@ -37,7 +37,8 @@ app.service('SearchResult', function () {
 .config(['$routeProvider', function ($routeProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: '/views/mostRated.html'
+          templateUrl: '/views/mostRated.html',
+          controller: 'MostRatedCtrl'
         })
 
         .when('/register', {

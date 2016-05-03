@@ -1,3 +1,5 @@
+var app = angular.module('animeffinity');
+
 app.controller('LoginUsuarioCtrl', function($scope, $http, LoggedUser) {
       $scope.login = function() {
 		$http.post("/login", $scope.formData)

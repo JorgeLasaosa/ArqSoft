@@ -1,3 +1,5 @@
+var app = angular.module('animeffinity');
+
 app.controller('MostRatedCtrl', function($scope, $http) {
    $scope.works = [
                   {

@@ -1,3 +1,5 @@
+var app = angular.module('animeffinity');
+
 app.controller('PerfilUsuarioCtrl', function($scope, $http, LoggedUser) {
     $scope.update = function() {
 		$http.post("/update", {user: LoggedUser.getLoggedUser(), formData: $scope.formData})
@@ -20,7 +22,7 @@ app.controller('PerfilUsuarioCtrl', function($scope, $http, LoggedUser) {
 			console.log("Error on post /delete");
 		})
 	}
-	
+
 	$http.post("/userReviews", {user: LoggedUser.getLoggedUser()})
 	.success(function(data) {
 		console.log(data);

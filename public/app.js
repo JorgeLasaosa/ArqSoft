@@ -17,24 +17,43 @@ app.service('SearchResult', function () {
     setResult: setResult,
     getResult: getResult
   };
-})
-.service('LoggedUser', function () {
-  var loggedUser = {nombre_usuario: "ROOT", usuarioID: 0};
+});
+
+app.service('LoggedUser', function () {
+
+  var loggedUser = {
+    nombre_usuario: 'root',
+    usuarioID: '',
+    contraseña: '',
+    nombre: '',
+    apellidos: '',
+    correo_electronico: '',
+    imagen: null
+  };
+
+  var isLogged = false;
 
   var setLoggedUser = function(user) {
       loggedUser = user;
+      isLogged = true;
   };
 
   var getLoggedUser = function(){
       return loggedUser;
   };
 
+  var isLogged = function(){
+    return isLogged;
+  }
+
   return {
     setLoggedUser: setLoggedUser,
-    getLoggedUser: getLoggedUser
+    getLoggedUser: getLoggedUser,
+    isLogged: isLogged
   };
-})
-.config(['$routeProvider', function ($routeProvider) {
+});
+
+app.config(['$routeProvider', function ($routeProvider) {
       $routeProvider
         .when('/', {
           templateUrl: '/views/mostRated.html',

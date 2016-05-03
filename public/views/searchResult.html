@@ -1,13 +1,12 @@
-<div class="panel panel-info">
-   <div class="panel-body">
-      <table class="table most-rated">
-         <tbody>
-            <tr ng-repeat="obra in obras">
-               <td>
-                  <p> {{obra.titulo}} </p>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </div>
+<div class="container">
+<div ng-repeat="obra in obras">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>{{obra.titulo}}</h4>
+    </div>
+    <div class="panel-body">
+      <p>{{obra.sinopsis}}</p>
+    </div>
+  </div>
+</div>
 </div>

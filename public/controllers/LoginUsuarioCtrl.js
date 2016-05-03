@@ -1,10 +1,10 @@
-app.controller('LoginUsuarioCtrl', function($scope, $http, LoggedUser) {
+app.controller('LoginUsuarioCtrl', function($rootScope, $scope, $http, LoggedUser, $location) {
       $scope.login = function() {
 		$http.post("/login", $scope.formData)
 		.success(function(data) {
 			LoggedUser.setLoggedUser(data);
-			console.log(data);
-			console.log("Logged User: " + data.nombre_usuario);
+      $location.path("/");
+			console.log("Logged User: " + $scope.formData);
 			console.log("Post /login Successful");
 		})
 		.error(function() {

@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('animeFfinityAPP', ['ngRoute']);
+var app = angular.module('animeffinity', ['ngRoute']);
 
 app.service('SearchResult', function () {
   var result = [];
@@ -37,8 +37,7 @@ app.service('SearchResult', function () {
 .config(['$routeProvider', function ($routeProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: '/views/mostRated.html',
-          controller: 'MostRatedCtrl'
+          templateUrl: '/views/mostRated.html'
         })
 
         .when('/register', {

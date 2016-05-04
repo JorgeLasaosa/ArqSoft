@@ -28,6 +28,7 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
 
   }
 
+	$http.post("/userReviews", {usuarioID: $rootScope.myUser.usuarioID})
 	.success(function(data) {
 		console.log(data);
     $scope.reviews = data;
@@ -35,4 +36,6 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
 	})
 	.error(function() {
 		console.log("Error on post /userReviews");
+	})
+
 });

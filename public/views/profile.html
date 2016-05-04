@@ -58,13 +58,13 @@
   <div class="row">
     <h2>Works</h2>
     <form class="navbar-form navbar-left" role="search">
-      <select class="selectpicker" data-width="fit" ng-model="formData.search_field">
+      <select class="selectpicker" data-width="fit" ng-model="typeOfSearch">
         <option value="title">Reviewed</option>
         <option value="author">State: watched</option>
         <option value="genre">State: watching</option>
         <option value="cast">State: to watch</option>
       </select>
-      <button type="submit" class="btn btn-default" ng-click="search()">Search</button>
+      <button type="submit" class="btn btn-default" ng-click="userWorks()">Search</button>
     </form>
     <div class="col-md-6">
       <div ng-repeat="work in works">

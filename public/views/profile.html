@@ -1,38 +1,42 @@
-<div class="panel panel-info col-md-offset-1 col-md-6 register-panel">
+<div class="panel panel-info col-md-offset-3 col-md-6 login-panel">
    <div class="panel-body">
       <form role="form" class="form-horizontal">
          <div class="form-group">
             <label class="control-label col-md-5" for="name">Nombre:</label>
             <div class="col-md-6">
-               <input id="name" type="text" class="form-control" placeholder="Nombre" value="{{myUser.nombre}}" ng-model="nombre"/>
+              {{myUser.nombre}}
+               <input id="name" type="text" class="form-control" placeholder="Nombre" ng-model="formData.nombre"/>
             </div>
          </div>
 
          <div class="form-group">
             <label class="control-label col-md-5" for="surname">Apellidos:</label>
             <div class="col-md-6">
-               <input id="surname" type="text" class="form-control" placeholder="Apellidos" value="{{myUser.apellidos}}" ng-model="apellidos"/>
+              {{myUser.apellidos}}
+               <input id="surname" type="text" class="form-control" placeholder="Apellidos" ng-model="formData.apellidos"/>
             </div>
          </div>
 
          <div class="form-group">
             <label class="control-label col-md-5" for="email">Correo electronico:</label>
             <div class="col-md-6">
-               <input id="email" type="text" class="form-control" placeholder="Correo electronico" value="{{myUser.correo_electronico}}" ng-model="email"/>
+              {{myUser.correo_electronico}}
+               <input id="email" type="text" class="form-control" placeholder="Correo electronico" ng-model="formData.email"/>
             </div>
          </div>
 
          <div class="form-group">
             <label class="control-label col-md-5" for="username">Nombre de usuario:</label>
             <div class="col-md-6">
-               <input id="username" type="text" class="form-control" placeholder="Nombre de usuario" value="{{myUser.nombre_usuario}}" ng-model="username" disabled/>
+              {{myUser.nombre_usuario}}
+               <input id="username" type="text" class="form-control" placeholder="Nombre de usuario" disabled/>
             </div>
          </div>
 
          <div class="form-group">
             <label class="control-label col-md-5" for="password1">Nueva contraseña:</label>
             <div class="col-md-6">
-               <input id="password1" type="password" class="form-control" placeholder="Nueva contraseña" ng-model="password">
+               <input id="password1" type="password" class="form-control" placeholder="Nueva contraseña" ng-model="formData.password">
             </div>
          </div>
 
@@ -49,6 +53,45 @@
    </div>
 </div>
 
-<div class="container">
 
+<div class="container">
+  <div class="row">
+    <h2>Works</h2>
+    <form class="navbar-form navbar-left" role="search">
+      <select class="selectpicker" data-width="fit" ng-model="formData.search_field">
+        <option value="title">Reviewed</option>
+        <option value="author">State: watched</option>
+        <option value="genre">State: watching</option>
+        <option value="cast">State: to watch</option>
+      </select>
+      <button type="submit" class="btn btn-default" ng-click="search()">Search</button>
+    </form>
+    <div class="col-md-6">
+      <div ng-repeat="work in works">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>{{work.titulo}}</h4>
+          </div>
+          <div class="panel-body">
+            <p>{{work.sinopsis}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h2>Reviews</h2>
+      <div ng-repeat="review in reviews">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Review: {{review.criticaID}}</h4>
+          </div>
+          <div class="panel-body">
+            <p>Film: {{review.obraID}}</p>
+            <p>{{review.texto}}</p>
+            <p>{{review.fecha}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

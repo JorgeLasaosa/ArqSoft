@@ -79,7 +79,7 @@ app.post("/login", function(req,res) {
 });
 
 app.post("/update", function(req, res) {
-	var usuariODAO = new UsuarioDAO(function(err, rows) {
+	var usuarioDAO = new UsuarioDAO(function(err, rows) {
 		if (err) {
 			console.log(err);
 		}
@@ -122,7 +122,7 @@ app.post("/userReviews", function(req, res) {
 			res.end(JSON.stringify(rows));
 		}
 	});
-	usuarioCriticaObraDAO.findCriticasByUsuario(req.body.user.usuarioID);
+	usuarioCriticaObraDAO.findCriticasByUsuario(req.body.usuarioID);
 });
 
 app.post("/mostRated", function(req, res){

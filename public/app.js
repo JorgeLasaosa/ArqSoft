@@ -19,40 +19,6 @@ app.service('SearchResult', function () {
   };
 });
 
-app.service('LoggedUser', function () {
-
-  var loggedUser = {
-    nombre_usuario: 'root',
-    usuarioID: '',
-    contraseña: '',
-    nombre: '',
-    apellidos: '',
-    correo_electronico: '',
-    imagen: null
-  };
-
-  var isLogged = false;
-
-  var setLoggedUser = function(user) {
-      loggedUser = user;
-      isLogged = true;
-  };
-
-  var getLoggedUser = function(){
-      return loggedUser;
-  };
-
-  var isLogged = function(){
-    return isLogged;
-  }
-
-  return {
-    setLoggedUser: setLoggedUser,
-    getLoggedUser: getLoggedUser,
-    isLogged: isLogged
-  };
-});
-
 app.config(['$routeProvider', function ($routeProvider) {
       $routeProvider
         .when('/', {

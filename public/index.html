@@ -59,20 +59,24 @@
             </div>
             <!-- end of search -->
           </ul>
-          <div ng-controller="NavBarCtrl">
-            <ul class="nav navbar-nav navbar-right" ng-if="loggedUser.isLogged">
-              <li><a href="#/profile">Hi, {{loggedUser.nombre_usuario}}</a></li>
+          <div>
+            <ul class="nav navbar-nav navbar-right" ng-if="isLogged" ng-controller="LoginUsuarioCtrl">
+              <li><a href="#/profile">Hi, {{myUser.nombre_usuario}}</a></li>
+              <form class="navbar-form navbar-left" role="search">
+                <button type="submit" class="btn" ng-click="logout()">Log out</button>
+              </form>
             </ul>
-            <ul class="nav navbar-nav navbar-right" ng-if="!loggedUser.isLogged">
+            <ul class="nav navbar-nav navbar-right" ng-if="!isLogged">
               <li><a href="#/login">Log In</a></li>
               <li><a href="#/register">Sign In</a></li>
+
             </ul>
           </div>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
     <!-- /container -->
+
 
     <div ng-view></div>
 
@@ -93,14 +97,7 @@
     <script src="controllers/MostRatedCtrl.js"></script>
     <script src="controllers/LoginUsuarioCtrl.js"></script>
     <script src="controllers/RegistrarUsuarioCtrl.js"></script>
-
-    <script>
-      var app = angular.module('animeffinity');
-      app.controller('NavBarCtrl', function($scope, LoggedUser) {
-          $scope.loggedUser = LoggedUser.getLoggedUser();
-          $scope.isLogged = LoggedUser.isLogged();
-      });
-    </script>
+    <script src="controllers/PerfilUsuarioCtrl.js"></script>
 
   </body>
 </html>

@@ -1,9 +1,9 @@
-app.controller('PerfilUsuarioCtrl', function($scope, $http, LoggedUser) {
+app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $location) {
+
     $scope.update = function() {
-		$http.post("/update", {user: LoggedUser.getLoggedUser(), formData: $scope.formData})
+		$http.post("/update", {user: $rootScope.myUser, formData: $scope.formData})
 		.success(function(data) {
-			console.log(data);
-			console.log("User updated");
+      $rootScope.user=data;
 			console.log("Post /update Successful");
 		})
 		.error(function() {
@@ -12,8 +12,11 @@ app.controller('PerfilUsuarioCtrl', function($scope, $http, LoggedUser) {
 	}
 
 	$scope.delete = function() {
-		$http.post("/delete", {user: LoggedUser.getLoggedUser()})
+		$http.post("/delete", {user: $rootScope.myUser})
 		.success(function() {
+      $rootScope.user = {};
+      $rootScope.isLogged = false;
+      $location.path("/");
 			console.log("Post /delete Successful");
 		})
 		.error(function() {
@@ -21,12 +24,12 @@ app.controller('PerfilUsuarioCtrl', function($scope, $http, LoggedUser) {
 		})
 	}
 
-	$http.post("/userReviews", {user: LoggedUser.getLoggedUser()})
+	/*$http.post("/userReviews", {user: $rootScope.myUser})
 	.success(function(data) {
 		console.log(data);
 		console.log("Post /userReviews Successful");
 	})
 	.error(function() {
 		console.log("Error on post /userReviews");
-	})
+	})*/
 });

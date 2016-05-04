@@ -1,59 +1,54 @@
-<div class="panel panel-success col-md-4 photo-panel">
-   <div class="panel-body">
-      <div>
-         <img class="col-md-12" src="images/profile.jpg"/>
-      </div>
-      <button class="btn btn-success col-md-offset-2 col-md-8 photo-button" type="submit">Cambiar imagen usuario</button>
-   </div>
-</div>
-
 <div class="panel panel-info col-md-offset-1 col-md-6 register-panel">
    <div class="panel-body">
       <form role="form" class="form-horizontal">
          <div class="form-group">
             <label class="control-label col-md-5" for="name">Nombre:</label>
             <div class="col-md-6">
-               <input id="name" type="text" class="form-control" placeholder="Nombre" value="{{loggedUser.nombre}}"/>
+               <input id="name" type="text" class="form-control" placeholder="Nombre" value="{{myUser.nombre}}" ng-model="nombre"/>
             </div>
          </div>
 
          <div class="form-group">
             <label class="control-label col-md-5" for="surname">Apellidos:</label>
             <div class="col-md-6">
-               <input id="surname" type="text" class="form-control" placeholder="Apellidos" value="{{loggedUser.apellidos}}"/>
+               <input id="surname" type="text" class="form-control" placeholder="Apellidos" value="{{myUser.apellidos}}" ng-model="apellidos"/>
             </div>
          </div>
 
          <div class="form-group">
             <label class="control-label col-md-5" for="email">Correo electronico:</label>
             <div class="col-md-6">
-               <input id="email" type="text" class="form-control" placeholder="Correo electronico" value="{{loggedUser.email}}"/>
+               <input id="email" type="text" class="form-control" placeholder="Correo electronico" value="{{myUser.correo_electronico}}" ng-model="email"/>
             </div>
          </div>
 
          <div class="form-group">
             <label class="control-label col-md-5" for="username">Nombre de usuario:</label>
             <div class="col-md-6">
-               <input id="username" type="text" class="form-control" placeholder="Nombre de usuario" value="{{loggedUser.nombre_usuario}}" disabled/>
+               <input id="username" type="text" class="form-control" placeholder="Nombre de usuario" value="{{myUser.nombre_usuario}}" ng-model="username" disabled/>
             </div>
          </div>
 
          <div class="form-group">
             <label class="control-label col-md-5" for="password1">Nueva contraseña:</label>
             <div class="col-md-6">
-               <input id="password1" type="password" class="form-control" placeholder="Nueva contraseña">
+               <input id="password1" type="password" class="form-control" placeholder="Nueva contraseña" ng-model="password">
             </div>
          </div>
 
-         <div class="form-group">
+         <!--<div class="form-group">
             <label class="control-label col-md-5" for="password2">Repita contraseña:</label>
             <div class="col-md-6">
                <input id="password2" type="password" class="form-control" placeholder="Repita contraseña">
             </div>
-         </div>
+         </div>-->
 
-         <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4">Actualizar usuario</button>
-         <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4">Eliminar usuario</button>
+         <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4" ng-click="update()">Update user</button>
+         <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4" ng-click="delete()">Delete user</button>
       </form>
    </div>
+</div>
+
+<div class="container">
+
 </div>

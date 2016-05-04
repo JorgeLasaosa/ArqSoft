@@ -27,7 +27,7 @@ app.post("/search", function(req, res) {
            console.log(err);
         }
         else {
-        	console.log(rows);
+        	//console.log(rows);
         	res.end(JSON.stringify(rows));
         }
     });
@@ -88,8 +88,9 @@ app.post("/update", function(req, res) {
 		}
 		res.end();
 	});
-	usuarioDAO.updateUsuario(req.body.user.usuarioID, /* ID usuario a actualizar */
-		req.body.formData.username, /* Nuevo Username */
+	usuarioDAO.updateUsuario(
+		req.body.user.usuarioID, /* ID usuario a actualizar */
+		req.body.user.username, /* Username */
 		req.body.formData.password, /* Nueva Contraseña */
 		req.body.formData.nombre, 	/* Nuevo Nombre */
 		req.body.formData.apellidos,/* Nuevos apellidos */
@@ -125,7 +126,7 @@ app.post("/userReviews", function(req, res) {
 });
 
 app.post("/mostRated", function(req, res){
-}
+});
 
 app.listen(8000, function() {
 	console.log("Server running on port 8000");

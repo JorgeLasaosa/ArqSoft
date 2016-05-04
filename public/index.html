@@ -14,7 +14,6 @@
     <!-- Bootstrap-select core CSS -->
     <!--<link href="node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
 
     <!-- Custom styles for template signin-->
     <!--<link href="css/signin.css" rel="stylesheet">-->
@@ -46,8 +45,8 @@
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
                   <input type="text" class="form-control" placeholder="Search" ng-model="formData.search_text">
-                  <select class="selectpicker" data-width="fit" ng-model="formData.search_field">
-                    <option value="all">All</option>
+                  <select class="form-control" ng-model="formData.search_field" >
+                    <option selected="selected" value="all">All</option>
                     <option value="title">Title</option>
                     <option value="author">Autor</option>
                     <option value="genre">Genero</option>
@@ -61,7 +60,7 @@
           </ul>
           <div>
             <ul class="nav navbar-nav navbar-right" ng-if="isLogged" ng-controller="LoginUsuarioCtrl">
-              <li><a href="#/profile">Hi, {{myUser.nombre_usuario}}</a></li>
+              <li><a href="#/profile">{{myUser.nombre_usuario}}</a></li>
               <form class="navbar-form navbar-left" role="search">
                 <button type="submit" class="btn" ng-click="logout()">Log out</button>
               </form>
@@ -69,7 +68,6 @@
             <ul class="nav navbar-nav navbar-right" ng-if="!isLogged">
               <li><a href="#/login">Log In</a></li>
               <li><a href="#/register">Sign In</a></li>
-
             </ul>
           </div>
         </div><!--/.nav-collapse -->

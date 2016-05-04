@@ -1,72 +1,124 @@
-<div class="panel panel-info col-md-offset-3 col-md-6 login-panel">
-   <div class="panel-body">
-      <form role="form" class="form-horizontal">
-         <div class="form-group">
-            <label class="control-label col-md-5" for="name">Nombre:</label>
-            <div class="col-md-6">
-              {{myUser.nombre}}
-               <input id="name" type="text" class="form-control" placeholder="Nombre" ng-model="formData.nombre"/>
-            </div>
-         </div>
+<!--edit user-->
+<div class="col-md-12">
+  <div class="panel panel-info col-md-offset-3 col-md-6 login-panel">
+    <h2 align="center">Edit user</h2>
+     <div class="panel-body">
+        <form role="form" class="form-horizontal">
+           <div class="form-group">
+              <label class="control-label col-md-5" for="name">Nombre:</label>
+              <div class="col-md-6">
+                {{myUser.nombre}}
+                 <input id="name" type="text" class="form-control" placeholder="Nombre" ng-model="formData.nombre"/>
+              </div>
+           </div>
 
-         <div class="form-group">
-            <label class="control-label col-md-5" for="surname">Apellidos:</label>
-            <div class="col-md-6">
-              {{myUser.apellidos}}
-               <input id="surname" type="text" class="form-control" placeholder="Apellidos" ng-model="formData.apellidos"/>
-            </div>
-         </div>
+           <div class="form-group">
+              <label class="control-label col-md-5" for="surname">Apellidos:</label>
+              <div class="col-md-6">
+                {{myUser.apellidos}}
+                 <input id="surname" type="text" class="form-control" placeholder="Apellidos" ng-model="formData.apellidos"/>
+              </div>
+           </div>
 
-         <div class="form-group">
-            <label class="control-label col-md-5" for="email">Correo electronico:</label>
-            <div class="col-md-6">
-              {{myUser.correo_electronico}}
-               <input id="email" type="text" class="form-control" placeholder="Correo electronico" ng-model="formData.email"/>
-            </div>
-         </div>
+           <div class="form-group">
+              <label class="control-label col-md-5" for="email">Correo electronico:</label>
+              <div class="col-md-6">
+                {{myUser.correo_electronico}}
+                 <input id="email" type="text" class="form-control" placeholder="Correo electronico" ng-model="formData.email"/>
+              </div>
+           </div>
 
-         <div class="form-group">
-            <label class="control-label col-md-5" for="username">Nombre de usuario:</label>
-            <div class="col-md-6">
-              {{myUser.nombre_usuario}}
-               <input id="username" type="text" class="form-control" placeholder="Nombre de usuario" disabled/>
-            </div>
-         </div>
+           <div class="form-group">
+              <label class="control-label col-md-5" for="username">Nombre de usuario:</label>
+              <div class="col-md-6">
+                {{myUser.nombre_usuario}}
+                 <input id="username" type="text" class="form-control" placeholder="Nombre de usuario" disabled/>
+              </div>
+           </div>
 
-         <div class="form-group">
-            <label class="control-label col-md-5" for="password1">Nueva contraseña:</label>
-            <div class="col-md-6">
-               <input id="password1" type="password" class="form-control" placeholder="Nueva contraseña" ng-model="formData.password">
-            </div>
-         </div>
+           <div class="form-group">
+              <label class="control-label col-md-5" for="password1">Nueva contraseña:</label>
+              <div class="col-md-6">
+                 <input id="password1" type="password" class="form-control" placeholder="Nueva contraseña" ng-model="formData.password">
+              </div>
+           </div>
 
-         <!--<div class="form-group">
-            <label class="control-label col-md-5" for="password2">Repita contraseña:</label>
-            <div class="col-md-6">
-               <input id="password2" type="password" class="form-control" placeholder="Repita contraseña">
-            </div>
-         </div>-->
+           <!--<div class="form-group">
+              <label class="control-label col-md-5" for="password2">Repita contraseña:</label>
+              <div class="col-md-6">
+                 <input id="password2" type="password" class="form-control" placeholder="Repita contraseña">
+              </div>
+           </div>-->
 
-         <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4" ng-click="update()">Update user</button>
-         <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4" ng-click="delete()">Delete user</button>
-      </form>
-   </div>
+           <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4" ng-click="update()">Update user</button>
+           <button type="submit" class="btn btn-danger col-md-offset-1 col-md-4" data-toggle="modal" data-target="#myModalToDelete">Delete user</button>
+           <!-- Modal -->
+            <div class="modal fade" id="myModalToDelete" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Are you sure?</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>This user will be deleted permanently</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" ng-click="delete()">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- End of modal -->
+        </form>
+     </div>
+  </div>
 </div>
 
+<!--almas gemelas-->
+<div class="container">
+  <div class="col-md-6 col-md-offset-3">
+    <h2 align="center">Almas gemelas</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <div ng-repeat="alma in almas">
+          <tr>
+            <td>{{alma.name}}</td>
+            <td>{{alma.score}}</td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+  </div>
+</div>
 
+<!-- works and reviews -->
 <div class="container">
   <div class="row">
-    <h2>Works</h2>
-    <form class="navbar-form navbar-left" role="search">
-      <select class="selectpicker" data-width="fit" ng-model="typeOfSearch">
-        <option value="title">Reviewed</option>
-        <option value="author">State: watched</option>
-        <option value="genre">State: watching</option>
-        <option value="cast">State: to watch</option>
-      </select>
-      <button type="submit" class="btn btn-default" ng-click="userWorks()">Search</button>
-    </form>
     <div class="col-md-6">
+      <h2 align="center">Works</h2>
+      <div class="btn-group" role="group">
+        <form role="search">
+          <div class="form-group">
+            <select class="form-control">
+              <option selected="selected"  value="reviewed">Reviewed</option>
+              <option value="watched">State: watched</option>
+              <option value="watching">State: watching</option>
+              <option value="towatch">State: to watch</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-default">Search</button>
+        </form>
+      </div>
       <div ng-repeat="work in works">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -78,18 +130,20 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <h2>Reviews</h2>
+    <div class="col-md-6">
+      <h2 align="center">Reviews</h2>
       <div ng-repeat="review in reviews">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4>Review: {{review.criticaID}}</h4>
+            <h4>Review id: {{review.criticaID}}</h4>
           </div>
           <div class="panel-body">
-            <p>Film: {{review.obraID}}</p>
-            <p>{{review.texto}}</p>
-            <p>{{review.fecha}}</p>
+            <strong>Text: </strong>{{review.texto}}
           </div>
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Work id: </strong>{{review.obraID}}</li>
+            <li class="list-group-item"><strong>Date: </strong>{{review.fecha}}</li>
+          </ul>
         </div>
       </div>
     </div>

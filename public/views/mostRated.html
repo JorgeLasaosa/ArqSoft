@@ -10,12 +10,12 @@
    </div>
  </div>
  <div class="row">
-   <div class="col-md-4">
-     <h2>Estrenos</h2>
+   <div class="col-md-6">
+     <h2 align="center">More reviewed</h2>
      <div ng-repeat="work in works">
        <div class="panel panel-default">
          <div class="panel-heading">
-           <h4>{{work.titulo}}</h4>
+           <strong>{{work.titulo}}</strong>
          </div>
          <div class="panel-body">
            <p>{{work.sinopsis}}</p>
@@ -23,21 +23,18 @@
        </div>
      </div>
    </div>
-   <div class="col-md-4">
-     <h2>Mejor valoradas</h2>
+   <div class="col-md-6">
+     <h2 align="center">Top 10 works</h2>
      <div ng-repeat="work in works">
        <div class="panel panel-default">
          <div class="panel-heading">
-           <h4>{{work.titulo}}</h4>
+           <strong>{{work.titulo}}</strong>
          </div>
          <div class="panel-body">
            <p>{{work.sinopsis}}</p>
          </div>
        </div>
      </div>
-   </div>
-   <div class="col-md-4">
-     <h2>Más comentadas</h2>
    </div>
  </div>
  </div>

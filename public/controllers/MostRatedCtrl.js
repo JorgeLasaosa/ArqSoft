@@ -1,5 +1,5 @@
 app.controller('MostRatedCtrl', function($scope, $http) {
-  var formData = { search_text: 'h', search_field: 'title'};
+  var formData = { search_text: 'he', search_field: 'all'};
    $http.post("/search", formData)
      .success(function(data) {
          console.log(data);

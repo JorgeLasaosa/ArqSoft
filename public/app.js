@@ -2,7 +2,7 @@
 
 var app = angular.module('animeffinity', ['ngRoute']);
 
-app.service('SearchResult', function () {
+/*app.service('SearchResult', function () {
   var result = [];
 
   var setResult = function(newResult) {
@@ -17,7 +17,7 @@ app.service('SearchResult', function () {
     setResult: setResult,
     getResult: getResult
   };
-});
+});*/
 
 app.config(['$routeProvider', function ($routeProvider) {
       $routeProvider
@@ -38,7 +38,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 
         .when('/searchResult', {
           templateUrl: 'views/searchResult.html',
-          controller: 'SearchResultCtrl'
+          //controller: 'SearchResultCtrl'
         })
 
         .when('/profile', {

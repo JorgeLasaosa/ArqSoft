@@ -1,4 +1,4 @@
-app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $location) {
+app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $location, $apply) {
 
     $scope.update = function() {
 		$http.post("/update", {user: $rootScope.myUser, formData: $scope.formData})
@@ -24,12 +24,12 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
 		})
 	}
 
-  $scope.userWorks = function(){
-    $http.post("/userWorks", {usuarioID: $rootScope.myUser.usuarioID, $scope.selectUserWorks.state})
+  $scope.userWorks = function() {
+    $http.post("/userWorks", {usuarioID: $rootScope.myUser.usuarioID, state: $scope.selectUserWorks.state})
     .success(function(data){
       $scope.works = data;
       console.log("Post /userWorks Successful");
-    }
+    })
     .error(function(){
       console.log("Error on post /userWorks")
     })

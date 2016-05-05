@@ -3,7 +3,7 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
     $scope.update = function() {
 		$http.post("/update", {user: $rootScope.myUser, formData: $scope.formData})
 		.success(function(data) {
-      $rootScope.myUser=data;
+      		$rootScope.myUser=data;
 			console.log("Post /update Successful");
 		})
 		.error(function() {
@@ -14,27 +14,25 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
 	$scope.delete = function() {
 		$http.post("/delete", {user: $rootScope.myUser})
 		.success(function() {
-      $rootScope.myUser = {};
-      $rootScope.isLogged = false;
-      $location.path("/");
+      		$rootScope.myUser = {};
+      		$rootScope.isLogged = false;
+      		$location.path("/");
 			console.log("Post /delete Successful");
 		})
 		.error(function() {
 			console.log("Error on post /delete");
 		})
 	}
-
   $scope.userWorks = function(){
-    $http.post("/userWorks", {usuarioID: $rootScope.myUser.usuarioID, $scope.selectUserWorks.state})
+    $http.post("/userWorks", {usuarioID: $rootScope.myUser.usuarioID, state: $scope.selectUserWorks.state})
     .success(function(data){
       $scope.works = data;
       console.log("Post /userWorks Successful");
-    }
+    })
     .error(function(){
-      console.log("Error on post /userWorks")
+      console.log("Error on post /userWorks");
     })
   }
-
 	$http.post("/userReviews", {usuarioID: $rootScope.myUser.usuarioID})
 	.success(function(data) {
 		console.log(data);

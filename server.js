@@ -174,6 +174,11 @@ app.post("/userWorks", function(req, res){
 	}
 });
 
+app.post("/twinSouls", function(req, res) {
+	var twins = '[{"usuarioID":87,"nombre_usuario":"zcvsjr07","contraseña":"password","nombre":"Brett Upton","apellidos":"Fuller","correo_electronico":"Duis.at.lacus@milacinia.net","imagen":null}]';
+	res.end(twins);
+});
+
 app.listen(8000, function() {
 	console.log("Server running on port 8000");
 });

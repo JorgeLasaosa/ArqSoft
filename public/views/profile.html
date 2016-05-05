@@ -5,41 +5,41 @@
      <div class="panel-body">
         <form role="form" class="form-horizontal">
            <div class="form-group">
-              <label class="control-label col-md-5" for="name">Nombre:</label>
+              <label class="control-label col-md-5" for="name">Name:</label>
               <div class="col-md-6">
                 {{myUser.nombre}}
-                 <input id="name" type="text" class="form-control" placeholder="Nombre" ng-model="formData.nombre"/>
+                 <input id="name" type="text" class="form-control" placeholder="Name" ng-model="formData.nombre"/>
               </div>
            </div>
 
            <div class="form-group">
-              <label class="control-label col-md-5" for="surname">Apellidos:</label>
+              <label class="control-label col-md-5" for="surname">Lastname:</label>
               <div class="col-md-6">
                 {{myUser.apellidos}}
-                 <input id="surname" type="text" class="form-control" placeholder="Apellidos" ng-model="formData.apellidos"/>
+                 <input id="surname" type="text" class="form-control" placeholder="Lastname" ng-model="formData.apellidos"/>
               </div>
            </div>
 
            <div class="form-group">
-              <label class="control-label col-md-5" for="email">Correo electronico:</label>
+              <label class="control-label col-md-5" for="email">Email:</label>
               <div class="col-md-6">
                 {{myUser.correo_electronico}}
-                 <input id="email" type="text" class="form-control" placeholder="Correo electronico" ng-model="formData.email"/>
+                 <input id="email" type="text" class="form-control" placeholder="Email" ng-model="formData.email"/>
               </div>
            </div>
 
            <div class="form-group">
-              <label class="control-label col-md-5" for="username">Nombre de usuario:</label>
+              <label class="control-label col-md-5" for="username">Username:</label>
               <div class="col-md-6">
-                {{myUser.nombre_usuario}}
-                 <input id="username" type="text" class="form-control" placeholder="Nombre de usuario" disabled/>
+                <p>{{myUser.nombre_usuario}}</p>
+                <!--<input id="username" type="text" class="form-control" placeholder="Username" disabled/>-->
               </div>
            </div>
 
            <div class="form-group">
-              <label class="control-label col-md-5" for="password1">Nueva contraseña:</label>
+              <label class="control-label col-md-5" for="password1">New password:</label>
               <div class="col-md-6">
-                 <input id="password1" type="password" class="form-control" placeholder="Nueva contraseña" ng-model="formData.password">
+                 <input id="password1" type="password" class="form-control" placeholder="New password" ng-model="formData.password">
               </div>
            </div>
 
@@ -80,7 +80,7 @@
 <!--almas gemelas-->
 <div class="container">
   <div class="col-md-6 col-md-offset-3">
-    <h2 align="center">Almas gemelas</h2>
+    <h2 align="center">Twin Souls</h2>
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -89,12 +89,10 @@
         </tr>
       </thead>
       <tbody>
-        <div ng-repeat="alma in almas">
-          <tr>
-            <td>{{alma.name}}</td>
-            <td>{{alma.score}}</td>
+          <tr ng-repeat="twin in twins">
+            <td>{{twin.nombre_usuario}}</td>
+            <td>score sano</td>
           </tr>
-        </div>
       </tbody>
     </table>
   </div>
@@ -117,6 +115,9 @@
           </div>
           <button type="submit" class="btn btn-default" ng-click="userWorks()">Search</button>
         </form>
+      </div>
+      <div>
+        </br>
       </div>
       <div ng-repeat="work in works">
         <div class="panel panel-default">

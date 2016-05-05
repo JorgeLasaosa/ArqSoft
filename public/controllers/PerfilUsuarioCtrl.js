@@ -36,14 +36,32 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
       console.log("Error on post /userWorks");
     })
   }
-	$http.post("/userReviews", {usuarioID: $rootScope.myUser.usuarioID})
-	.success(function(data) {
-		console.log(data);
-    $scope.reviews = data;
-		console.log("Post /userReviews Successful");
-	})
-	.error(function() {
-		console.log("Error on post /userReviews");
-	})
+
+  twinSouls = function(){
+    $http.post("/twinSouls", {usuarioID: $rootScope.myUser.usuarioID})
+    .success(function(data){
+      console.log("Post /twinSouls Successful");
+      $scope.twins = data;
+    })
+    .error(function(){
+      console.log("Error on post /twinSouls");
+    })
+  }
+
+  userReviews = function(){
+    $http.post("/userReviews", {usuarioID: $rootScope.myUser.usuarioID})
+  	.success(function(data) {
+  		console.log(data);
+      $scope.reviews = data;
+  		console.log("Post /userReviews Successful");
+  	})
+  	.error(function() {
+  		console.log("Error on post /userReviews");
+  	})
+  }
+
+  twinSouls();
+  userReviews();
+
 
 });

@@ -65,11 +65,10 @@
                     <p>This user will be deleted permanently</p>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" ng-click="delete()">Yes</button>
+                    <button type="button" class="btn btn-danger" ng-click="delete()" data-dismiss="modal">Yes</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                   </div>
                 </div>
-
               </div>
             </div>
             <!-- End of modal -->
@@ -107,7 +106,7 @@
     <div class="col-md-6">
       <h2 align="center">Works</h2>
       <div class="btn-group" role="group">
-        <form role="search">
+        <form role="search" class="form-inline">
           <div class="form-group">
             <select class="form-control">
               <option selected="selected"  value="reviewed">Reviewed</option>
@@ -143,6 +142,12 @@
           <ul class="list-group">
             <li class="list-group-item"><strong>Work id: </strong>{{review.obraID}}</li>
             <li class="list-group-item"><strong>Date: </strong>{{review.fecha}}</li>
+            <li class="list-group-item"><strong>Score: </strong>
+              <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">
+                <span ng-if="i<=review.puntuacion" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <span ng-if="i>review.puntuacion" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+              </div>
+            </li>
           </ul>
         </div>
       </div>

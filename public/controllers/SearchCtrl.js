@@ -1,10 +1,12 @@
-app.controller('SearchCtrl', function($scope, $http, SearchResult, $location) {
+app.controller('SearchCtrl', function($rootScope, $scope, $http, $location, $timeout) {
     $scope.search = function() {
 		$http.post("/search", $scope.formData)
 			.success(function(data) {
 			    console.log(data);
           $location.path("/searchResult");
-	  	    SearchResult.setResult(data);
+          $timeout(function(){
+        		$rootScope.obras = data;
+        	}, 0);
 	        console.log("Post /search successful");
 		  })
 		  .error(function() {

@@ -49,4 +49,23 @@ UsuarioCriticaObraDAO.prototype.insertCritica = function(usuarioID, obraID, text
 	});
 }
 
+/**
+ * Devuelve la lista de usuarios que son almas gemelas de un usuario.
+ *	usuarioID : ID del usuario del que se quieren obtener sus almas gemelas.	 
+ */
+UsuarioCriticaObraDAO.prototype.findAlmasGemelas = function(usuarioID) {
+	pool.getConnection(function(err, conn) {
+		if (err) throw err;
+		conn.query("select *, floor(rand()*100 + 1) score from usuario where usuarioID <> ? order by score desc limit 5", usuarioID, function(err, rows) {
+			if (err) {
+				callback(err, null);
+			}
+			else {
+				callback(null, rows);
+			}
+		});
+		conn.release();
+	});
+}
+
 module.exports = UsuarioCriticaObraDAO;

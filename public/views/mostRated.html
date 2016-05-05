@@ -11,27 +11,27 @@
  </div>
  <div class="row">
    <div class="col-md-6">
-     <h2 align="center">More reviewed</h2>
-     <div ng-repeat="work in works">
+     <h2 align="center">Most reviewed</h2>
+     <div ng-repeat="work1 in mostReviewed">
        <div class="panel panel-default">
          <div class="panel-heading">
-           <strong>{{work.titulo}}</strong>
+           <strong>{{work1.titulo}}</strong>
          </div>
          <div class="panel-body">
-           <p>{{work.sinopsis}}</p>
+           <p>{{work1.sinopsis}}</p>
          </div>
        </div>
      </div>
    </div>
    <div class="col-md-6">
      <h2 align="center">Top 10 works</h2>
-     <div ng-repeat="work in works">
+     <div ng-repeat="work2 in mostReviewed">
        <div class="panel panel-default">
          <div class="panel-heading">
-           <strong>{{work.titulo}}</strong>
+           <strong>{{work2.titulo}}</strong>
          </div>
          <div class="panel-body">
-           <p>{{work.sinopsis}}</p>
+           <p>{{work2.sinopsis}}</p>
          </div>
        </div>
      </div>

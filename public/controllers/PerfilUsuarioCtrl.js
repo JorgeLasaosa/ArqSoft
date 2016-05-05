@@ -24,21 +24,21 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
 		})
 	}
 
-  /*$scope.userWorks = function(){
-    $http.post("/userWorks", {usuarioID: $rootScope.myUser.usuarioID, $scope.typeOfSearch})
+  $scope.userWorks = function(){
+    $http.post("/userWorks", {usuarioID: $rootScope.myUser.usuarioID, $scope.selectUserWorks.state})
     .success(function(data){
       $scope.works = data;
-      console.log("Post /search Successful");
+      console.log("Post /userWorks Successful");
     }
     .error(function(){
-      console.log("Error on post /search")
+      console.log("Error on post /userWorks")
     })
-  }*/
+  }
 
 	$http.post("/userReviews", {usuarioID: $rootScope.myUser.usuarioID})
 	.success(function(data) {
 		console.log(data);
-    $scope.reviews = data;
+    	$scope.reviews = data;
 		console.log("Post /userReviews Successful");
 	})
 	.error(function() {

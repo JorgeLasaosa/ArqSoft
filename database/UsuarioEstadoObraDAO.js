@@ -14,6 +14,7 @@ function UsuarioEstadoObraDAO(callbackFunction) {
  */
 UsuarioEstadoObraDAO.prototype.insertEstado = function(usuarioID, obraID, estado) {
 	pool.getConnection(function(err, conn){
+		if (err) throw err;
 		var insert = {usuarioID : usuarioID, obraID : obraID, estado : estado};
 		conn.query("insert into Establecer set ?" + query, function(err, rows) {
 			conn.release();
@@ -24,6 +25,28 @@ UsuarioEstadoObraDAO.prototype.insertEstado = function(usuarioID, obraID, estado
 				callback(null, rows);
 			}
 		});
+		conn.release();
+	});
+}
+
+/**
+ * Devuelve la lista de obras que el usuario ha marcado con un cierto estado.
+ * 	usuarioID : ID del usuario del que se quiere obtener las obras marcadas.
+ *	estado : Estado que se quiere buscar en las obras.	 
+ */
+UsuarioEstadoObraDAO.prototype.findObrasByEstado = function(usuarioID, estado) {
+	pool.getConnection(function(err, conn){
+		if(err) throw err;
+		conn.query("select * from Obra ob, Establecer es where ob.obraID = es.obraID and es.usuarioID = ? and es.estado = ?", [usuarioID, estado],function(err, rows) {
+			conn.release();
+			if (err) {
+				callback(err, null);
+			}
+			else {
+				callback(null, rows);
+			}
+		});
+		conn.release();
 	});
 }
 

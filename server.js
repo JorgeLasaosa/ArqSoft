@@ -4,6 +4,7 @@ var express = require("express");
 	ObraDAO = require("./database/ObraDAO.js");
 	UsuarioDAO = require("./database/UsuarioDAO.js");
 	UsuarioCriticaObraDAO = require("./database/UsuarioCriticaObraDAO.js");
+	UsuarioEstadoObraDAO = require("./database/UsuarioEstadoObraDAO.js");
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
@@ -126,6 +127,51 @@ app.post("/userReviews", function(req, res) {
 });
 
 app.post("/mostRated", function(req, res){
+	var obraDAO = new ObraDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+			res.end();
+		}
+		else {
+			res.end(JSON.stringify(rows));
+		}
+	});
+	obraDAO.findObrasMejorValoradas(10);
+});
+
+app.post("/mostReviewed", function(req, res){
+	var obraDAO = new ObraDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+			res.end();
+		}
+		else {
+			res.end(JSON.stringify(rows));
+		}
+	});
+	obraDAO.findObrasMasCriticadas(10);
+});
+
+app.post("/userWorks", function(req, res){
+	var usuarioEstadoObraDAO = new UsuarioEstadoObraDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+			res.end();
+		}
+		else {
+			res.end(JSON.stringify(rows));
+		}
+	});
+	var state = req.body.state;
+	if (state == 'watched') {
+		usuarioEstadoObraDAO.findObrasByEstado(req.body.usuarioID, 'vista');
+	}
+	else if (state == "watching") {
+		usuarioEstadoObraDAO.findObrasByEstado(req.body.usuarioID, 'viendo');
+	}
+	else {
+		usuarioEstadoObraDAO.findObrasByEstado(req.body.usuarioID, 'pendiente');
+	}
 });
 
 app.listen(8000, function() {

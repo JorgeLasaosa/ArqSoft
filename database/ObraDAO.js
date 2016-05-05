@@ -125,4 +125,63 @@ ObraDAO.prototype.findObrasByAutor = function(search, orderBy) {
 		});
 	});
 }
+
+/**
+ * Devuelve la obra cuyo id es obraID.
+ *	obraID : ID de la obra.
+ */
+ObraDAO.prototype.findObra = function(obraID) {
+	pool.getConnection(function(err,conn) {
+		if (err) throw err;
+		conn.query("select * from obra where obraID = ?", [obraID], function(err, rows) {
+			if (err) {
+				callback(err, null);
+			}
+			else {
+				callback(null, rows);
+			}
+		});
+		conn.release();
+	});
+}
+
+/**
+ * Devuelve las num primeras obras ordenadas según su puntuación media en orden
+ * descendente.
+ *	num : Número de obras a devolver.
+ */
+ObraDAO.prototype.findObrasMejorValoradas = function(num) {
+	pool.getConnection(function(err,conn) {
+		if (err) throw err;
+		conn.query("select * from obra order by (puntuacion_total/puntuaciones_recibidas) desc LIMIT ?", num, function(err, rows) {
+			if (err) {
+				callback(err, null);
+			}
+			else {
+				callback(null, rows);
+			}
+		});
+		conn.release();
+	});
+}
+
+/**
+ * Devuelve las num primeras obras ordenadas según su número de críticas en orden
+ * descendente.
+ *	num : Número de obras a devolver.
+ */
+ObraDAO.prototype.findObrasMasCriticadas = function(num) {
+	pool.getConnection(function(err,conn) {
+		if (err) throw err;
+		conn.query("select * from obra order by (puntuaciones_recibidas) desc LIMIT ?", num, function(err, rows) {
+			if (err) {
+				callback(err, null);
+			}
+			else {
+				callback(null, rows);
+			}
+		});
+		conn.release();
+	});
+}
 module.exports = ObraDAO;

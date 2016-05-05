@@ -1,12 +1,21 @@
 app.controller('MostRatedCtrl', function($scope, $http) {
-  var formData = { search_text: 'he', search_field: 'all'};
-   $http.post("/search", formData)
+   $http.post("/mostRated")
      .success(function(data) {
          console.log(data);
-         $scope.works = data;
-         console.log("Post /search successful");
+         $scope.mostRated = data;
+         console.log("Post /mostRated successful");
      })
      .error(function() {
-         console.log("Error on post /search");
+         console.log("Error on post /mostRated");
      })
+
+     /*$http.post("/mostReviewed")
+     .success(function(data) {
+         console.log(data);
+         $scope.mostReviewed = data;
+         console.log("Post /mostReviewed successful");
+     })
+     .error(function() {
+         console.log("Error on post /mostReviewed");
+     })*/
 });

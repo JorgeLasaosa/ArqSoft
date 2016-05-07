@@ -2,13 +2,13 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
 
     $scope.update = function() {
 		$http.post("/update", {user: $rootScope.myUser, formData: $scope.formData})
-		.success(function(data) {
-      		$rootScope.myUser=data;
+		.success(function(loggedUser) {
+      		$rootScope.myUser=loggedUser;
 			console.log("Post /update Successful");
 		})
 		.error(function() {
 			console.log("Error on post /update");
-		})
+		});
 	}
 
 	$scope.delete = function() {
@@ -21,20 +21,21 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
 		})
 		.error(function() {
 			console.log("Error on post /delete");
-		})
+		});
 	}
 
   $scope.userWorks = function() {
     $http.post("/userWorks", {usuarioID: $rootScope.myUser.usuarioID, state: $scope.selectUserWorks.state})
-    .success(function(data){
+    .success(function(userWorks){
+      $scope.works = userWorks;
       console.log("Post /userWorks Successful");
       $timeout(function(){
-        $scope.works = data;
+        $scope.works = userWorks;
       },0);
     })
     .error(function(){
       console.log("Error on post /userWorks");
-    })
+    });
   }
 
   twinSouls = function(){
@@ -63,5 +64,16 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
   twinSouls();
   userReviews();
 
+	/*
+	$http.post("/soulmates", {usuarioID: $rootScope.myUser.usuarioID})
+	.success(function(soulmates) {
+		console.log(soulmates);
+    	$scope.almas = soulmates;
+		console.log("Post /soulmates Successful");
+	})
+	.error(function() {
+		console.log("Error on post /soulmates");
+	});
+	*/
 
 });

@@ -179,6 +179,20 @@ app.post("/twinSouls", function(req, res) {
 	res.end(twins);
 });
 
+app.post("/soulmates", function(req, res) {
+	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+			res.end();
+		}
+		else {
+			console.log(rows);
+			res.end(JSON.stringify(rows));
+		}
+	});
+	usuarioCriticaObraDAO.findAlmasGemelas(req.body.usuarioID);
+});
+
 app.listen(8000, function() {
 	console.log("Server running on port 8000");
 });

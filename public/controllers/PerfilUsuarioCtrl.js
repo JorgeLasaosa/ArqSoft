@@ -61,19 +61,20 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
   	})
   }
 
+  soulMates = function(){
+    $http.post("/soulmates", {usuarioID: $rootScope.myUser.usuarioID})
+  	.success(function(soulmates) {
+  		console.log(soulmates);
+      	$scope.almas = soulmates;
+  		console.log("Post /soulmates Successful");
+  	})
+  	.error(function() {
+  		console.log("Error on post /soulmates");
+  	})
+  }
+
   twinSouls();
   userReviews();
 
-	/*
-	$http.post("/soulmates", {usuarioID: $rootScope.myUser.usuarioID})
-	.success(function(soulmates) {
-		console.log(soulmates);
-    	$scope.almas = soulmates;
-		console.log("Post /soulmates Successful");
-	})
-	.error(function() {
-		console.log("Error on post /soulmates");
-	});
-	*/
 
 });

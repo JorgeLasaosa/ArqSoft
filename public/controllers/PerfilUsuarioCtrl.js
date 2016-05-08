@@ -46,7 +46,7 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
     })
     .error(function(){
       console.log("Error on post /twinSouls");
-    })
+    });
   }
 
   userReviews = function(){
@@ -58,7 +58,7 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
   	})
   	.error(function() {
   		console.log("Error on post /userReviews");
-  	})
+  	});
   }
 
   soulMates = function(){
@@ -70,11 +70,12 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
   	})
   	.error(function() {
   		console.log("Error on post /soulmates");
-  	})
+  	});
   }
 
   twinSouls();
   userReviews();
+
 
 
 });

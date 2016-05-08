@@ -5,6 +5,7 @@ var express = require("express");
 	UsuarioDAO = require("./database/UsuarioDAO.js");
 	UsuarioCriticaObraDAO = require("./database/UsuarioCriticaObraDAO.js");
 	UsuarioEstadoObraDAO = require("./database/UsuarioEstadoObraDAO.js");
+	CriticaObraDAO = require("./database/CriticaObraDAO.js");
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
@@ -191,6 +192,34 @@ app.post("/soulmates", function(req, res) {
 		}
 	});
 	usuarioCriticaObraDAO.findAlmasGemelas(req.body.usuarioID);
+});
+
+app.get("/work/:idWork", function(req, res){
+	var obraDAO = new ObraDAO(function(err, rows){
+		if (err) {
+			console.log(err);
+			res.end();
+		}
+		else {
+			console.log(rows);
+			res.end(JSON.stringify(rows));
+		}
+	});
+	obraDAO.findObra(req.params.idWork);
+});
+
+app.get("/workReviews/:idWork", function(req, res) {
+	var criticaObraDAO = new CriticaObraDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+			res.end();
+		}
+		else {
+			console.log(rows);
+			res.end(JSON.stringify(rows));
+		}
+	});
+	criticaObraDAO.findCriticasByObra(req.params.idWork, "trash");
 });
 
 app.listen(8000, function() {

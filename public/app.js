@@ -45,6 +45,12 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'views/profile.html',
           controller: 'PerfilUsuarioCtrl'
         })
+
+        .when('/work/:workId', {
+          templateUrl: 'views/work.html',
+          controller: 'WorkCtrl'
+        })
+
         .otherwise({ redirectTo: '/' });
     }]
 );

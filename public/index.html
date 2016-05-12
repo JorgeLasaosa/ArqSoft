@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='animeffinity'>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="index of animeffinity">
+    <meta name="author" content="Marcos Ruiz Garcia">
+    <link rel="icon" href="/images/favicon.png">
+
+    <title>Animeffinity</title>
+
+    <!-- Bootstrap-select core CSS -->
+    <!--<link href="node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for template signin-->
+    <!--<link href="css/signin.css" rel="stylesheet">-->
+
+    <!-- angular js -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+
+
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#/">Animeffinity</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <!--<li><a href="#about">About</a></li>-->
+            <!-- search -->
+            <div class="btn-group" role="group" ng-controller="SearchCtrl">
+              <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Search" ng-model="formData.search_text">
+                  <select class="form-control" ng-model="formData.search_field" >
+                    <option value="title" selected="selected">Title</option>
+                    <option value="author">Autor</option>
+                    <option value="genre">Genero</option>
+                    <option value="cast">Character</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-default" ng-click="search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+              </form>
+            </div>
+            <!-- end of search -->
+          </ul>
+          <div>
+            <ul class="nav navbar-nav navbar-right" ng-if="isLogged" ng-controller="LoginUsuarioCtrl">
+              <li><a href="#/profile"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{myUser.nombre_usuario}}</a></li>
+              <form class="navbar-form navbar-left form-inline" role="search">
+                <button type="submit" class="btn hidden-sm" ng-click="logout()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Log out</button>
+              </form>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-if="!isLogged">
+              <li><a href="#/login"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Log In</a></li>
+              <li><a href="#/register">Sign In</a></li>
+            </ul>
+          </div>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <!-- /container -->
+
+
+    <div ng-view></div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <!--<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
+    <script src="app.js"></script>
+    <script src="controllers/SearchCtrl.js"></script>
+    <script src="controllers/MostRatedCtrl.js"></script>
+    <script src="controllers/LoginUsuarioCtrl.js"></script>
+    <script src="controllers/RegistrarUsuarioCtrl.js"></script>
+    <script src="controllers/PerfilUsuarioCtrl.js"></script>
+    <script src="controllers/WorkCtrl.js"></script>
+  </body>
+</html>

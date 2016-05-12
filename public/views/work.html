@@ -1,0 +1,134 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4" >
+      <div class="well">
+      <h1>{{work[0].titulo}}</h1>
+      <br/>
+      <div ng-if="work[0].imagen = 'null'">
+        <img src="images/image-not-found.jpeg" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+      </div>
+      <div ng-if="work[0].imagen != 'null'">
+        <img ng-src="{{work[0].imagen}}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+      </div>
+      <br/>
+      <table class="table table-striped">
+        <tbody>
+          <tr ng-if="isLogged">
+            <td>
+              <strong>Punctuate</strong>
+            </td>
+            <td>
+              <div class="btn-group" role="group">
+                <form role="search" class="form-inline">
+                  <div class="form-group">
+                    <select class="form-control" ng-model="selectUserWorks.state">
+                      <option selected="selected" value="1">
+                        1 star
+                      </option>
+                      <option value="2">
+                        2 stars
+                      </option>
+                      <option value="3">
+                        3 stars
+                      </option>
+                      <option value="4">
+                        4 stars
+                      </option>
+                      <option value="5">
+                        5 stars
+                      </option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-default" ng-click="vote()">Vote</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          <tr ng-if="isLogged">
+            <td>
+              <strong>Your puntuation</strong>
+            </td>
+            <td>
+               <span style="font-size:2.0em;" class="glyphicon glyphicon-star" aria-hidden="true"></span> TO-DO
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Score</strong>
+            </td>
+            <td>
+              <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">
+                <span style="font-size:2.0em;" ng-if="i<=(work[0].puntuacion_total/work[0].puntuaciones_recibidas)" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <span style="font-size:2.0em;" ng-if="i>(work[0].puntuacion_total/work[0].puntuaciones_recibidas)" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Putuations</strong>
+            </td>
+            <td>
+              {{work[0].puntuaciones_recibidas}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Id</strong>
+            </td>
+            <td>
+               {{work[0].obraID}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Init-End</strong>
+            </td>
+            <td>
+              {{work[0].fecha_inicio}}-{{work[0].fecha_fin}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Synopsis</strong>
+            </td>
+            <td>
+              <p>{{work[0].sinopsis}}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <div class="col-md-8">
+      <div ng-if="isLogged">
+        <h2>Your review</h2>
+        <form>
+          <textarea rows="5" type="text" class="form-control"></textarea>
+          <br/>
+          <button type="submit" class="btn btn-default" ng-click="review()">Add review</button>
+        </form>
+      </div>
+      <h2>Reviews</h2>
+      <div ng-repeat="review in reviews">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong>User id: {{review.usuarioID}}</strong>
+          </div>
+          <div class="panel-body">
+            <strong>Text: </strong>{{review.texto}}
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Work id: </strong>{{review.obraID}}</li>
+            <li class="list-group-item"><strong>Date: </strong>{{review.fecha}}</li>
+            <li class="list-group-item"><strong>Score: </strong>
+              <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">
+                <span ng-if="i<=review.puntuacion" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <span ng-if="i>review.puntuacion" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

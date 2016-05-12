@@ -1,0 +1,12 @@
+{
+  "name"         : "Animeffinity",
+  "version"      : "0.0.0",
+  "description"  : "Aplicacion de Prueba",
+  "main"         : "server.js",
+  "author"       : "Grupo 3",
+  "dependencies" : {
+    "express"    : "~4.7.2",
+    "mysql"		 : "~2.0.0",
+    "body-parser": "~1.5.2"
+    }
+}

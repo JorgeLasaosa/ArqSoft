@@ -1,0 +1,64 @@
+<div class="container">
+ <div class="row">
+   <div class="jumbotron">
+     <h1>Welcome to Animeffinity</h1>
+   </div>
+   <div class="row">
+     <div class="col-md-12">
+       <br/>
+     </div>
+   </div>
+ </div>
+ <div class="row">
+   <div class="col-md-6">
+     <h2 align="center">Most reviewed</h2>
+     <div ng-repeat="work1 in mostRated">
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <strong>
+             <a ng-href="#/work/{{work1.obraID}}">{{work1.titulo}}</a>
+           </strong>
+         </div>
+         <div class="panel-body">
+           <strong>Sinopsis: </strong>{{work1.sinopsis}}
+         </div>
+         <ul class="list-group">
+           <li class="list-group-item"><strong>Work id: </strong>{{work1.obraID}}</li>
+           <li class="list-group-item"><strong>Date: </strong>{{work1.fecha_inicio}}-{{work1.fecha_fin}}</li>
+           <li class="list-group-item"><strong>Score: </strong>
+             <div data-ng-repeat="i in [1,2,3,4,5]" ng-init="puntuacion = (work1.puntuacion_total/work1.puntuaciones_recibidas)" style="display: inline">
+               <span ng-if="i<=puntuacion" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+               <span ng-if="i>puntuacion" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+             </div>
+           </li>
+         </ul>
+       </div>
+     </div>
+   </div>
+   <div class="col-md-6">
+     <h2 align="center">Top 10 works</h2>
+     <div ng-repeat="work2 in mostRated">
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <strong>
+             <a ng-href="#/work/{{work2.obraID}}">{{work2.titulo}}</a>
+           </strong>
+         </div>
+         <div class="panel-body">
+           <strong>Sinopsis: </strong>{{work2.sinopsis}}
+         </div>
+         <ul class="list-group">
+           <li class="list-group-item"><strong>Work id: </strong>{{work2.obraID}}</li>
+           <li class="list-group-item"><strong>Date: </strong>{{work2.fecha_inicio}}-{{work2.fecha_fin}}</li>
+           <li class="list-group-item"><strong>Score: </strong>
+             <div data-ng-repeat="i in [1,2,3,4,5]" ng-init="puntuacion = (work2.puntuacion_total/work2.puntuaciones_recibidas)" style="display: inline">
+               <span ng-if="i<=puntuacion" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+               <span ng-if="i>puntuacion" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+             </div>
+           </li>
+         </ul>
+       </div>
+     </div>
+   </div>
+ </div>
+ </div>

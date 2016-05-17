@@ -103,9 +103,9 @@
       <div ng-if="isLogged">
         <h2>Your review</h2>
         <form>
-          <textarea rows="5" type="text" class="form-control"></textarea>
+          <textarea rows="5" type="text" class="form-control" ng-model="textReview"></textarea>
           <br/>
-          <button type="submit" class="btn btn-default" ng-click="review()">Add review</button>
+          <button type="submit" class="btn btn-default" ng-click="writeReview()">Add review</button>
         </form>
       </div>
       <h2>Reviews</h2>

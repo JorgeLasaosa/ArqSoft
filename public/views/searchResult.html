@@ -1,12 +1,24 @@
 <div class="container">
-<div ng-repeat="obra in obras">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4>{{obra.titulo}}</h4>
-    </div>
-    <div class="panel-body">
-      <p>{{obra.sinopsis}}</p>
+  <div ng-repeat="obra in obras">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>
+          <a ng-href="#/work/{{obra.obraID}}">{{obra.titulo}}</a>
+        </strong>
+      </div>
+      <div class="panel-body">
+        <strong>Sinopsis: </strong>{{obra.sinopsis}}
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Work id: </strong>{{obra.obraID}}</li>
+        <li class="list-group-item"><strong>Date: </strong>{{obra.fecha_inicio}}-{{obra.fecha_fin}}</li>
+        <li class="list-group-item"><strong>Score: </strong>
+          <div data-ng-repeat="i in [1,2,3,4,5]" ng-init="puntuacion = (obra.puntuacion_total/obra.puntuaciones_recibidas)" style="display: inline">
+            <span ng-if="i<=puntuacion" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span ng-if="i>puntuacion" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
-</div>
 </div>

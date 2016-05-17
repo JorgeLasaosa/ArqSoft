@@ -221,6 +221,27 @@ app.get("/workReviews/:idWork", function(req, res) {
 	});
 	criticaObraDAO.findCriticasByObra(req.params.idWork, "trash");
 });
+/* Devuelve la review escrita */
+app.post("/writeReview", function(req, res) {
+	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows){
+		if(err){
+			console.log(err);
+			res.end();
+		}
+		else {
+			res.end(JSON.stringify(rows));
+		}
+	});
+	usuarioCriticaObraDAO.insertCritica(req.body.userID, req.body.workID, req.body.textReview, req.body.punctuation);
+});
+
+app.post("/punctuateWork", function(req,res) {
+
+});
+
+app.post("/setWorkAs", function(req, res) {
+
+});
 
 app.listen(8000, function() {
 	console.log("Server running on port 8000");

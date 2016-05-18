@@ -56,11 +56,11 @@ UsuarioCriticaObraDAO.prototype.insertCritica = function(usuarioID, obraID, text
 UsuarioCriticaObraDAO.prototype.findAlmasGemelas = function(usuarioID) {
 	pool.getConnection(function(err, conn) {
 		if (err) throw err;
-		conn.query("select b.usuarioID, count(*) coincidencias from " +
-		"(select * from Critica where usuarioID = ? AND puntuacion >= 3) as a " +
-		"join (select * from Critica where usuarioID <> ? AND puntuacion >= 3) as b" +
-		"on a.obraID = b.obraID group by b.usuarioID  order by coincidencias desc limit 5",
-		 usuarioID, function(err, rows) {
+		conn.query("select b.usuarioID, b.nombre_usuario, count(*) score from " +
+		"(select cr.*, us.nombre_usuario from Critica cr, Usuario us where cr.usuarioID = 1 AND cr.puntuacion >= 3 AND cr.usuarioID = us.usuarioID) as a " +
+		"join (select cr.*, us.nombre_usuario from Critica cr, Usuario us where cr.usuarioID <> ? AND cr.puntuacion >= 3 AND cr.usuarioID = us.usuarioID) as b " +
+		"on a.obraID = b.obraID group by b.usuarioID  order by score desc limit 5",
+	 [usuarioID, usuarioID], function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}

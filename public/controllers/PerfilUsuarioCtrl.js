@@ -38,17 +38,6 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
     });
   }
 
-  twinSouls = function(){
-    $http.post("/twinSouls", {usuarioID: $rootScope.myUser.usuarioID})
-    .success(function(data){
-      console.log("Post /twinSouls Successful");
-      $scope.twins = data;
-    })
-    .error(function(){
-      console.log("Error on post /twinSouls");
-    });
-  }
-
   userReviews = function(){
     $http.post("/userReviews", {usuarioID: $rootScope.myUser.usuarioID})
   	.success(function(data) {
@@ -64,16 +53,19 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
   soulMates = function(){
     $http.post("/soulmates", {usuarioID: $rootScope.myUser.usuarioID})
   	.success(function(soulmates) {
-  		console.log(soulmates);
-      	$scope.almas = soulmates;
+      console.log(soulmates);
+      $scope.soulmates = soulmates;
   		console.log("Post /soulmates Successful");
+      $timeout(function(){
+        $scope.soulmates = soulmates;
+      },0);
   	})
   	.error(function() {
   		console.log("Error on post /soulmates");
   	});
   }
 
-  twinSouls();
+  soulMates();
   userReviews();
 
 

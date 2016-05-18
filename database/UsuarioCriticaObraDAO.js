@@ -1,4 +1,4 @@
-var pool;		// Pool de conexiones a la Base de Datos
+﻿var pool;		// Pool de conexiones a la Base de Datos
 var callback; 	// Función a la que se llamará para devolver el resultado de las consultas
 
 function UsuarioCriticaObraDAO(callbackFunction) {
@@ -8,7 +8,7 @@ function UsuarioCriticaObraDAO(callbackFunction) {
 
 /**
  * Devuelve la lista de críticas de un usuario.
- *	usuarioID : ID del usuario del que se quieren obtener las críticas. 
+ *	usuarioID : ID del usuario del que se quieren obtener las críticas.
  */
 UsuarioCriticaObraDAO.prototype.findCriticasByUsuario = function(usuarioID) {
 	pool.getConnection(function(err, conn){
@@ -31,7 +31,7 @@ UsuarioCriticaObraDAO.prototype.findCriticasByUsuario = function(usuarioID) {
  *	usuarioID : ID del usuario que realiza la crítica.
  *	obraID : ID de la obra que se critica.
  *	texto : Texto de la crítica.
- *	puntuacion : Puntuación de la crítica.		 
+ *	puntuacion : Puntuación de la crítica.
  */
 UsuarioCriticaObraDAO.prototype.insertCritica = function(usuarioID, obraID, texto, puntuacion) {
 	pool.getConnection(function(err, conn) {
@@ -51,12 +51,16 @@ UsuarioCriticaObraDAO.prototype.insertCritica = function(usuarioID, obraID, text
 
 /**
  * Devuelve la lista de usuarios que son almas gemelas de un usuario.
- *	usuarioID : ID del usuario del que se quieren obtener sus almas gemelas.	 
+ *	usuarioID : ID del usuario del que se quieren obtener sus almas gemelas.
  */
 UsuarioCriticaObraDAO.prototype.findAlmasGemelas = function(usuarioID) {
 	pool.getConnection(function(err, conn) {
 		if (err) throw err;
-		conn.query("select *, floor(rand()*100 + 1) score from usuario where usuarioID <> ? order by score desc limit 5", usuarioID, function(err, rows) {
+		conn.query("select b.usuarioID, b.nombre_usuario, count(*) score from " +
+		"(select cr.*, us.nombre_usuario from Critica cr, Usuario us where cr.usuarioID = 1 AND cr.puntuacion >= 3 AND cr.usuarioID = us.usuarioID) as a " +
+		"join (select cr.*, us.nombre_usuario from Critica cr, Usuario us where cr.usuarioID <> ? AND cr.puntuacion >= 3 AND cr.usuarioID = us.usuarioID) as b " +
+		"on a.obraID = b.obraID group by b.usuarioID  order by score desc limit 5",
+	 [usuarioID, usuarioID], function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}

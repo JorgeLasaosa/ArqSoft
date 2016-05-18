@@ -175,11 +175,6 @@ app.post("/userWorks", function(req, res){
 	}
 });
 
-app.post("/twinSouls", function(req, res) {
-	var twins = '[{"usuarioID":87,"nombre_usuario":"zcvsjr07","contraseña":"password","nombre":"Brett Upton","apellidos":"Fuller","correo_electronico":"Duis.at.lacus@milacinia.net","imagen":null}]';
-	res.end(twins);
-});
-
 app.post("/soulmates", function(req, res) {
 	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows) {
 		if (err) {
@@ -191,6 +186,7 @@ app.post("/soulmates", function(req, res) {
 			res.end(JSON.stringify(rows));
 		}
 	});
+	console.log("Soulmates ID user: " + req.body.usuarioID);
 	usuarioCriticaObraDAO.findAlmasGemelas(req.body.usuarioID);
 });
 

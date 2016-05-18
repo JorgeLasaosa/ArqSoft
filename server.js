@@ -221,27 +221,54 @@ app.get("/workReviews/:idWork", function(req, res) {
 	});
 	criticaObraDAO.findCriticasByObra(req.params.idWork, "trash");
 });
-/* Devuelve la review escrita */
-app.post("/writeReview", function(req, res) {
+
+/* Si existe la critica pone la nueva puntuacion,
+sino existe crea la critica, la crea y pone la nueva puntacion.
+Devuelve la nueva critica */
+app.put("/writeReview", function(req, res) {
 	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows){
 		if(err){
 			console.log(err);
 			res.end();
 		}
 		else {
-			res.end(JSON.stringify(rows));
+			res.end(JSON.stringify(rows)); //TODO no devuelve nada
 		}
 	});
 	usuarioCriticaObraDAO.insertCritica(req.body.userID, req.body.workID, req.body.textReview, req.body.punctuation);
-});
-
-app.post("/punctuateWork", function(req,res) {
 
 });
 
-app.post("/setWorkAs", function(req, res) {
-
+/* Crea la review escrita, si ya existe, la modifica.
+Devuelve la nueva critica*/
+app.put("/punctuateWork", function(req,res) {
+	/*var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows){
+		if(err){
+			console.log(err);
+			res.end();
+		}
+		else {
+			res.end(); //TODO no devuelve nada
+		}
+	});
+	usuarioCriticaObraDAO.insertPuntuacion(req.body.userID, req.body.workID, req.body.textReview, req.body.punctuation);
+	*/
+	res.end();
 });
+
+/* Establece el estado de una pelicula */
+app.put("/setWorkAs", function(req, res) {
+	//TODO
+	res.end();
+});
+
+/* Devuelve la review del idUsuario en la pelicula idWork*/
+app.get("/myReview/:idWork/:idUser", function(req, res){
+	//TODO
+	var v = '{"criticaID":97,"usuarioID":92,"obraID":50,"puntuacion":5,"texto":"ac mi eleifend egestas. Sed pharetra, felis","fecha":"2016-12-11T20:46:14.000Z","votos_positivos":null,"votos_totales":null}';
+	res.end(v);
+});
+
 
 app.listen(8000, function() {
 	console.log("Server running on port 8000");

@@ -26,10 +26,24 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
     );
   }
 
+  getMyReview = function(){
+    $http.get("/myReview/" + $routeParams.workId + "/" + $rootScope.myUser.usuarioID)
+    .then(
+      function(res){
+        console.log(res);
+        $scope.myReview = res.data;
+      },
+      function(res){
+        console.log("WorkReviews not works");
+      }
+    );
+  }
+
   $scope.punctuateWork = function(){
-    $http.post("/punctuateWork/",{usuarioID: $rootScope.myUser.usuarioID, workID: $routeParams.workId, textReview: null, punctuation: $scope.punctuation})
-    .success(function(myPunctuation){
-      $scope.myPunctuation = myPunctuation;
+    $http.put("/punctuateWork/",{usuarioID: $rootScope.myUser.usuarioID,
+      workID: $routeParams.workId, punctuation: $scope.punctuation})
+    .success(function(){
+      $timeout(getMyReview, 0);
       console.log("Post /punctuateWork Successful");
     })
     .error(function(){
@@ -42,10 +56,13 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
   }
 
   $scope.writeReview = function(){
-    $http.post("/writeReview", {userID: $rootScope.myUser.usuarioID, workID: $routeParams.workId, textReview: $scope.textReview, punctuation: null})
+    $http.put("/writeReview", {userID: $rootScope.myUser.usuarioID,
+      workID: $routeParams.workId, textReview: $scope.textReview, punctuation: null}) //TODO modificar para no necesitar el punctuation
     .success(function(myReview){
       //$scope.myReview = myReview;
       $timeout(getReviewsOfWork,0);
+      $timeout(getMyReview,0);
+      console.log($scope.textReview);
       console.log("Post /writeReview successful");
     })
     .error(function(){
@@ -55,5 +72,9 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
 
   getWork();
   getReviewsOfWork();
+
+  if($rootScope.isLogged){
+    getMyReview();
+  }
 
 });

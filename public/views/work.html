@@ -21,7 +21,7 @@
               <div class="btn-group" role="group">
                 <form role="search" class="form-inline">
                   <div class="form-group">
-                    <select class="form-control" ng-model="selectUserWorks.state">
+                    <select class="form-control" ng-model="$parent.punctuation">
                       <option selected="selected" value="1">
                         1 star
                       </option>
@@ -39,7 +39,7 @@
                       </option>
                     </select>
                   </div>
-                  <button type="submit" class="btn btn-default" ng-click="vote()">Vote</button>
+                  <button type="submit" class="btn btn-default" ng-click="punctuateWork()">Vote</button>
                 </form>
               </div>
             </td>
@@ -49,7 +49,17 @@
               <strong>Your puntuation</strong>
             </td>
             <td>
-               <span style="font-size:2.0em;" class="glyphicon glyphicon-star" aria-hidden="true"></span> TO-DO
+              <div ng-if="myReview.puntuacion == null">
+                <!-- no hay review -->
+                <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
+              </div>
+              <div ng-if="myReview.puntuacion != null">
+                <!-- si hay review -->
+                <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">
+                  <span style="font-size:2.0em;" ng-if="i<=(myReview.puntuacion)" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  <span style="font-size:2.0em;" ng-if="i>(myReview.puntuacion)" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
@@ -102,10 +112,11 @@
     <div class="col-md-8">
       <div ng-if="isLogged">
         <h2>Your review</h2>
+        <div class="well well-sm">{{myReview.texto}}</div>
         <form>
-          <textarea rows="5" type="text" class="form-control" ng-model="textReview"></textarea>
+          <textarea placeholder="Write here your review" rows="5" type="text" class="form-control" ng-model="$parent.textReview"></textarea>
           <br/>
-          <button type="submit" class="btn btn-default" ng-click="writeReview()">Add review</button>
+          <button type="submit" class="btn btn-default" ng-click="writeReview()">Add / modify review</button>
         </form>
       </div>
       <h2>Reviews</h2>
@@ -121,9 +132,14 @@
             <li class="list-group-item"><strong>Work id: </strong>{{review.obraID}}</li>
             <li class="list-group-item"><strong>Date: </strong>{{review.fecha}}</li>
             <li class="list-group-item"><strong>Score: </strong>
-              <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">
-                <span ng-if="i<=review.puntuacion" class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                <span ng-if="i>review.puntuacion" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+              <div ng-if="review.puntuacion != null">
+                <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">
+                  <span ng-if="i<=review.puntuacion" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  <span ng-if="i>review.puntuacion" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div ng-if="review.puntuacion == null">
+                <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
               </div>
             </li>
           </ul>

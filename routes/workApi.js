@@ -15,7 +15,7 @@ var workRouter = function(app) {
   });
 
   /* Establece el estado de una pelicula */
-  app.put("/setWorkAs", function(req, res) {
+  app.put("/setStateWork", function(req, res) {
   	//TODO
   	res.end();
   });

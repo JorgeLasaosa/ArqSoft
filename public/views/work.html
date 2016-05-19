@@ -4,10 +4,10 @@
       <div class="well">
       <h1>{{work[0].titulo}}</h1>
       <br/>
-      <div ng-if="work[0].imagen = 'null'">
+      <div ng-if="work[0].imagen == null">
         <img src="images/image-not-found.jpeg" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
       </div>
-      <div ng-if="work[0].imagen != 'null'">
+      <div ng-if="work[0].imagen != null">
         <img ng-src="{{work[0].imagen}}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
       </div>
       <br/>
@@ -67,7 +67,8 @@
               <strong>Score</strong>
             </td>
             <td>
-              <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">
+              <span ng-if="work[0].puntuaciones_recibidas == 0" class="glyphicon glyphicon-hourglass" style="font-size:2.0em;" aria-hidden="true"></span>
+              <div ng-if="work[0].puntuaciones_recibidas > 0" data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">
                 <span style="font-size:2.0em;" ng-if="i<=(work[0].puntuacion_total/work[0].puntuaciones_recibidas)" class="glyphicon glyphicon-star" aria-hidden="true"></span>
                 <span style="font-size:2.0em;" ng-if="i>(work[0].puntuacion_total/work[0].puntuaciones_recibidas)" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
               </div>

@@ -64,12 +64,7 @@ var userRouter = function(app) {
   	});
   	usuarioDAO.deleteUsuario(req.body.user.usuarioID);
   });
-  /* Devuelve la review del idUsuario en la pelicula idWork*/
-  app.get("/myReview/:idWork/:idUser", function(req, res){
-    //TODO
-    var v = '{"criticaID":97,"usuarioID":92,"obraID":50,"puntuacion":5,"texto":"ac mi eleifend egestas. Sed pharetra, felis","fecha":"2016-12-11T20:46:14.000Z","votos_positivos":null,"votos_totales":null}';
-    res.end(v);
-  });
+  
   app.post("/soulmates", function(req, res) {
   	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows) {
   		if (err) {

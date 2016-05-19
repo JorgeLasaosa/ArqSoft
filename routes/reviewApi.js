@@ -1,4 +1,5 @@
 var reviewRouter = function(app) {
+
 /* Si existe la critica pone la nueva puntuacion,
 sino existe crea la critica, la crea y pone la nueva puntacion.
 Devuelve la nueva critica */
@@ -33,6 +34,7 @@ app.put("/punctuateWork", function(req,res) {
 	res.end();
 });
 
+/* Devuelve las reviews de una obra */
 app.get("/workReviews/:idWork", function(req, res) {
 	var criticaObraDAO = new CriticaObraDAO(function(err, rows) {
 		if (err) {
@@ -47,6 +49,7 @@ app.get("/workReviews/:idWork", function(req, res) {
 	criticaObraDAO.findCriticasByObra(req.params.idWork, "trash");
 });
 
+/* Devuelve las reviews de un usuario */
 app.post("/userReviews", function(req, res) {
 	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows) {
 		if (err) {
@@ -59,5 +62,13 @@ app.post("/userReviews", function(req, res) {
 	});
 	usuarioCriticaObraDAO.findCriticasByUsuario(req.body.usuarioID);
 });
+
+/* Devuelve la review del idUsuario en la pelicula idWork*/
+app.get("/myReview/:idWork/:idUser", function(req, res){
+	//TODO
+	var v = '{"criticaID":97,"usuarioID":92,"obraID":50,"puntuacion":5,"texto":"Este es un texto de prueba","fecha":"2016-12-11T20:46:14.000Z","votos_positivos":null,"votos_totales":null}';
+	res.end(v);
+});
+
 }
 module.exports = reviewRouter;

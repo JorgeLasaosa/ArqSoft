@@ -38,7 +38,7 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
     });
   }
 
-  userReviews = function(){
+  function userReviews(){
     $http.post("/userReviews", {usuarioID: $rootScope.myUser.usuarioID})
   	.success(function(data) {
   		console.log(data);
@@ -50,7 +50,7 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
   	});
   }
 
-  soulMates = function(){
+  function soulMates(){
     $http.post("/soulmates", {usuarioID: $rootScope.myUser.usuarioID})
   	.success(function(soulmates) {
       console.log(soulmates);

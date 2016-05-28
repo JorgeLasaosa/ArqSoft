@@ -41,7 +41,7 @@
           <ul class="nav navbar-nav">
             <!--<li><a href="#about">About</a></li>-->
             <!-- search -->
-            <div class="btn-group" role="group" ng-controller="SearchCtrl">
+            <div class="btn-group" role="group" ng-controller="NavBarCtrl">
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
                   <input type="text" class="form-control" placeholder="Search" ng-model="formData.search_text">
@@ -89,7 +89,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 
     <script src="app.js"></script>
-    <script src="controllers/SearchCtrl.js"></script>
+    <script src="controllers/NavBarCtrl.js"></script>
+    <script src="controllers/SearchResultCtrl.js"></script>
     <script src="controllers/MostRatedCtrl.js"></script>
     <script src="controllers/LoginUsuarioCtrl.js"></script>
     <script src="controllers/RegistrarUsuarioCtrl.js"></script>

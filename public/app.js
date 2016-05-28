@@ -38,7 +38,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 
         .when('/searchResult', {
           templateUrl: 'views/searchResult.html',
-          //controller: 'SearchResultCtrl'
+          controller: 'SearchResultCtrl'
         })
 
         .when('/profile', {

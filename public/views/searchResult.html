@@ -1,5 +1,20 @@
 <div class="container">
-  <div ng-repeat="obra in obras">
+  <h2>Resultados de la búsqueda</h2>
+  <div class="btn-group" role="group">
+    <div><strong>Order by: </strong></div>
+    <button type="button" class="btn btn-default" ng-click="order('fecha_inicio')">Date</button>
+    <span class="sortorder" ng-show="predicate === 'fecha_inicio'" ng-class="{reverse:reverse}"></span>
+
+    <button type="button" class="btn btn-default" ng-click="order('(puntuacion_total/puntuaciones_recibidas)')">Punctuation</button>
+    <span class="sortorder" ng-show="predicate === '(puntuacion_total/puntuaciones_recibidas)'" ng-class="{reverse:reverse}"></span>
+
+    <button type="button" class="btn btn-default" ng-click="order('puntuaciones_recibidas')">Popular</button>
+    <span class="sortorder" ng-show="predicate === 'puntuaciones_recibidas'" ng-class="{reverse:reverse}"></span>
+  </div>
+  <div>
+    </br>
+  </div>
+  <div ng-repeat="obra in obras | orderBy:predicate:reverse">
     <div class="panel panel-default">
       <div class="panel-heading">
         <strong>

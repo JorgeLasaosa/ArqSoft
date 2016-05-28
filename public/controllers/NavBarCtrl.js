@@ -1,4 +1,4 @@
-app.controller('SearchCtrl', function($rootScope, $scope, $http, $location, $timeout) {
+app.controller('NavBarCtrl', function($rootScope, $scope, $http, $location, $timeout) {
     $scope.search = function() {
 		$http.post("/search", $scope.formData)
 			.success(function(data) {

@@ -60,7 +60,7 @@ app.get("/api/userReviews/:idUser", function(req, res) {
 			res.end(JSON.stringify(rows));
 		}
 	});
-	usuarioCriticaObraDAO.findCriticasByUsuario(req.params.usuarioID);
+	usuarioCriticaObraDAO.findCriticasByUsuario(req.params.idUser);
 });
 
 /* Devuelve la review del idUsuario en la pelicula idWork*/

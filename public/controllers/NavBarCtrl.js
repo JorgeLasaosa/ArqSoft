@@ -1,16 +1,18 @@
 app.controller('NavBarCtrl', function($rootScope, $scope, $http, $location, $timeout) {
     $scope.search = function() {
-		$http.post("/search", $scope.formData)
-			.success(function(data) {
-			    console.log(data);
+		$http.get("/api/search/" + $scope.formData.search_field + "/" + $scope.formData.search_text)
+      .then(
+        function(res){
+          console.log(res);
           $location.path("/searchResult");
           $timeout(function(){
-        		$rootScope.obras = data;
+        		$rootScope.obras = res.data;
         	}, 0);
-	        console.log("Post /search successful");
-		  })
-		  .error(function() {
-		     	console.log("Error on post /search");
-		  })
+          console.log("GET /api/search successful");
+        },
+        function(res){
+          console.log("Error on get /api/search");
+        }
+      );
 	  }
 });

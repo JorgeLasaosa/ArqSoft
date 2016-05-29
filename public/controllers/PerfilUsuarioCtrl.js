@@ -1,4 +1,4 @@
-app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $http, $location, $timeout) {
+app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $http, $timeout) {
 
   userReviews = function(){
     $http.get("/api/userReviews/" + $routeParams.userId)
@@ -68,7 +68,7 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $
     .then(
       function(res){
         $timeout(function(){
-          $scope.reviews = res.data;
+          $scope.works = res.data;
         },0);
         console.log("GET /api/userWorks Successful");
       },
@@ -78,10 +78,9 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $
     );
   }
 
-
-  soulMates();
   userReviews();
-  getPublicInfoUser();
+  $timeout(soulMates,0);
+  $timeout(getPublicInfoUser,0);
 
 
 });

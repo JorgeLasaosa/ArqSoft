@@ -1,5 +1,6 @@
 var userRouter = function(app) {
-  app.post("/register", function(req, res) {
+  /* Registrar usuario */
+  app.post("/api/user", function(req, res) {
   	var usuarioDAO = new UsuarioDAO(function(err, rows) {
   		if (err) {
   			console.log(err);
@@ -12,7 +13,8 @@ var userRouter = function(app) {
   	usuarioDAO.insertUsuario(req.body.username, req.body.password, req.body.nombre, req.body.apellidos, req.body.email, null);
   });
 
-  app.post("/login", function(req,res) {
+  /* Login usuario */
+  app.post("/api/login", function(req,res) {
   	var usuarioDAO = new UsuarioDAO(function(err, rows) {
   		if (err) {
   			console.log(err);
@@ -31,7 +33,8 @@ var userRouter = function(app) {
   	usuarioDAO.findUsuario(req.body.username, req.body.password);
   });
 
-  app.post("/update", function(req, res) {
+  /* Acutalizar usuario */
+  app.put("/api/user", function(req, res) {
   	var usuarioDAO = new UsuarioDAO(function(err, rows) {
   		if (err) {
   			console.log(err);
@@ -52,7 +55,8 @@ var userRouter = function(app) {
   	);
   });
 
-  app.post("/delete", function(req, res) {
+  /* Eliminar usuario */
+  app.delete("/api/user", function(req, res) {
   	var usuarioDAO = new UsuarioDAO(function(err, rows) {
   		if (err) {
   			console.log(err);
@@ -65,7 +69,8 @@ var userRouter = function(app) {
   	usuarioDAO.deleteUsuario(req.body.user.usuarioID);
   });
 
-  app.post("/soulmates", function(req, res) {
+  /* Devuelve una lista de usuarios con los que se tiene afinidad */
+  app.get("/api/soulmates/:userID", function(req, res) {
   	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows) {
   		if (err) {
   			console.log(err);
@@ -76,8 +81,8 @@ var userRouter = function(app) {
   			res.end(JSON.stringify(rows));
   		}
   	});
-  	console.log("Soulmates ID user: " + req.body.usuarioID);
-  	usuarioCriticaObraDAO.findAlmasGemelas(req.body.usuarioID);
+  	console.log("Soulmates ID user: " + req.params.userID);
+  	usuarioCriticaObraDAO.findAlmasGemelas(req.params.userID);
   });
 
 }

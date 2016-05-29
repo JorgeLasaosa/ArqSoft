@@ -3,7 +3,7 @@ var reviewRouter = function(app) {
 /* Si existe la critica pone la nueva puntuacion,
 sino existe crea la critica, la crea y pone la nueva puntacion.
 Devuelve la nueva critica */
-app.put("/writeReview", function(req, res) {
+app.post("/api/writeReview", function(req, res) {
 	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows){
 		if(err){
 			console.log(err);
@@ -19,7 +19,7 @@ app.put("/writeReview", function(req, res) {
 
 /* Crea la review escrita, si ya existe, la modifica.
 Devuelve la nueva critica*/
-app.put("/punctuateWork", function(req,res) {
+app.put("/api/punctuateWork", function(req,res) {
 	/*var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows){
 		if(err){
 			console.log(err);
@@ -35,7 +35,7 @@ app.put("/punctuateWork", function(req,res) {
 });
 
 /* Devuelve las reviews de una obra */
-app.get("/workReviews/:idWork", function(req, res) {
+app.get("/api/workReviews/:idWork", function(req, res) {
 	var criticaObraDAO = new CriticaObraDAO(function(err, rows) {
 		if (err) {
 			console.log(err);
@@ -50,7 +50,7 @@ app.get("/workReviews/:idWork", function(req, res) {
 });
 
 /* Devuelve las reviews de un usuario */
-app.post("/userReviews", function(req, res) {
+app.post("/api/userReviews", function(req, res) {
 	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows) {
 		if (err) {
 			console.log(err);
@@ -64,11 +64,13 @@ app.post("/userReviews", function(req, res) {
 });
 
 /* Devuelve la review del idUsuario en la pelicula idWork*/
-app.get("/myReview/:idWork/:idUser", function(req, res){
+app.get("/api/myReview/:idWork/:idUser", function(req, res){
 	//TODO
 	var v = '{"criticaID":97,"usuarioID":92,"obraID":50,"puntuacion":5,"texto":"Este es un texto de prueba","fecha":"2016-12-11T20:46:14.000Z","votos_positivos":null,"votos_totales":null}';
 	res.end(v);
 });
+
+
 
 }
 module.exports = reviewRouter;

@@ -1,6 +1,6 @@
 var workRouter = function(app) {
-
-  app.get("/work/:idWork", function(req, res){
+  /* devuelve la informacion de una obra */
+  app.get("/api/work/:idWork", function(req, res){
   	var obraDAO = new ObraDAO(function(err, rows){
   		if (err) {
   			console.log(err);
@@ -14,13 +14,8 @@ var workRouter = function(app) {
   	obraDAO.findObra(req.params.idWork);
   });
 
-  /* Establece el estado de una pelicula */
-  app.put("/setStateWork", function(req, res) {
-  	//TODO
-  	res.end();
-  });
-
-  app.post("/search", function(req, res) {
+  /* devuelve la lista de obras que coincidan con los parametros */
+  app.get("/api/search/:search_field/:search_text", function(req, res) {
   	var obraDAO = new ObraDAO(function(err, rows) {
           if (err) {
              console.log(err);
@@ -30,22 +25,23 @@ var workRouter = function(app) {
           	res.end(JSON.stringify(rows));
           }
       });
-      var field = req.body.search_field;
+      var field = req.params.search_field;
       if (field == "author") {
-      	obraDAO.findObrasByAutor(req.body.search_text, field);
+      	obraDAO.findObrasByAutor(req.params.search_text, field);
       }
       else if (field == "genre") {
-      	obraDAO.findObrasByGenero(req.body.search_text, field);
+      	obraDAO.findObrasByGenero(req.params.search_text, field);
       }
       else if (field == "cast") {
-      	obraDAO.findObrasByPersonaje(req.body.search_text, field);
+      	obraDAO.findObrasByPersonaje(req.params.search_text, field);
       }
       else {
-      	obraDAO.findObrasByTitulo(req.body.search_text, field);
+      	obraDAO.findObrasByTitulo(req.params.search_text, field);
       }
   });
 
-  app.post("/userWorks", function(req, res){
+  /* devuelve las obras con estado de un usuario */
+  app.get("/api/userWorks/:userID/", function(req, res){
   	var usuarioEstadoObraDAO = new UsuarioEstadoObraDAO(function(err, rows) {
   		if (err) {
   			console.log(err);
@@ -57,17 +53,18 @@ var workRouter = function(app) {
   	});
   	var state = req.body.state;
   	if (state == 'watched') {
-  		usuarioEstadoObraDAO.findObrasByEstado(req.body.usuarioID, 'vista');
+  		usuarioEstadoObraDAO.findObrasByEstado(req.params.userID, 'vista');
   	}
   	else if (state == "watching") {
-  		usuarioEstadoObraDAO.findObrasByEstado(req.body.usuarioID, 'viendo');
+  		usuarioEstadoObraDAO.findObrasByEstado(req.params.userID, 'viendo');
   	}
   	else {
-  		usuarioEstadoObraDAO.findObrasByEstado(req.body.usuarioID, 'pendiente');
+  		usuarioEstadoObraDAO.findObrasByEstado(req.params.userID, 'pendiente');
   	}
   });
 
-  app.post("/mostRated", function(req, res){
+  /* Devuelve una lista de las obras mejores puntuadas */
+  app.get("/api/mostRated", function(req, res){
   	var obraDAO = new ObraDAO(function(err, rows) {
   		if (err) {
   			console.log(err);
@@ -80,7 +77,8 @@ var workRouter = function(app) {
   	obraDAO.findObrasMejorValoradas(10);
   });
 
-  app.post("/mostReviewed", function(req, res){
+  /* Devuelve una lista de las obras con mas criticas */
+  app.get("/api/mostReviewed", function(req, res){
   	var obraDAO = new ObraDAO(function(err, rows) {
   		if (err) {
   			console.log(err);
@@ -91,6 +89,22 @@ var workRouter = function(app) {
   		}
   	});
   	obraDAO.findObrasMasCriticadas(10);
+  });
+
+  /* Establece el estado de una pelicula */
+  app.put("/api/setStateWork/", function(req, res) {
+    var UsuarioEstadoObraDAO = new UsuarioEstadoObraDAO(function(err, rows){
+      if (err) {
+        console.log(err);
+        res.end();
+      }
+      else {
+        //console.log(rows);
+        res.end(JSON.stringify(rows));
+      }
+    });
+    obraDAO.insertEstado(req.body.idUser, req.body.idWork, req.body.state);
+    res.end();
   });
 }
 

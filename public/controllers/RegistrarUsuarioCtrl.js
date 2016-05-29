@@ -1,12 +1,12 @@
 app.controller('RegistrarUsuarioCtrl', function($scope, $http, $location) {
     $scope.register = function() {
-  		$http.post("/register", $scope.formData)
+  		$http.post("/api/user", $scope.formData)
     		.success(function() {
           $location.path("/");
-    			console.log("Post /register Successful");
+    			console.log("POST /api/user Successful");
     		})
     		.error(function() {
-    			console.log("Error on post /register");
+    			console.log("Error on POST /api/user");
     		})
 	  }
 });

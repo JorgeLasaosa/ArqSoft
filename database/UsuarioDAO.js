@@ -18,7 +18,7 @@ function UsuarioDAO(callbackFunction) {
 UsuarioDAO.prototype.insertUsuario = function(username, password, nombre, apellidos, email, imagen) {
 	pool.getConnection(function(err, conn){
 		if (err) throw err;
-		var insert = {nombre_usuario : username, contraseña : password, nombre : nombre, apellidos : apellidos, 
+		var insert = {nombre_usuario : username, contraseña : password, nombre : nombre, apellidos : apellidos,
 			          correo_electronico : email};
 		if (imagen != null) {
 			insert.imagen = imagen;
@@ -39,12 +39,28 @@ UsuarioDAO.prototype.insertUsuario = function(username, password, nombre, apelli
  * Devuelve el usuario que coincide con los datos de identificación. Si los datos son incorrectos
  * devuelve una lista vacía.
  *	username : Nombre de cuenta del usuario.
- *	password : Contraseña de la cuenta del usuario.	 
+ *	password : Contraseña de la cuenta del usuario.
  */
 UsuarioDAO.prototype.findUsuario = function(username, password) {
 	pool.getConnection(function(err, conn) {
 		if (err) throw err;
 		conn.query("select * from Usuario where nombre_usuario = ? AND contraseña = ?", [username, password] , function(err, rows) {
+			if (err) {
+				callback(err, null);
+			}
+			else {
+				callback(null, rows);
+			}
+		});
+		conn.release();
+	});
+}
+
+/* Devuelve el usuario cuyo id coincide */
+UsuarioDAO.prototype.findUsuarioPublico = function(id) {
+	pool.getConnection(function(err, conn) {
+		if (err) throw err;
+		conn.query("select usuarioID, nombre_usuario, nombre, apellidos, correo_electronico, imagen from Usuario where usuarioID = ?", id , function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}
@@ -64,7 +80,7 @@ UsuarioDAO.prototype.findUsuario = function(username, password) {
  * 	new_nombre	: Nuevo nombre del usuario.
  *	new_apellidos : Nuevos apellidos del usuario.
  * 	new_email : Nuevo e-mail del usuario.
- *	new_imagen : Nueva imagen de perfil del usuario.		 
+ *	new_imagen : Nueva imagen de perfil del usuario.
  */
 UsuarioDAO.prototype.updateUsuario = function(usuarioID, new_username, new_password, new_nombre, new_apellidos, new_email, new_imagen) {
 	pool.getConnection(function(err,conn) {
@@ -103,7 +119,7 @@ UsuarioDAO.prototype.updateUsuario = function(usuarioID, new_username, new_passw
 
 /**
  * Elimina un usuario.
- *	usuarioID : ID del usuario a eliminar.	 
+ *	usuarioID : ID del usuario a eliminar.
  */
 UsuarioDAO.prototype.deleteUsuario = function(usuarioID) {
 	pool.getConnection(function(err,conn) {

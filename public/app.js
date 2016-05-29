@@ -22,8 +22,8 @@ var app = angular.module('animeffinity', ['ngRoute']);
 app.config(['$routeProvider', function ($routeProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: '/views/mostRated.html',
-          controller: 'MostRatedCtrl'
+          templateUrl: '/views/principal.html',
+          controller: 'PaginaPrincipalCtrl'
         })
 
         .when('/register', {
@@ -41,7 +41,7 @@ app.config(['$routeProvider', function ($routeProvider) {
           controller: 'SearchResultCtrl'
         })
 
-        .when('/profile', {
+        .when('/user/:userId', {
           templateUrl: 'views/profile.html',
           controller: 'PerfilUsuarioCtrl'
         })

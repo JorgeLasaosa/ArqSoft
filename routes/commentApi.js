@@ -16,7 +16,7 @@ var commentRouter = function(app) {
     });
 
     /* comenta sobra una review */
-    app.post("/api/comment/:idReview/", funtion(req, res){
+    app.post("/api/comment/", function(req, res){
       var comentarioDAO = new ComentarioDAO(function(err, rows){
     		if (err) {
     			console.log(err);
@@ -27,7 +27,7 @@ var commentRouter = function(app) {
     			res.end(JSON.stringify(rows));
     		}
     	});
-    	obraDAO.insertComentario(req.body.idWork, req.params.idReview, req.body.text);
+    	obraDAO.insertComentario(req.body.idWork, req.body.idReview, req.body.text);
     });
 }
 module.exports = commentRouter;

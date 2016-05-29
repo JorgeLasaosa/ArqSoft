@@ -50,7 +50,7 @@ app.get("/api/workReviews/:idWork", function(req, res) {
 });
 
 /* Devuelve las reviews de un usuario */
-app.post("/api/userReviews", function(req, res) {
+app.get("/api/userReviews/:idUser", function(req, res) {
 	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows) {
 		if (err) {
 			console.log(err);
@@ -60,11 +60,11 @@ app.post("/api/userReviews", function(req, res) {
 			res.end(JSON.stringify(rows));
 		}
 	});
-	usuarioCriticaObraDAO.findCriticasByUsuario(req.body.usuarioID);
+	usuarioCriticaObraDAO.findCriticasByUsuario(req.params.usuarioID);
 });
 
 /* Devuelve la review del idUsuario en la pelicula idWork*/
-app.get("/api/myReview/:idWork/:idUser", function(req, res){
+app.get("/api/review/:idWork/:idUser", function(req, res){
 	//TODO
 	var v = '{"criticaID":97,"usuarioID":92,"obraID":50,"puntuacion":5,"texto":"Este es un texto de prueba","fecha":"2016-12-11T20:46:14.000Z","votos_positivos":null,"votos_totales":null}';
 	res.end(v);

@@ -1,79 +1,112 @@
-<!--edit user-->
+<!--info and edit user-->
 <div class="col-md-12">
-  <div class="panel panel-info col-md-offset-3 col-md-6 login-panel">
-    <h2 align="center">Edit user</h2>
-     <div class="panel-body">
-        <form role="form" class="form-horizontal">
-           <div class="form-group">
-              <label class="control-label col-md-5" for="name">Name:</label>
-              <div class="col-md-6">
-                {{myUser.nombre}}
-                 <input id="name" type="text" class="form-control" placeholder="Name" ng-model="formData.nombre"/>
-              </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 align="center">Info user</h2>
+      <div class="panel-body">
+        <div class="form-horizontal">
+          <div class="form-group">
+             <label class="control-label col-md-3" for="email">Name:</label>
+             <div>
+               <p class="form-control-static">{{theUser.nombre}}</p>
+             </div>
            </div>
-
            <div class="form-group">
-              <label class="control-label col-md-5" for="surname">Lastname:</label>
-              <div class="col-md-6">
-                {{myUser.apellidos}}
-                 <input id="surname" type="text" class="form-control" placeholder="Lastname" ng-model="formData.apellidos"/>
+              <label class="control-label col-md-3" for="email">Lastname:</label>
+              <div>
+                <p class="form-control-static">{{theUser.apellidos}}</p>
               </div>
-           </div>
-
-           <div class="form-group">
-              <label class="control-label col-md-5" for="email">Email:</label>
-              <div class="col-md-6">
-                {{myUser.correo_electronico}}
-                 <input id="email" type="text" class="form-control" placeholder="Email" ng-model="formData.email"/>
+            </div>
+            <div class="form-group">
+               <label class="control-label col-md-3" for="email">Email:</label>
+               <div>
+                 <p class="form-control-static">{{theUser.correo_electronico}}</p>
+               </div>
+             </div>
+             <div class="form-group">
+                <label class="control-label col-md-3" for="email">Username:</label>
+                <div>
+                  <p class="form-control-static">{{theUser.nombre_usuario}}</p>
+                </div>
               </div>
-           </div>
+         </div>
+      </div>
+    </div>
 
-           <div class="form-group">
-              <label class="control-label col-md-5" for="username">Username:</label>
-              <div class="col-md-6">
-                <p>{{myUser.nombre_usuario}}</p>
-                <!--<input id="username" type="text" class="form-control" placeholder="Username" disabled/>-->
-              </div>
-           </div>
+    <div class="panel panel-info col-md-6 login-panel">
+      <h2 align="center">Edit user</h2>
+       <div class="panel-body">
+          <form role="form" class="form-horizontal">
+             <div class="form-group">
+                <label class="control-label col-md-5" for="name">Name:</label>
+                <div class="col-md-6">
+                   <input id="name" type="text" class="form-control" placeholder="Name" ng-model="formData.nombre"/>
+                </div>
+             </div>
 
-           <div class="form-group">
-              <label class="control-label col-md-5" for="password1">New password:</label>
-              <div class="col-md-6">
-                 <input id="password1" type="password" class="form-control" placeholder="New password" ng-model="formData.password">
-              </div>
-           </div>
+             <div class="form-group">
+                <label class="control-label col-md-5" for="surname">Lastname:</label>
+                <div class="col-md-6">
 
-           <!--<div class="form-group">
-              <label class="control-label col-md-5" for="password2">Repita contraseña:</label>
-              <div class="col-md-6">
-                 <input id="password2" type="password" class="form-control" placeholder="Repita contraseña">
-              </div>
-           </div>-->
+                   <input id="surname" type="text" class="form-control" placeholder="Lastname" ng-model="formData.apellidos"/>
+                </div>
+             </div>
 
-           <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4" ng-click="update()">Update user</button>
-           <button type="submit" class="btn btn-danger col-md-offset-1 col-md-4" data-toggle="modal" data-target="#myModalToDelete">Delete user</button>
-           <!-- Modal -->
-            <div class="modal fade" id="myModalToDelete" role="dialog">
-              <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Are you sure?</h4>
-                  </div>
-                  <div class="modal-body">
-                    <p>This user will be deleted permanently</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" ng-click="delete()" data-dismiss="modal">Yes</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+             <div class="form-group">
+                <label class="control-label col-md-5" for="email">Email:</label>
+                <div class="col-md-6">
+
+                   <input id="email" type="text" class="form-control" placeholder="Email" ng-model="formData.email"/>
+                </div>
+             </div>
+
+             <!--<div class="form-group">
+                <label class="control-label col-md-5" for="username">Username:</label>
+                <div class="col-md-6">
+                  <p></p>
+                  <input id="username" type="text" class="form-control" placeholder="Username" disabled/>
+                </div>
+             </div>-->
+
+             <div class="form-group">
+                <label class="control-label col-md-5" for="password1">New password:</label>
+                <div class="col-md-6">
+                   <input id="password1" type="password" class="form-control" placeholder="New password" ng-model="formData.password">
+                </div>
+             </div>
+
+             <!--<div class="form-group">
+                <label class="control-label col-md-5" for="password2">Repita contraseña:</label>
+                <div class="col-md-6">
+                   <input id="password2" type="password" class="form-control" placeholder="Repita contraseña">
+                </div>
+             </div>-->
+
+             <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4" ng-click="update()">Update user</button>
+             <button type="submit" class="btn btn-danger col-md-offset-1 col-md-4" data-toggle="modal" data-target="#myModalToDelete">Delete user</button>
+             <!-- Modal -->
+              <div class="modal fade" id="myModalToDelete" role="dialog">
+                <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Are you sure?</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>This user will be deleted permanently</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" ng-click="delete()" data-dismiss="modal">Yes</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- End of modal -->
-        </form>
-     </div>
+              <!-- End of modal -->
+          </form>
+       </div>
+    </div>
   </div>
 </div>
 

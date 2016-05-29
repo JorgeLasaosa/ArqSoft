@@ -1,7 +1,46 @@
-app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $location, $timeout) {
+app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $http, $location, $timeout) {
 
-    $scope.update = function() {
-		$http.post("/update", {user: $rootScope.myUser, formData: $scope.formData})
+  userReviews = function(){
+    $http.get("/api/userReviews/" + $routeParams.userId)
+    .then(
+      function(res){
+        console.log(res);
+        $scope.reviews = res.data;
+      },
+      function(res){
+        console.log("Error on GET /api/userReviews");
+      }
+    );
+  }
+
+  soulMates = function(){
+    $http.get("/api/soulmates/" + $routeParams.userId)
+    .then(
+      function(res){
+        console.log(res);
+        $scope.soulmates = res.data;
+      },
+      function(res){
+        console.log("Error on GET /api/soulmates");
+      }
+    );
+  }
+
+  getPublicInfoUser = function(){
+    $http.get("/api/user/" + $routeParams.userId)
+    .then(
+      function(res){
+        console.log(res);
+        $scope.theUser = res.data;
+      },
+      function(res){
+        console.log("Error on GET /api/soulmates");
+      }
+    );
+  }
+
+  $scope.update = function() {
+		$http.put("/api/user", {user: $rootScope.myUser, formData: $scope.formData})
 		.success(function(loggedUser) {
       		$rootScope.myUser=loggedUser;
 			console.log("Post /update Successful");
@@ -12,7 +51,7 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
 	}
 
 	$scope.delete = function() {
-		$http.post("/delete", {user: $rootScope.myUser})
+		$http.delete("/api/user", {user: $rootScope.myUser})
 		.success(function() {
       		$rootScope.myUser = {};
       		$rootScope.isLogged = false;
@@ -25,49 +64,24 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $http, $locatio
 	}
 
   $scope.userWorks = function() {
-    $http.post("/userWorks", {usuarioID: $rootScope.myUser.usuarioID, state: $scope.selectUserWorks.state})
-    .success(function(userWorks){
-      $scope.works = userWorks;
-      console.log("Post /userWorks Successful");
-      $timeout(function(){
-        $scope.works = userWorks;
-      },0);
-    })
-    .error(function(){
-      console.log("Error on post /userWorks");
-    });
+    $http.get("/api/userWorks/" + $routeParams.userId + "/" +$scope.selectUserWorks.state)
+    .then(
+      function(res){
+        $timeout(function(){
+          $scope.reviews = res.data;
+        },0);
+        console.log("GET /api/userWorks Successful");
+      },
+      function(res){
+        console.log("Error on GET /api/userWorks");
+      }
+    );
   }
 
-  function userReviews(){
-    $http.post("/userReviews", {usuarioID: $rootScope.myUser.usuarioID})
-  	.success(function(data) {
-  		console.log(data);
-      $scope.reviews = data;
-  		console.log("Post /userReviews Successful");
-  	})
-  	.error(function() {
-  		console.log("Error on post /userReviews");
-  	});
-  }
-
-  function soulMates(){
-    $http.post("/soulmates", {usuarioID: $rootScope.myUser.usuarioID})
-  	.success(function(soulmates) {
-      console.log(soulmates);
-      $scope.soulmates = soulmates;
-  		console.log("Post /soulmates Successful");
-      $timeout(function(){
-        $scope.soulmates = soulmates;
-      },0);
-  	})
-  	.error(function() {
-  		console.log("Error on post /soulmates");
-  	});
-  }
 
   soulMates();
   userReviews();
-
+  getPublicInfoUser();
 
 
 });

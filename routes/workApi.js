@@ -41,7 +41,7 @@ var workRouter = function(app) {
   });
 
   /* devuelve las obras con estado de un usuario */
-  app.get("/api/userWorks/:userID/", function(req, res){
+  app.get("/api/userWorks/:userID/:state", function(req, res){
   	var usuarioEstadoObraDAO = new UsuarioEstadoObraDAO(function(err, rows) {
   		if (err) {
   			console.log(err);
@@ -51,7 +51,7 @@ var workRouter = function(app) {
   			res.end(JSON.stringify(rows));
   		}
   	});
-  	var state = req.body.state;
+  	var state = req.params.state;
   	if (state == 'watched') {
   		usuarioEstadoObraDAO.findObrasByEstado(req.params.userID, 'vista');
   	}

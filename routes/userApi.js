@@ -81,8 +81,22 @@ var userRouter = function(app) {
   			res.end(JSON.stringify(rows));
   		}
   	});
-  	console.log("Soulmates ID user: " + req.params.userID);
+  	//console.log("Soulmates ID user: " + req.params.userID);
   	usuarioCriticaObraDAO.findAlmasGemelas(req.params.userID);
+  });
+
+  /* Devuelve la informacion publica de un usuario */
+  app.get("/api/user/:userID", function(req, res) {
+  	var usuarioDAO = new UsuarioDAO(function(err, rows) {
+  		if (err) {
+  			console.log(err);
+  			res.end();
+  		}
+  		else {
+  			res.end(JSON.stringify(rows));
+  		}
+  	});
+  	usuarioDAO.findUsuarioPublico(req.params.userID);
   });
 
 }

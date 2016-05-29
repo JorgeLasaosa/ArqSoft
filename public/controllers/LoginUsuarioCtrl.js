@@ -1,7 +1,7 @@
 app.controller('LoginUsuarioCtrl', function($rootScope, $scope, $http, $location) {
-  
+
     $scope.login = function() {
-		$http.post("/login", $scope.formData)
+		$http.post("/api/login", $scope.formData)
 		.success(function(data) {
       console.log("Post /login Successful");
       if(data.length != 0){

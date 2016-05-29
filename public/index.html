@@ -59,7 +59,7 @@
           </ul>
           <div>
             <ul class="nav navbar-nav navbar-right" ng-if="isLogged" ng-controller="LoginUsuarioCtrl">
-              <li><a href="#/profile"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{myUser.nombre_usuario}}</a></li>
+              <li><a href="#/user/{{myUser.usuarioID}}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{myUser.nombre_usuario}}</a></li>
               <form class="navbar-form navbar-left form-inline" role="search">
                 <button type="submit" class="btn hidden-sm" ng-click="logout()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Log out</button>
               </form>
@@ -91,7 +91,7 @@
     <script src="app.js"></script>
     <script src="controllers/NavBarCtrl.js"></script>
     <script src="controllers/SearchResultCtrl.js"></script>
-    <script src="controllers/MostRatedCtrl.js"></script>
+    <script src="controllers/PaginaPrincipalCtrl.js"></script>
     <script src="controllers/LoginUsuarioCtrl.js"></script>
     <script src="controllers/RegistrarUsuarioCtrl.js"></script>
     <script src="controllers/PerfilUsuarioCtrl.js"></script>

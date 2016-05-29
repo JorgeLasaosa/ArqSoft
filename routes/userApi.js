@@ -64,7 +64,7 @@ var userRouter = function(app) {
   	});
   	usuarioDAO.deleteUsuario(req.body.user.usuarioID);
   });
-  
+
   app.post("/soulmates", function(req, res) {
   	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows) {
   		if (err) {
@@ -72,7 +72,7 @@ var userRouter = function(app) {
   			res.end();
   		}
   		else {
-  			console.log(rows);
+  			//console.log(rows);
   			res.end(JSON.stringify(rows));
   		}
   	});

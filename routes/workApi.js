@@ -7,7 +7,7 @@ var workRouter = function(app) {
   			res.end();
   		}
   		else {
-  			console.log(rows);
+  			//console.log(rows);
   			res.end(JSON.stringify(rows));
   		}
   	});

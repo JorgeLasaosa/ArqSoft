@@ -45,8 +45,31 @@
          </div>
       </div>
     </div>
-    <!-- edit user-->
-    <div ng-if="myUser.usuarioID == theUser[0].usuarioID" class="panel panel-info col-md-6 login-panel">
+    <!-- soulmates-->
+    <div class="col-md-6">
+      <h2 align="center">Soulmates</h2>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="soul in soulmates">
+                <td><a ng-href="#/user/{{soul.usuarioID}}">{{soul.nombre_usuario}}</a></td>
+                <td>{{soul.score}}</td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+
+<!--edit user-->
+<div class="container">
+  <div class="col-md-6 col-md-offset-3">
+    <div ng-if="myUser.usuarioID == theUser[0].usuarioID" class="panel panel-info login-panel">
       <h2 align="center">Edit user</h2>
        <div class="panel-body">
           <form role="form" class="form-horizontal">
@@ -113,30 +136,11 @@
   </div>
 </div>
 
-<!--almas gemelas-->
-<div class="container">
-  <div class="col-md-6 col-md-offset-3">
-    <h2 align="center">Soulmates</h2>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Score</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr ng-repeat="soul in soulmates">
-            <td>{{soul.nombre_usuario}}</td>
-            <td>{{soul.score}}</td>
-          </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
 <!-- works and reviews -->
 <div class="container">
   <div class="row">
+
+    <!--works-->
     <div class="col-md-6">
       <h2 align="center">Works</h2>
       <div class="btn-group" role="group">
@@ -155,29 +159,43 @@
       <div>
         </br>
       </div>
+
       <div ng-repeat="work in works">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4>{{work.titulo}}</h4>
+            <strong>
+              <a ng-href="#/work/{{work.obraID}}">{{work.titulo}}</a>
+            </strong>
           </div>
           <div class="panel-body">
-            <p>{{work.sinopsis}}</p>
+            <strong>Sinopsis: </strong>{{work.sinopsis}}
           </div>
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Date: </strong>{{work.fecha_inicio}}-{{work.fecha_fin}}</li>
+            <li class="list-group-item"><strong>Score: </strong>
+              <div data-ng-repeat="i in [1,2,3,4,5]" ng-init="puntuacion = (work.puntuacion_total/work.puntuaciones_recibidas)" style="display: inline">
+                <span ng-if="i<=puntuacion" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <span ng-if="i>puntuacion" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
+
+    <!--reviews-->
     <div class="col-md-6">
       <h2 align="center">Reviews</h2>
       <div ng-repeat="review in reviews">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4>Title: {{review.titulo}}</h4>
+            <strong>Title: </strong> {{review.titulo}}
           </div>
           <div class="panel-body">
             <strong>Text: </strong>{{review.texto}}
           </div>
           <ul class="list-group">
-            <li class="list-group-item"><strong>Work id: </strong>{{review.obraID}}</li>
+            <li class="list-group-item"><strong>Work: <a ng-href="#/work/{{review.obraID}}">Ir a la obra</a>
             <li class="list-group-item"><strong>Date: </strong>{{review.fecha}}</li>
             <li class="list-group-item"><strong>Score: </strong>
               <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">

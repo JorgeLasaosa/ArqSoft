@@ -82,20 +82,20 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
   }
 
   $scope.punctuateWork = function(){
-    $http.put("/api/punctuateWork/",{usuarioID: $rootScope.myUser.usuarioID,
+    $http.put("/api/punctuateWork/",{userID: $rootScope.myUser.usuarioID,
       workID: $routeParams.workId, punctuation: $scope.punctuation})
     .success(function(){
       $timeout(getMyReview, 0);
-      console.log("Post /punctuateWork Successful");
+      console.log("PUT /api/punctuateWork Successful");
     })
     .error(function(){
-      console.log("Error on post /punctuateWork");
+      console.log("Error on PUT /api/punctuateWork");
     });
   }
 
   $scope.writeReview = function(){
     $http.post("/api/writeReview", {userID: $rootScope.myUser.usuarioID,
-      workID: $routeParams.workId, textReview: $scope.textReview, punctuation: null}) //TODO modificar para no necesitar el punctuation
+      workID: $routeParams.workId, textReview: $scope.textReview, punctuation: $scope.punctuation}) //TODO modificar para no necesitar el punctuation
     .success(function(myReview){
       //$scope.myReview = myReview;
       $timeout(getReviewsOfWork,0);

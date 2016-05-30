@@ -52,8 +52,25 @@ UsuarioCriticaObraDAO.prototype.findCriticasByObraUsuario = function(obraID, usu
 UsuarioCriticaObraDAO.prototype.insertCritica = function(usuarioID, obraID, texto, puntuacion) {
 	pool.getConnection(function(err, conn) {
 		if (err) throw err;
-		var insert = {usuarioID : usuarioID, obraID : obraID, texto : texto, puntuacion : puntuacion};
+		var insert = {usuarioID : usuarioID, obraID : obraID, texto : texto,
+			puntuacion: puntuacion, fecha: new Date(), votos_positivos: 0, votos_totales: 0};
 		conn.query("insert into Critica set ?", insert, function(err, rows) {
+			if (err) {
+				callback(err, null);
+			}
+			else {
+				callback(null, rows);
+			}
+		});
+		conn.release();
+	});
+}
+
+UsuarioCriticaObraDAO.prototype.updatePuntuacion = function(usuarioID, obraID, puntuacion) {
+	pool.getConnection(function(err, conn) {
+		if (err) throw err;
+		var insert = {usuarioID : usuarioID, obraID : obraID, puntuacion : puntuacion};
+		conn.query("update Critica set puntuacion = ? where usuarioID = ? and obraID = ?", [puntuacion, usuarioID, obraID], function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}

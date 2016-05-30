@@ -46,33 +46,24 @@
           </tr>
           <tr ng-if="isLogged">
             <td>
-              <strong>Punctuate</strong>
+              <strong>Edit your puntuation</strong>
             </td>
             <td>
-              <div class="btn-group" role="group">
-                <form role="search" class="form-inline">
-                  <div class="form-group">
-                    <select class="form-control" ng-model="$parent.punctuation">
-                      <option selected="selected" value="1">
-                        1 star
-                      </option>
-                      <option value="2">
-                        2 stars
-                      </option>
-                      <option value="3">
-                        3 stars
-                      </option>
-                      <option value="4">
-                        4 stars
-                      </option>
-                      <option value="5">
-                        5 stars
-                      </option>
-                    </select>
-                  </div>
-                  <button type="submit" class="btn btn-default" ng-click="punctuateWork()">Vote</button>
-                </form>
-              </div>
+              <form role="search" class="form-inline">
+                <select class="form-control" ng-model="$parent.punctuation">
+                  <option value="1">1 star</option>
+                  <option value="2">2 stars</option>
+                  <option selected="selected" value="3">3 stars</option>
+                  <option value="4">4 stars</option>
+                  <option value="5">5 stars</option>
+                </select>
+
+                <button type="submit" class="btn btn-default" ng-click="punctuateWork()">Add review</button>
+              </form>
+
+
+
+
             </td>
           </tr>
           <tr ng-if="isLogged">
@@ -80,15 +71,15 @@
               <strong>Your puntuation</strong>
             </td>
             <td>
-              <div ng-if="myReview.puntuacion == null">
+              <div ng-if="myReview[0].puntuacion == null">
                 <!-- no hay review -->
                 <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
               </div>
-              <div ng-if="myReview.puntuacion != null">
+              <div ng-if="myReview[0].puntuacion != null">
                 <!-- si hay review -->
                 <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">
-                  <span style="font-size:2.0em;" ng-if="i<=(myReview.puntuacion)" class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  <span style="font-size:2.0em;" ng-if="i>(myReview.puntuacion)" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                  <span style="font-size:2.0em;" ng-if="i<=(myReview[0].puntuacion)" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  <span style="font-size:2.0em;" ng-if="i>(myReview[0].puntuacion)" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                 </div>
               </div>
             </td>
@@ -144,12 +135,64 @@
     <div class="col-md-8">
       <div ng-if="isLogged">
         <h2>Your review</h2>
-        <div class="well well-sm">{{myReview.texto}}</div>
-        <form>
-          <textarea placeholder="Write here your review" rows="5" type="text" class="form-control" ng-model="$parent.textReview"></textarea>
-          <br/>
-          <button type="submit" class="btn btn-default" ng-click="writeReview()">Add / modify review</button>
-        </form>
+        <div ng-if="myReview[0] != null">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <strong>User id: {{myReview[0].usuarioID}}</strong>
+            </div>
+            <div class="panel-body">
+              <strong>Text: </strong>{{myReview[0].texto}}
+            </div>
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Date: </strong>{{myReview[0].fecha}}</li>
+              <li class="list-group-item"><strong>Score: </strong>
+                <div ng-if="myReview[0].puntuacion != null">
+                  <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">
+                    <span ng-if="i<=myReview[0].puntuacion" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span ng-if="i>myReview[0].puntuacion" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                  </div>
+                </div>
+                <div ng-if="myReview[0].puntuacion == null">
+                  <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <strong>
+                  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> /
+                  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>:
+                </strong>
+                {{myReview[0].votos_positivos}} / {{myReview[0].votos_totales-review.votospositivos}}
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <div ng-if="myReview[0] == null">
+          <form>
+            <textarea placeholder="Write here your review" rows="5" type="text" class="form-control" ng-model="$parent.$parent.textReview"></textarea>
+            <br/>
+
+            <select class="form-control" ng-model="$parent.$parent.punctuation">
+              <option value="1">
+                1 star
+              </option>
+              <option value="2">
+                2 stars
+              </option>
+              <option selected="selected" value="3">
+                3 stars
+              </option>
+              <option value="4">
+                4 stars
+              </option>
+              <option value="5">
+                5 stars
+              </option>
+            </select>
+
+            <button type="submit" class="btn btn-default" ng-click="writeReview()">Add review</button>
+          </form>
+        </div>
       </div>
       <h2>Reviews</h2>
 
@@ -215,7 +258,7 @@
                 <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                  Hide comments
                </button>
-              <button type="submit" class="btn btn-default" ng-click="verCommentario = true;">
+              <button type="submit" class="btn btn-default" ng-click="verCommentario = true;" ng-disabled="!isLogged">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                  I want comment

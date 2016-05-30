@@ -10,7 +10,7 @@ app.post("/api/writeReview", function(req, res) {
 			res.end();
 		}
 		else {
-			res.end(JSON.stringify(rows)); //TODO no devuelve nada
+			res.end(JSON.stringify(rows));
 		}
 	});
 	usuarioCriticaObraDAO.insertCritica(req.body.userID, req.body.workID, req.body.textReview, req.body.punctuation);
@@ -20,18 +20,16 @@ app.post("/api/writeReview", function(req, res) {
 /* Crea la review escrita, si ya existe, la modifica.
 Devuelve la nueva critica*/
 app.put("/api/punctuateWork", function(req,res) {
-	/*var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows){
+	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows){
 		if(err){
 			console.log(err);
 			res.end();
 		}
 		else {
-			res.end(); //TODO no devuelve nada
+			res.end(JSON.stringify(rows));
 		}
 	});
-	usuarioCriticaObraDAO.insertPuntuacion(req.body.userID, req.body.workID, req.body.textReview, req.body.punctuation);
-	*/
-	res.end();
+	usuarioCriticaObraDAO.updatePuntuacion(req.body.userID, req.body.workID, req.body.punctuation);
 });
 
 /* Devuelve las reviews de una obra */

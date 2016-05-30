@@ -15,8 +15,7 @@ function ComentarioDAO(callbackFunction) {
 ComentarioDAO.prototype.insertComentario = function(usuarioID, criticaID, texto) {
 	pool.getConnection(function(err,conn) {
 		var insert = {usuarioID : usuarioID, criticaID : criticaID, texto : texto, fecha : new Date()};
-		conn.query("insert into Comentar set ?", insert, function(err, rows) {
-			conn.release();
+		conn.query("insert into comentar set ?", insert, function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}
@@ -24,6 +23,7 @@ ComentarioDAO.prototype.insertComentario = function(usuarioID, criticaID, texto)
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 

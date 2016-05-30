@@ -7,6 +7,7 @@ var express = require("express");
 	UsuarioCriticaDAO = require("./database/UsuarioCriticaDAO.js");
 	UsuarioEstadoObraDAO = require("./database/UsuarioEstadoObraDAO.js");
 	CriticaObraDAO = require("./database/CriticaObraDAO.js");
+	ComentarioDAO = require("./database/ComentarioDAO.js");
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json

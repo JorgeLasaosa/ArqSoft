@@ -12,7 +12,7 @@ var commentRouter = function(app) {
     			res.end(JSON.stringify(rows));
     		}
     	});
-    	obraDAO.findComentariosByCritica(req.params.idReview);
+    	comentarioDAO.findComentariosByCritica(req.params.idReview);
     });
 
     /* comenta sobra una review */
@@ -27,7 +27,7 @@ var commentRouter = function(app) {
     			res.end(JSON.stringify(rows));
     		}
     	});
-    	obraDAO.insertComentario(req.body.workID, req.body.reviewID, req.body.text);
+    	comentarioDAO.insertComentario(req.body.userID, req.body.reviewID, req.body.text);
     });
 }
 module.exports = commentRouter;

@@ -52,6 +52,35 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
     );
   }
 
+  $scope.comments = new Array();
+  $scope.showComments = function(reviewID){
+    $http.get("/api/comment/" + reviewID)
+    .then(
+      function(res){
+        console.log(res);
+        $scope.comments[reviewID] = res.data;
+      },
+      function(res){
+        console.log("WorkReviews not works");
+      }
+    );
+  }
+
+  $scope.hideComments = function(reviewID){
+    $scope.comments[reviewID] = null;
+  }
+
+  $scope.writeComment = function(reviewID){
+    $http.post("/api/comment", {userID: $rootScope.myUser.usuarioID,
+      reviewID: reviewID, text: $scope.textComment})
+    .success(function(myComment){
+      console.log("POST /api/writeComment successful");
+    })
+    .error(function(){
+      console.log("Error on POST /api/writeComment");
+    });
+  }
+
   $scope.punctuateWork = function(){
     $http.put("/api/punctuateWork/",{usuarioID: $rootScope.myUser.usuarioID,
       workID: $routeParams.workId, punctuation: $scope.punctuation})

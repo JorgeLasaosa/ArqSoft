@@ -93,7 +93,7 @@ var workRouter = function(app) {
 
   /* Establece el estado de una pelicula */
   app.put("/api/setStateWork/", function(req, res) {
-    var UsuarioEstadoObraDAO = new UsuarioEstadoObraDAO(function(err, rows){
+    var usuarioEstadoObraDAO = new UsuarioEstadoObraDAO(function(err, rows){
       if (err) {
         console.log(err);
         res.end();
@@ -103,8 +103,22 @@ var workRouter = function(app) {
         res.end(JSON.stringify(rows));
       }
     });
-    obraDAO.insertEstado(req.body.idUser, req.body.idWork, req.body.state);
+    usuarioEstadoObraDAO.updateEstado(req.body.userID, req.body.workID, req.body.state);
     res.end();
+  });
+
+  /* Devuelve el estado de un usuario sobre una pelicula */
+  app.get("/api/state/:userID/:workID", function(req, res){
+  	var usuarioEstadoObraDAO = new UsuarioEstadoObraDAO(function(err, rows) {
+  		if (err) {
+  			console.log(err);
+  			res.end();
+  		}
+  		else {
+  			res.end(JSON.stringify(rows));
+  		}
+  	});
+  	usuarioEstadoObraDAO.findEstadoByObraUsuario(req.params.userID, req.params.workID);
   });
 }
 

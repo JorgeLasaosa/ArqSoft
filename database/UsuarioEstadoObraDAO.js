@@ -7,16 +7,43 @@ function UsuarioEstadoObraDAO(callbackFunction) {
 }
 
 /**
- * Inserta el estado de un usuario respecto a una obra.
+ * Reemplaza o elimina el estado de un usuario respecto a una obra.
  *	usuarioID : ID del usuario que establece estado a una obra.
  *	obraID : ID de la obra a la que se le establece el estado.
- *	estado : Estado a establecer ({vista, viendo, pendiente})		 
+ *	estado : Estado a establecer ({no_vista, vista, viendo, pendiente})
  */
-UsuarioEstadoObraDAO.prototype.insertEstado = function(usuarioID, obraID, estado) {
+UsuarioEstadoObraDAO.prototype.updateEstado = function(usuarioID, obraID, estado) {
 	pool.getConnection(function(err, conn){
 		if (err) throw err;
-		var insert = {usuarioID : usuarioID, obraID : obraID, estado : estado};
-		conn.query("insert into Establecer set ?" + query, function(err, rows) {
+		if(estado == "no_vista"){
+			conn.query("delete from establecer where usuarioID = ? AND obraID = ?", [usuarioID, obraID], function(err, rows) {
+				if (err) {
+					callback(err, null);
+				}
+				else {
+					callback(null, rows);
+				}
+			});
+			conn.release();
+		}else{
+			var query = {usuarioID : usuarioID, obraID : obraID, estado : estado};
+			conn.query("replace into Establecer set ?", query, function(err, rows) {
+				if (err) {
+					callback(err, null);
+				}
+				else {
+					callback(null, rows);
+				}
+			});
+			conn.release();
+		}
+	});
+}
+
+UsuarioEstadoObraDAO.prototype.findEstadoByObraUsuario = function(usuarioID, obraID) {
+	pool.getConnection(function(err, conn){
+		if(err) throw err;
+		conn.query("select * from Establecer where usuarioID = ? AND obraID = ?", [usuarioID, obraID],function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}
@@ -31,7 +58,7 @@ UsuarioEstadoObraDAO.prototype.insertEstado = function(usuarioID, obraID, estado
 /**
  * Devuelve la lista de obras que el usuario ha marcado con un cierto estado.
  * 	usuarioID : ID del usuario del que se quiere obtener las obras marcadas.
- *	estado : Estado que se quiere buscar en las obras.	 
+ *	estado : Estado que se quiere buscar en las obras.
  */
 UsuarioEstadoObraDAO.prototype.findObrasByEstado = function(usuarioID, estado) {
 	pool.getConnection(function(err, conn){

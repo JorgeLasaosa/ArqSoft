@@ -15,6 +15,37 @@
         <tbody>
           <tr ng-if="isLogged">
             <td>
+              <strong>State</strong>
+            </td>
+            <td ng-if="myState[0] == null">
+              no vista
+            </td>
+            <td ng-if="myState[0] != null">
+              {{myState[0].estado}}
+            </td>
+          </tr>
+          <tr ng-if="isLogged">
+            <td>
+              <strong>State</strong>
+            </td>
+            <td>
+              <div class="btn-group" role="group">
+                <form role="search" class="form-inline">
+                  <div class="form-group">
+                    <select class="form-control" ng-model="$parent.state">
+                      <option value="no_vista">No vista</option>
+                      <option value="vista">Vista</option>
+                      <option value="viendo">Viendo</option>
+                      <option value="pendiente">Pendiente</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-default" ng-click="setStateWorkAs()">Set state</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          <tr ng-if="isLogged">
+            <td>
               <strong>Punctuate</strong>
             </td>
             <td>
@@ -121,7 +152,26 @@
         </form>
       </div>
       <h2>Reviews</h2>
-      <div ng-repeat="review in reviews">
+
+      <div class="btn-group" role="group">
+        <div><strong>Order by: </strong></div>
+        <button type="button" class="btn btn-default" ng-click="order('fecha')">Fecha</button>
+        <span class="sortorder" ng-show="predicate === 'fecha'" ng-class="{reverse:reverse}"></span>
+
+        <button type="button" class="btn btn-default" ng-click="order('votos_positivos')">Votos positivos</button>
+        <span class="sortorder" ng-show="predicate === 'votos_positvos'" ng-class="{reverse:reverse}"></span>
+
+        <button type="button" class="btn btn-default" ng-click="order('votos_totales')">Votos</button>
+        <span class="sortorder" ng-show="predicate === 'votos_totales'" ng-class="{reverse:reverse}"></span>
+
+        <button type="button" class="btn btn-default" ng-click="order('puntuacion')">Puntuacion</button>
+        <span class="sortorder" ng-show="predicate === 'puntuacion'" ng-class="{reverse:reverse}"></span>
+      </div>
+      <div>
+        </br>
+      </div>
+
+      <div ng-repeat="review in reviews | orderBy:predicate:reverse">
         <div class="panel panel-default">
           <div class="panel-heading">
             <strong>User id: {{review.usuarioID}}</strong>
@@ -130,7 +180,6 @@
             <strong>Text: </strong>{{review.texto}}
           </div>
           <ul class="list-group">
-            <li class="list-group-item"><strong>Work id: </strong>{{review.obraID}}</li>
             <li class="list-group-item"><strong>Date: </strong>{{review.fecha}}</li>
             <li class="list-group-item"><strong>Score: </strong>
               <div ng-if="review.puntuacion != null">
@@ -142,6 +191,18 @@
               <div ng-if="review.puntuacion == null">
                 <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
               </div>
+            </li>
+            <li class="list-group-item">
+              <strong>
+                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> /
+                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>:
+              </strong>
+              {{review.votos_positivos}} / {{review.votos_totales-review.votospositivos}}
+            </li>
+            <li class="list-group-item" ng-if="isLogged">
+              <button type="submit" class="btn btn-default" ng-click="voteReview(review.criticaID,1)"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
+              <button type="submit" class="btn btn-default" ng-click="voteReview(review.criticaID,0)">0</button>
+              <button type="submit" class="btn btn-default" ng-click="voteReview(review.criticaID,-1)"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
             </li>
           </ul>
         </div>

@@ -2,51 +2,59 @@
 <div class="col-md-12">
   <div class="row">
     <!-- info user-->
-    <div class="col-md-6">
+    <div class="col-md-8">
       <h2 align="center">Info user</h2>
       <div class="panel-body">
-        <div class="form-horizontal">
-          <div class="form-group">
-             <label class="control-label col-md-3" for="email">Id:</label>
-             <div>
-               <p class="form-control-static">{{theUser[0].usuarioID}}</p>
-             </div>
-           </div>
-          <div class="form-group">
-             <label class="control-label col-md-3" for="email">Name:</label>
-             <div>
-               <p class="form-control-static">{{theUser[0].nombre}}</p>
-             </div>
-           </div>
-           <div class="form-group">
-              <label class="control-label col-md-3" for="email">Lastname:</label>
-              <div>
-                <p class="form-control-static">{{theUser[0].apellidos}}</p>
-              </div>
-            </div>
+        <div class = "col-md-3">
+          <div ng-if="theUser[0].imagen != null">
+            <img ng-src="{{theUser[0].imagen}}" class="img-thumbnail" alt="Cinque Terre" width="200" height="200">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-horizontal">
             <div class="form-group">
-               <label class="control-label col-md-3" for="email">Email:</label>
+               <label class="control-label" for="email">Id:</label>
                <div>
-                 <p class="form-control-static">{{theUser[0].correo_electronico}}</p>
+                 <p class="form-control-static">{{theUser[0].usuarioID}}</p>
+               </div>
+             </div>
+            <div class="form-group">
+               <label class="control-label" for="email">Name:</label>
+               <div>
+                 <p class="form-control-static">{{theUser[0].nombre}}</p>
                </div>
              </div>
              <div class="form-group">
-                <label class="control-label col-md-3" for="email">Username:</label>
+                <label class="control-label" for="email">Lastname:</label>
                 <div>
-                  <p class="form-control-static">{{theUser[0].nombre_usuario}}</p>
+                  <p class="form-control-static">{{theUser[0].apellidos}}</p>
                 </div>
               </div>
               <div class="form-group">
-                 <label class="control-label col-md-3" for="email">Imagen:</label>
+                 <label class="control-label" for="email">Email:</label>
                  <div>
-                   <p class="form-control-static">{{theUser[0].imagen}}</p>
+                   <p class="form-control-static">{{theUser[0].correo_electronico}}</p>
                  </div>
                </div>
+               <div class="form-group">
+                  <label class="control-label" for="email">Username:</label>
+                  <div>
+                    <p class="form-control-static">{{theUser[0].nombre_usuario}}</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                   <label class="control-label" for="email">Imagen:</label>
+                   <div>
+                     <p class="form-control-static">{{theUser[0].imagen}}</p>
+                   </div>
+                 </div>
+          </div>
+          </div>
          </div>
       </div>
-    </div>
+
     <!-- soulmates-->
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h2 align="center">Soulmates</h2>
         <table class="table table-bordered">
           <thead>
@@ -64,7 +72,7 @@
         </table>
     </div>
   </div>
-</div>
+  </div>
 
 <!--edit user-->
 <div class="container">

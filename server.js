@@ -4,6 +4,7 @@ var express = require("express");
 	ObraDAO = require("./database/ObraDAO.js");
 	UsuarioDAO = require("./database/UsuarioDAO.js");
 	UsuarioCriticaObraDAO = require("./database/UsuarioCriticaObraDAO.js");
+	UsuarioCriticaDAO = require("./database/UsuarioCriticaDAO.js");
 	UsuarioEstadoObraDAO = require("./database/UsuarioEstadoObraDAO.js");
 	CriticaObraDAO = require("./database/CriticaObraDAO.js");
 

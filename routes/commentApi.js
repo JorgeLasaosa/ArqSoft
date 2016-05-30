@@ -27,7 +27,7 @@ var commentRouter = function(app) {
     			res.end(JSON.stringify(rows));
     		}
     	});
-    	obraDAO.insertComentario(req.body.idWork, req.body.idReview, req.body.text);
+    	obraDAO.insertComentario(req.body.workID, req.body.reviewID, req.body.text);
     });
 }
 module.exports = commentRouter;

@@ -10,16 +10,13 @@ function UsuarioCriticaDAO(callbackFunction) {
  * Votar una crtítica.
  *	usuarioID : ID del usuario que vota.
  *	criticaID : ID de la crítica que se vota.
- *	voto : Voto asignado ({-1, 0, 1}).	 
+ *	voto : Voto asignado ({-1, 0, 1}).
  */
 UsuarioCriticaDAO.prototype.insertVotoCritica = function(usuarioID, criticaID, voto) {
 	pool.getConnection(function(err, conn){
 		var auxVoto;
-		if (voto !== 1 && voto !== -1 ) {
-			auxVoto = 0;
-		}
-		var insert = {usuarioID : usuarioID, criticaID : criticaID, voto : auxVoto};
-		conn.query("insert into Votar set ?", function(err, rows) {
+		var query = {usuarioID : usuarioID, criticaID : criticaID, voto : voto};
+		conn.query("replace into votar set ?",query, function(err, rows) {
 			conn.release();
 			if (err) {
 				callback(err, null);

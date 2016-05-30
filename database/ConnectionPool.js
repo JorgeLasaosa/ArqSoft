@@ -4,7 +4,8 @@ var pool  = mysql.createPool({
     host     : '85.251.93.32'/*'85.251.93.32'*/,
     user     : 'jorge',
     password : 'jorge',
-    database : 'arqsoft'
+    database : 'arqsoft',
+    multipleStatements: true
 });
 
 exports.getConnection = function(callback) {

@@ -26,6 +26,22 @@ UsuarioCriticaObraDAO.prototype.findCriticasByUsuario = function(usuarioID) {
 	});
 }
 
+/* Devuelve la lista de la critica de ese usuario en esa obra */
+UsuarioCriticaObraDAO.prototype.findCriticasByObraUsuario = function(obraID, usuarioID) {
+	pool.getConnection(function(err, conn){
+		if (err) throw err;
+		conn.query("select * from Critica where obraID = ? AND usuarioID = ?", [obraID, usuarioID], function(err, rows) {
+			if (err) {
+				callback(err, null);
+			}
+			else {
+				callback(null, rows);
+			}
+		});
+		conn.release();
+	});
+}
+
 /**
  * Inserta una crítica.
  *	usuarioID : ID del usuario que realiza la crítica.

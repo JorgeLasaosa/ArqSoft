@@ -21,7 +21,7 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
         $scope.reviews = res.data;
       },
       function(res){
-        console.log("WorkReviews not works");
+        console.log("GET /api/workReviews not works");
       }
     );
   }
@@ -32,6 +32,19 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
       function(res){
         console.log(res);
         $scope.myReview = res.data;
+      },
+      function(res){
+        console.log("GET /api/review not works");
+      }
+    );
+  }
+
+  getMyState = function(){
+    $http.get("/api/state/" + $rootScope.myUser.usuarioID + "/" + $routeParams.workId)
+    .then(
+      function(res){
+        console.log(res);
+        $scope.myState = res.data;
       },
       function(res){
         console.log("WorkReviews not works");
@@ -51,10 +64,6 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
     });
   }
 
-  $scope.setWorkAs = function(){
-
-  }
-
   $scope.writeReview = function(){
     $http.post("/api/writeReview", {userID: $rootScope.myUser.usuarioID,
       workID: $routeParams.workId, textReview: $scope.textReview, punctuation: null}) //TODO modificar para no necesitar el punctuation
@@ -70,11 +79,44 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
     });
   }
 
+  $scope.setStateWorkAs = function(){
+    $http.put("/api/setStateWork", {userID: $rootScope.myUser.usuarioID,
+      workID: $routeParams.workId, state: $scope.state})
+    .success(function(myReview){
+      //Actualizar mi review
+      $timeout(getMyState,0);
+      console.log("PUT /api/setStateWork successful");
+    })
+    .error(function(){
+      console.log("Error on PUT /api/setStateWork");
+    });
+  }
+
+  $scope.predicate = 'fecha';
+  $scope.reverse = true;
+  $scope.order = function(predicate) {
+    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+    $scope.predicate = predicate;
+  };
+
+  $scope.voteReview = function(reviewID, voto){
+    console.log(voto);
+    $http.put("/api/voteReview", {userID: $rootScope.myUser.usuarioID,
+      reviewID: reviewID, vote: voto})
+    .success(function(myReview){
+      console.log("PUT /api/voteReview successful");
+    })
+    .error(function(){
+      console.log("Error on PUT /api/voteReview");
+    });
+  }
+
   getWork();
-  getReviewsOfWork();
+  $timeout(getReviewsOfWork,0);
 
   if($rootScope.isLogged){
-    getMyReview();
+    $timeout(getMyReview,0);
+    getMyState();
   }
 
 });

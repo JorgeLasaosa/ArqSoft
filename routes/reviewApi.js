@@ -65,9 +65,30 @@ app.get("/api/userReviews/:idUser", function(req, res) {
 
 /* Devuelve la review del idUsuario en la pelicula idWork*/
 app.get("/api/review/:idWork/:idUser", function(req, res){
-	//TODO
-	var v = '{"criticaID":97,"usuarioID":92,"obraID":50,"puntuacion":5,"texto":"Este es un texto de prueba","fecha":"2016-12-11T20:46:14.000Z","votos_positivos":null,"votos_totales":null}';
-	res.end(v);
+	var usuarioCriticaObraDAO = new UsuarioCriticaObraDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+			res.end();
+		}
+		else {
+			res.end(JSON.stringify(rows));
+		}
+	});
+	usuarioCriticaObraDAO.findCriticasByObraUsuario(req.params.idWork, req.params.idUser);
+});
+
+/* Modifica o inserta un voto de una critica */
+app.put("/api/voteReview/", function(req, res){
+	var usuarioCriticaDAO = new UsuarioCriticaDAO(function(err, rows) {
+		if (err) {
+			console.log(err);
+			res.end();
+		}
+		else {
+			res.end(JSON.stringify(rows));
+		}
+	});
+	usuarioCriticaDAO.insertVotoCritica(req.body.userID, req.body.reviewID, req.body.vote);
 });
 
 

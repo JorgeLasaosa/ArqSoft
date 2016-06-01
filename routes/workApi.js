@@ -14,6 +14,45 @@ var workRouter = function(app) {
   	obraDAO.findObra(req.params.idWork);
   });
 
+  app.get("/api/work/characters/:idWork", function(req, res){
+    var obraDAO = new ObraDAO(function(err, rows){
+      if (err) {
+        console.log(err);
+        res.end();
+      }
+      else {
+        res.end(JSON.stringify(rows));
+      }
+    });
+    obraDAO.findPersonajesByObra(req.params.idWork);
+  });
+
+  app.get("/api/work/authors/:idWork", function(req, res){
+    var obraDAO = new ObraDAO(function(err, rows){
+      if (err) {
+        console.log(err);
+        res.end();
+      }
+      else {
+        res.end(JSON.stringify(rows));
+      }
+    });
+    obraDAO.findAutoresByObra(req.params.idWork);
+  });
+
+  app.get("/api/work/genres/:idWork", function(req, res){
+    var obraDAO = new ObraDAO(function(err, rows){
+      if (err) {
+        console.log(err);
+        res.end();
+      }
+      else {
+        res.end(JSON.stringify(rows));
+      }
+    });
+    obraDAO.findGenerosByObra(req.params.idWork);
+  });
+
   /* devuelve la lista de obras que coincidan con los parametros */
   app.get("/api/search/:search_field/:search_text", function(req, res) {
   	var obraDAO = new ObraDAO(function(err, rows) {
@@ -120,6 +159,7 @@ var workRouter = function(app) {
   	});
   	usuarioEstadoObraDAO.findEstadoByObraUsuario(req.params.userID, req.params.workID);
   });
+
 }
 
 module.exports = workRouter;

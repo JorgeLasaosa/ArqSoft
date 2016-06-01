@@ -136,8 +136,7 @@ ObraDAO.prototype.findObrasByAutor = function(search, orderBy) {
 ObraDAO.prototype.findObra = function(obraID) {
 	pool.getConnection(function(err,conn) {
 		if (err) throw err;
-		conn.query("select * from obra ob, crear cr, autor au, tener te, genero ge," +
-		" aparecer ap, personaje per, pewhere obraID = ?", [obraID], function(err, rows) {
+		conn.query("select * from obra where obraID = ?", [obraID], function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}
@@ -207,6 +206,7 @@ ObraDAO.prototype.findPersonajesByObra = function(obraID) {
 	 });
 	 conn.release();
  });
+ }
 
  /**
   * Devuelve los autores de una obra
@@ -226,6 +226,7 @@ ObraDAO.prototype.findPersonajesByObra = function(obraID) {
  	 });
  	 conn.release();
   });
+}
 
 	/**
 	 * Devuelve los generos de una obra
@@ -245,5 +246,6 @@ ObraDAO.prototype.findPersonajesByObra = function(obraID) {
 		 });
 		 conn.release();
 	 });
+ }
 
 module.exports = ObraDAO;

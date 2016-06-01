@@ -61,9 +61,6 @@
                 <button type="submit" class="btn btn-default" ng-click="punctuateWork()">Add review</button>
               </form>
 
-
-
-
             </td>
           </tr>
           <tr ng-if="isLogged">
@@ -130,6 +127,18 @@
           </tr>
         </tbody>
       </table>
+      <h4>Characters</h4>
+      <div ng-repeat="character in characters">
+        {{character.nombre}}
+      </div>
+      <h4>Author</h4>
+      <div ng-repeat="author in authors">
+        {{author.nombre}}
+      </div>
+      <h4>Genres</h4>
+      <div ng-repeat="genre in genres">
+        {{genre.nombre}}
+      </div>
     </div>
     </div>
     <div class="col-md-8">

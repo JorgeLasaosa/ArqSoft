@@ -13,7 +13,7 @@ function UsuarioCriticaDAO(callbackFunction) {
  *	voto : Voto asignado ({-1, 0, 1}).
  */
 UsuarioCriticaDAO.prototype.insertVotoCritica = function(usuarioID, criticaID, voto) {
-	pool.getConnection(function(err, conn
+	pool.getConnection(function(err, conn){
 		if (err) throw err;
 		var auxVoto;
 		var query = {usuarioID : usuarioID, criticaID : criticaID, voto : voto};

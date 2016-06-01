@@ -1,54 +1,23 @@
 <!--info and edit user-->
-<div class="col-md-12">
+<div class="container">
   <div class="row">
     <!-- info user-->
     <div class="col-md-8">
       <h2 align="center">Info user</h2>
       <div class="panel-body">
-        <div class = "col-md-3">
-          <div ng-if="theUser[0].imagen != null">
-            <img ng-src="{{theUser[0].imagen}}" class="img-thumbnail" alt="Cinque Terre" width="200" height="200">
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-horizontal">
-            <div class="form-group">
-               <label class="control-label" for="email">Id:</label>
-               <div>
-                 <p class="form-control-static">{{theUser[0].usuarioID}}</p>
-               </div>
-             </div>
-            <div class="form-group">
-               <label class="control-label" for="email">Name:</label>
-               <div>
-                 <p class="form-control-static">{{theUser[0].nombre}}</p>
-               </div>
-             </div>
-             <div class="form-group">
-                <label class="control-label" for="email">Lastname:</label>
-                <div>
-                  <p class="form-control-static">{{theUser[0].apellidos}}</p>
-                </div>
-              </div>
-              <div class="form-group">
-                 <label class="control-label" for="email">Email:</label>
-                 <div>
-                   <p class="form-control-static">{{theUser[0].correo_electronico}}</p>
-                 </div>
-               </div>
-               <div class="form-group">
-                  <label class="control-label" for="email">Username:</label>
-                  <div>
-                    <p class="form-control-static">{{theUser[0].nombre_usuario}}</p>
-                  </div>
-                </div>
-                <div class="form-group">
-                   <label class="control-label" for="email">Imagen:</label>
-                   <div>
-                     <p class="form-control-static">{{theUser[0].imagen}}</p>
-                   </div>
-                 </div>
-          </div>
+
+        <div class="row">
+            <div ng-if="theUser[0].imagen != null" class="col-md-4">
+              <img ng-src="{{theUser[0].imagen}}" class="img-thumbnail" alt="Cinque Terre" width="300">
+            </div>
+            <div class="col-md-8">
+              <ul class="list-group">
+                <li class="list-group-item"><strong>Id user: </strong>{{theUser[0].usuarioID}}</li>
+                <li class="list-group-item"><strong>Name: </strong>{{theUser[0].nombre}}</li>
+                <li class="list-group-item"><strong>Lastname: </strong>{{theUser[0].apellidos}}</li>
+                <li class="list-group-item"><strong>Email: </strong>{{theUser[0].correo_electronico}}</li>
+              </ul>
+            </div>
           </div>
          </div>
       </div>

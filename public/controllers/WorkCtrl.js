@@ -1,6 +1,4 @@
-app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q) {
-
-  
+app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams) {
 
   getWork = function(){
     $http.get("/api/work/" + $routeParams.workId)
@@ -8,9 +6,11 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
       function(res){
         console.log(res);
         $scope.work = res.data;
+        getCharacters();
       },
       function(res){
         console.log("Error on GET /api/work");
+        getCharacters();
       }
     );
   }
@@ -21,9 +21,11 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
       function(res){
         console.log(res);
         $scope.characters = res.data;
+        getAuthors();
       },
       function(res){
         console.log("Error on GET /api/work");
+        getAuthors();
       }
     );
   }
@@ -34,9 +36,11 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
       function(res){
         console.log(res);
         $scope.authors = res.data;
+        getGenres();
       },
       function(res){
         console.log("Error on GET /api/work");
+        getGenres();
       }
     );
   }
@@ -47,9 +51,11 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
       function(res){
         console.log(res);
         $scope.genres = res.data;
+        getReviewsOfWork();
       },
       function(res){
         console.log("Error on GET /api/work");
+        getReviewsOfWork();
       }
     );
   }
@@ -60,9 +66,15 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
       function(res){
         console.log(res);
         $scope.reviews = res.data;
+        if($scope.isLogged){
+          getMyReview();
+        }
       },
       function(res){
         console.log("Error on GET /api/workReviews");
+        if($scope.isLogged){
+          getMyReview();
+        }
       }
     );
   }
@@ -73,9 +85,15 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
       function(res){
         console.log(res);
         $scope.myReview = res.data;
+        if($scope.isLogged){
+          getMyState();
+        }
       },
       function(res){
         console.log("Error on GET /api/review");
+        if($scope.isLogged){
+          getMyState();
+        }
       }
     );
   }
@@ -126,7 +144,7 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
     $http.put("/api/punctuateWork/",{userID: $rootScope.myUser.usuarioID,
       workID: $routeParams.workId, punctuation: $scope.punctuation})
     .success(function(){
-      $timeout(getMyReview, 0);
+      getMyReview();
       console.log("PUT /api/punctuateWork Successful");
     })
     .error(function(){
@@ -139,8 +157,7 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
       workID: $routeParams.workId, textReview: $scope.textReview, punctuation: $scope.punctuation}) //TODO modificar para no necesitar el punctuation
     .success(function(myReview){
       //$scope.myReview = myReview;
-      $timeout(getReviewsOfWork,0);
-      $timeout(getMyReview,0);
+      getReviewsOfWork();
       console.log($scope.textReview);
       console.log("Post /writeReview successful");
     })
@@ -154,7 +171,7 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
       workID: $routeParams.workId, state: $scope.state})
     .success(function(myReview){
       //Actualizar mi review
-      $timeout(getMyState,0);
+      getMyState();
       console.log("PUT /api/setStateWork successful");
     })
     .error(function(){
@@ -175,6 +192,7 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
       reviewID: reviewID, vote: voto})
     .success(function(myReview){
       console.log("PUT /api/voteReview successful");
+      //getReviewsOfWork();
     })
     .error(function(){
       console.log("Error on PUT /api/voteReview");
@@ -182,14 +200,6 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q)
   }
 
   getWork();
-  $timeout(getAuthors,1);
-  $timeout(getCharacters,2);
-  $timeout(getGenres,3);
-  $timeout(getReviewsOfWork,4);
 
-  if($rootScope.isLogged){
-    $timeout(getMyReview,5);
-    getMyState();
-  }
 
 });

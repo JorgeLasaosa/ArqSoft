@@ -1,4 +1,4 @@
-app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $http, $timeout) {
+app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $http) {
 
   userReviews = function(){
     $http.get("/api/userReviews/" + $routeParams.userId)
@@ -6,9 +6,11 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $
       function(res){
         console.log(res);
         $scope.reviews = res.data;
+        soulMates();
       },
       function(res){
         console.log("Error on GET /api/userReviews");
+        soulMates();
       }
     );
   }
@@ -19,9 +21,11 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $
       function(res){
         console.log(res);
         $scope.soulmates = res.data;
+        getPublicInfoUser();
       },
       function(res){
         console.log("Error on GET /api/soulmates");
+        getPublicInfoUser();
       }
     );
   }
@@ -70,7 +74,7 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $
 		$http.put("/api/user", {usuarioID: $rootScope.myUser.usuarioID, username: $rootScope.myUser.username,
       password: b, nombre: c, apellidos: d, email: e, imagen: f})
 		.success(function(loggedUser) {
-      		//$rootScope.myUser=loggedUser;
+      		getPublicInfoUser();
 			console.log("Post /update Successful");
 		})
 		.error(function() {
@@ -95,9 +99,7 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $
     $http.get("/api/userWorks/" + $routeParams.userId + "/" +$scope.selectUserWorks.state)
     .then(
       function(res){
-        $timeout(function(){
           $scope.works = res.data;
-        },0);
         console.log("GET /api/userWorks Successful");
       },
       function(res){
@@ -107,8 +109,6 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $
   }
 
   userReviews();
-  $timeout(soulMates,0);
-  $timeout(getPublicInfoUser,0);
 
 
 });

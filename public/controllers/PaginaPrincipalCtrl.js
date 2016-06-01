@@ -1,4 +1,4 @@
-app.controller('PaginaPrincipalCtrl', function($scope, $http, $timeout) {
+app.controller('PaginaPrincipalCtrl', function($scope, $http) {
 
   mostRatedWorks = function(){
     $http.get("/api/mostRated")
@@ -6,9 +6,11 @@ app.controller('PaginaPrincipalCtrl', function($scope, $http, $timeout) {
       function(res){
         console.log("GET /api/mostRated successful");
         $scope.mostRated = res.data;
+        mostReviewedWorks();
       },
       function(res){
         console.log("Error on GET /api/mostRated");
+        mostReviewedWorks();
       }
     );
   }
@@ -27,5 +29,5 @@ app.controller('PaginaPrincipalCtrl', function($scope, $http, $timeout) {
   }
 
   mostRatedWorks();
-  $timeout(mostReviewedWorks,0);
+
 });

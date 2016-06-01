@@ -28,7 +28,6 @@
         <strong>Sinopsis: </strong>{{obra.sinopsis}}
       </div>
       <ul class="list-group">
-        <li class="list-group-item"><strong>Work id: </strong>{{obra.obraID}}</li>
         <li class="list-group-item"><strong>Date: </strong>{{obra.fecha_inicio}}-{{obra.fecha_fin}}</li>
         <li class="list-group-item"><strong>Score: </strong>
           <div data-ng-repeat="i in [1,2,3,4,5]" ng-init="puntuacion = (obra.puntuacion_total/obra.puntuaciones_recibidas)" style="display: inline">

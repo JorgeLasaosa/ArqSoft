@@ -10,7 +10,7 @@ var userRouter = function(app) {
   		}
   		res.end();
   	});
-  	usuarioDAO.insertUsuario(req.body.username, req.body.password, req.body.nombre, req.body.apellidos, req.body.email, null);
+  	usuarioDAO.insertUsuario(req.body.username, req.body.password, req.body.nombre, req.body.apellidos, req.body.email, req.body.imagen);
   });
 
   /* Login usuario */

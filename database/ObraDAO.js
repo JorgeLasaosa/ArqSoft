@@ -9,7 +9,7 @@ function ObraDAO(callbackFunction) {
 /**
  * Devuelve la lista de obras cuyo título cumple el criterio de búsqueda.
  *	search : Consulta de búsqueda de título de obra en lenguaje natural.
- *	orderBy : Criterio de ordenación del resultado.		 
+ *	orderBy : Criterio de ordenación del resultado.
  */
 ObraDAO.prototype.findObrasByTitulo = function(search, orderBy) {
 	pool.getConnection(function(err, conn){
@@ -39,10 +39,11 @@ ObraDAO.prototype.findObrasByTitulo = function(search, orderBy) {
 /**
  * Devuelve la lista de obras en la que aparece un personaje cuyo nombre cumple el criterio de búsqueda.
  *	search : Consulta de búsqueda de nombre de personaje en lenguaje natural.
- *	orderBy : Criterio de ordenación del resultado.		 
+ *	orderBy : Criterio de ordenación del resultado.
  */
 ObraDAO.prototype.findObrasByPersonaje = function(search, orderBy) {
 	pool.getConnection(function(err, conn) {
+		if (err) throw err;
 		var query = "";
 		if (search != null && search != "") {
 		    var arr = search.split(" ");
@@ -55,7 +56,6 @@ ObraDAO.prototype.findObrasByPersonaje = function(search, orderBy) {
 		    query += " AND p.personajeID = ap.personajeID AND ob.obraID = ap.obraID";
 		}
 		conn.query("select * from obra ob, personaje p, aparecer ap" + query, function(err, rows) {
-			conn.release();
 			if (err) {
 				callback(err, null);
 			}
@@ -63,16 +63,18 @@ ObraDAO.prototype.findObrasByPersonaje = function(search, orderBy) {
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 
 /**
  * Devuelve la lista de obras que pertenecen a un género que cumple el criterio de búsqueda.
  *	search : Consulta de búsqueda de género en lenguaje natural.
- *	orderBy : Criterio de ordenación del resultado.		 
+ *	orderBy : Criterio de ordenación del resultado.
  */
 ObraDAO.prototype.findObrasByGenero = function(search, orderBy) {
 	pool.getConnection(function(err,conn) {
+		if (err) throw err;
 		var query = "";
 		if (search != null && search != "") {
 		    var arr = search.split(" ");
@@ -85,7 +87,6 @@ ObraDAO.prototype.findObrasByGenero = function(search, orderBy) {
 		    query += " AND g.generoID = t.generoID AND ob.obraID = t.obraID";
 		}
 		conn.query("select * from obra ob, genero g, tener t" + query, function(err, rows) {
-			conn.release();
 			if (err) {
 				callback(err, null);
 			}
@@ -93,16 +94,18 @@ ObraDAO.prototype.findObrasByGenero = function(search, orderBy) {
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 
 /**
  * Devuelve la lista de obras cuyo autor cumple el criterio de búsqueda.
  *	search : Consulta de búsqueda de nombre de autor en lenguaje natural.
- *	orderBy : Criterio de ordenación del resultado.		 
+ *	orderBy : Criterio de ordenación del resultado.
  */
 ObraDAO.prototype.findObrasByAutor = function(search, orderBy) {
 	pool.getConnection(function(err,conn) {
+		if(err) throw err;
 		var query = "";
 		if (search != null && search != "") {
 		    var arr = search.split(" ");
@@ -115,7 +118,6 @@ ObraDAO.prototype.findObrasByAutor = function(search, orderBy) {
 		    query += " AND au.autorID = cr.autorID AND ob.obraID = cr.obraID";
 		}
 		conn.query("select * from obra ob, autor au, crear cr" + query, function(err, rows) {
-			conn.release();
 			if (err) {
 				callback(err, null);
 			}
@@ -123,6 +125,7 @@ ObraDAO.prototype.findObrasByAutor = function(search, orderBy) {
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 
@@ -133,7 +136,8 @@ ObraDAO.prototype.findObrasByAutor = function(search, orderBy) {
 ObraDAO.prototype.findObra = function(obraID) {
 	pool.getConnection(function(err,conn) {
 		if (err) throw err;
-		conn.query("select * from obra where obraID = ?", [obraID], function(err, rows) {
+		conn.query("select * from obra ob, crear cr, autor au, tener te, genero ge," +
+		" aparecer ap, personaje per, pewhere obraID = ?", [obraID], function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}
@@ -184,4 +188,62 @@ ObraDAO.prototype.findObrasMasCriticadas = function(num) {
 		conn.release();
 	});
 }
+
+/**
+ * Devuelve los personajes que aparecen en una obra
+ * 	obraID : ID de la obra
+ */
+ObraDAO.prototype.findPersonajesByObra = function(obraID) {
+ pool.getConnection(function(err,conn) {
+	 if (err) throw err;
+	 conn.query("select pe.* from Personaje pe, Aparecer ap where ap.obraID = ?" +
+	 " AND ap.personajeID = pe.personajeID", obraID, function(err, rows) {
+		 if (err) {
+			 callback(err, null);
+		 }
+		 else {
+			 callback(null, rows);
+		 }
+	 });
+	 conn.release();
+ });
+
+ /**
+  * Devuelve los autores de una obra
+  * 	obraID : ID de la obra
+  */
+ ObraDAO.prototype.findAutoresByObra = function(obraID) {
+  pool.getConnection(function(err,conn) {
+ 	 if (err) throw err;
+ 	 conn.query("select au.* from Autor au, Crear cr where cr.obraID = ?" +
+ 	 " AND cr.autorID = au.autorID", obraID, function(err, rows) {
+ 		 if (err) {
+ 			 callback(err, null);
+ 		 }
+ 		 else {
+ 			 callback(null, rows);
+ 		 }
+ 	 });
+ 	 conn.release();
+  });
+
+	/**
+	 * Devuelve los generos de una obra
+	 * 	obraID : ID de la obra
+	 */
+	ObraDAO.prototype.findGenerosByObra = function(obraID) {
+	 pool.getConnection(function(err,conn) {
+		 if (err) throw err;
+		 conn.query("select ge.* from Genero ge, Tener te where te.obraID = ?" +
+		 " AND te.generoID = ge.generoID", obraID, function(err, rows) {
+			 if (err) {
+				 callback(err, null);
+			 }
+			 else {
+				 callback(null, rows);
+			 }
+		 });
+		 conn.release();
+	 });
+
 module.exports = ObraDAO;

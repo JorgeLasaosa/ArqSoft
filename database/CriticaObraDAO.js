@@ -9,11 +9,15 @@ function CriticaObraDAO(callbackFunction) {
 /**
  * Devuelve las críticas de la obra cuyo id coincide con obraID ordenadas según
  * el criiterio orderBy.
+ conn.query("select cr.criticaID, cr.usuarioID, cr.obraID, cr.puntuacion, cr.texto, cr.fecha, cr.votos_positivos, cr.votos_totales, ob.titulo"
+	 + " from critica cr, obra ob where usuarioID = ? and cr.obraID = ob.obraID;", usuarioID, function(err, rows) {
  */
 CriticaObraDAO.prototype.findCriticasByObra = function(obraID, orderBy) {
 	pool.getConnection(function(err,conn) {
-		conn.query("select * from critica where obraID = ?", obraID, function(err, rows) {
-			conn.release();
+		if (err) throw err;
+		conn.query("select cr.*, us.nombre_usuario from critica cr, Usuario us where cr.obraID = ?" +
+		" AND us.usuarioID = cr.usuarioID", obraID, function(err, rows) {
+
 			if (err) {
 				callback(err, null);
 			}
@@ -21,6 +25,7 @@ CriticaObraDAO.prototype.findCriticasByObra = function(obraID, orderBy) {
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 

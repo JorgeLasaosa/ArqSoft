@@ -14,6 +14,7 @@ function ComentarioDAO(callbackFunction) {
  */
 ComentarioDAO.prototype.insertComentario = function(usuarioID, criticaID, texto) {
 	pool.getConnection(function(err,conn) {
+		if (err) throw err;
 		var insert = {usuarioID : usuarioID, criticaID : criticaID, texto : texto, fecha : new Date()};
 		conn.query("insert into comentar set ?", insert, function(err, rows) {
 			if (err) {
@@ -33,8 +34,9 @@ ComentarioDAO.prototype.insertComentario = function(usuarioID, criticaID, texto)
  */
 ComentarioDAO.prototype.findComentariosByUsuario = function(usuarioID) {
 	pool.getConnection(function(err,conn) {
-		conn.query("select * from Comentar where usuarioID = ? order by fecha desc", usuarioID, function(err, rows) {
-			conn.release();
+		if (err) throw err;
+		conn.query("select co.*, us.nombre_usuario from Comentar co, Usuario us "+
+		"where co.usuarioID = ? AND co.usuarioID = us.usuarioID order by co.fecha desc", usuarioID, function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}
@@ -42,6 +44,7 @@ ComentarioDAO.prototype.findComentariosByUsuario = function(usuarioID) {
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 
@@ -51,8 +54,9 @@ ComentarioDAO.prototype.findComentariosByUsuario = function(usuarioID) {
  */
 ComentarioDAO.prototype.findComentariosByCritica = function(criticaID) {
 	pool.getConnection(function(err,conn) {
-		conn.query("select * from Comentar where criticaID = ? order by fecha desc", criticaID, function(err, rows) {
-			conn.release();
+		if (err) throw err;
+		conn.query("select co.*, us.nombre_usuario from Comentar co, Usuario us " +
+		"where co.criticaID = ? AND co.usuarioID = us.usuarioID order by co.fecha desc", criticaID, function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}
@@ -60,6 +64,7 @@ ComentarioDAO.prototype.findComentariosByCritica = function(criticaID) {
 				callback(null, rows);
 			}
 		});
+		conn.release();
 	});
 }
 

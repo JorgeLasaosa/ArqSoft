@@ -13,8 +13,8 @@ function UsuarioCriticaObraDAO(callbackFunction) {
 UsuarioCriticaObraDAO.prototype.findCriticasByUsuario = function(usuarioID) {
 	pool.getConnection(function(err, conn){
 		if (err) throw err;
-		conn.query("select cr.criticaID, cr.usuarioID, cr.obraID, cr.puntuacion, cr.texto, cr.fecha, cr.votos_positivos, cr.votos_totales, ob.titulo"
-			+ " from critica cr, obra ob where usuarioID = ? and cr.obraID = ob.obraID;", usuarioID, function(err, rows) {
+		conn.query("select cr.*, ob.titulo from critica cr, obra ob where usuarioID = ?" +
+		" and cr.obraID = ob.obraID;", usuarioID, function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}

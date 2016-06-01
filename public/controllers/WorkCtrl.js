@@ -1,4 +1,6 @@
-app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $timeout) {
+app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $q) {
+
+  
 
   getWork = function(){
     $http.get("/api/work/" + $routeParams.workId)
@@ -6,6 +8,45 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
       function(res){
         console.log(res);
         $scope.work = res.data;
+      },
+      function(res){
+        console.log("Error on GET /api/work");
+      }
+    );
+  }
+
+  getCharacters = function(){
+    $http.get("/api/work/characters/" + $routeParams.workId)
+    .then(
+      function(res){
+        console.log(res);
+        $scope.characters = res.data;
+      },
+      function(res){
+        console.log("Error on GET /api/work");
+      }
+    );
+  }
+
+  getAuthors = function(){
+    $http.get("/api/work/authors/" + $routeParams.workId)
+    .then(
+      function(res){
+        console.log(res);
+        $scope.authors = res.data;
+      },
+      function(res){
+        console.log("Error on GET /api/work");
+      }
+    );
+  }
+
+  getGenres = function(){
+    $http.get("/api/work/genres/" + $routeParams.workId)
+    .then(
+      function(res){
+        console.log(res);
+        $scope.genres = res.data;
       },
       function(res){
         console.log("Error on GET /api/work");
@@ -141,10 +182,13 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
   }
 
   getWork();
-  $timeout(getReviewsOfWork,0);
+  $timeout(getAuthors,1);
+  $timeout(getCharacters,2);
+  $timeout(getGenres,3);
+  $timeout(getReviewsOfWork,4);
 
   if($rootScope.isLogged){
-    $timeout(getMyReview,0);
+    $timeout(getMyReview,5);
     getMyState();
   }
 

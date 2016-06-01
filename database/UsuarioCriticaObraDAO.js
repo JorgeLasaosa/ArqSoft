@@ -26,7 +26,11 @@ UsuarioCriticaObraDAO.prototype.findCriticasByUsuario = function(usuarioID) {
 	});
 }
 
-/* Devuelve la lista de la critica de ese usuario en esa obra */
+/**
+ * Devuelve la criticas de un usuario en una obra.
+ *	obraID : ID de la obra
+ *	usuarioID : ID del usuario
+ */
 UsuarioCriticaObraDAO.prototype.findCriticasByObraUsuario = function(obraID, usuarioID) {
 	pool.getConnection(function(err, conn){
 		if (err) throw err;
@@ -66,6 +70,12 @@ UsuarioCriticaObraDAO.prototype.insertCritica = function(usuarioID, obraID, text
 	});
 }
 
+/**
+ * Actualiza la puntuación asignada por un usuario en una obra.
+ *	usuarioID : ID del usuario
+ *	obraID : ID de la obraID
+ *	puntuacion : Nueva puntuacion
+ */
 UsuarioCriticaObraDAO.prototype.updatePuntuacion = function(usuarioID, obraID, puntuacion) {
 	pool.getConnection(function(err, conn) {
 		if (err) throw err;

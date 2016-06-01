@@ -9,8 +9,8 @@ function CriticaObraDAO(callbackFunction) {
 /**
  * Devuelve las críticas de la obra cuyo id coincide con obraID ordenadas según
  * el criiterio orderBy.
- conn.query("select cr.criticaID, cr.usuarioID, cr.obraID, cr.puntuacion, cr.texto, cr.fecha, cr.votos_positivos, cr.votos_totales, ob.titulo"
-	 + " from critica cr, obra ob where usuarioID = ? and cr.obraID = ob.obraID;", usuarioID, function(err, rows) {
+ * 	obraID : ID de la obra
+ *	orderBy : Criterio de ordenación del resultado
  */
 CriticaObraDAO.prototype.findCriticasByObra = function(obraID, orderBy) {
 	pool.getConnection(function(err,conn) {

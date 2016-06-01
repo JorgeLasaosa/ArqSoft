@@ -56,11 +56,14 @@ UsuarioDAO.prototype.findUsuario = function(username, password) {
 	});
 }
 
-/* Devuelve el usuario cuyo id coincide */
-UsuarioDAO.prototype.findUsuarioPublico = function(id) {
+/**
+ * Devuelve los datos de un usuario dado su ID
+ * 	usuarioID : ID del usuario
+ */
+UsuarioDAO.prototype.findUsuarioPublico = function(usuarioID) {
 	pool.getConnection(function(err, conn) {
 		if (err) throw err;
-		conn.query("select usuarioID, nombre_usuario, nombre, apellidos, correo_electronico, imagen from Usuario where usuarioID = ?", id , function(err, rows) {
+		conn.query("select usuarioID, nombre_usuario, nombre, apellidos, correo_electronico, imagen from Usuario where usuarioID = ?", usuarioID , function(err, rows) {
 			if (err) {
 				callback(err, null);
 			}

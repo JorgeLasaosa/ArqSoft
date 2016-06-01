@@ -40,6 +40,11 @@ UsuarioEstadoObraDAO.prototype.updateEstado = function(usuarioID, obraID, estado
 	});
 }
 
+/**
+ *	Devuelve el estado que un usuario ha establecido en una obra.
+ *		usuarioID : ID del usuario
+ *		obraID : ID de la obra
+ */
 UsuarioEstadoObraDAO.prototype.findEstadoByObraUsuario = function(usuarioID, obraID) {
 	pool.getConnection(function(err, conn){
 		if(err) throw err;

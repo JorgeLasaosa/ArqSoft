@@ -45,13 +45,13 @@ var userRouter = function(app) {
   		res.end();
   	});
   	usuarioDAO.updateUsuario(
-  		req.body.user.usuarioID, /* ID usuario a actualizar */
-  		req.body.user.username, /* Username */
-  		req.body.formData.password, /* Nueva Contraseña */
-  		req.body.formData.nombre, 	/* Nuevo Nombre */
-  		req.body.formData.apellidos,/* Nuevos apellidos */
-  		req.body.formData.email,	/* Nuevo E-mail */
-  		req.body.formData.imagen	/* Nueva imagen */
+  		req.body.usuarioID, /* ID usuario a actualizar */
+  		req.body.username, /* Username */
+  		req.body.password, /* Nueva Contraseña */
+  		req.body.nombre, 	/* Nuevo Nombre */
+  		req.body.apellidos,/* Nuevos apellidos */
+  		req.body.email,	/* Nuevo E-mail */
+  		req.body.imagen	/* Nueva imagen */
   	);
   });
 

@@ -39,10 +39,38 @@ app.controller('PerfilUsuarioCtrl', function($rootScope, $scope, $routeParams, $
     );
   }
 
-  $scope.update = function() {
-		$http.put("/api/user", {user: $rootScope.myUser, formData: $scope.formData})
+  $scope.update = function(nombre, apellidos, email, imagen, password) {
+    var a,b,c,d,e,f;
+    try{
+      b = password;
+    }catch(ex){
+      b = $rootScope.myUser.contraseña;
+    }
+    try{
+      c = nombre;
+    }catch(ex){
+      c = $rootScope.myUser.nombre;
+    }
+    try{
+      d = apellidos;
+    }catch(ex){
+      d = $rootScope.myUser.apellidos;
+    }
+    try{
+      e = email;
+    }
+    catch(ex){
+      e = $rootScope.myUser.correo_electronico;
+    }
+    try{
+      f = imagen;
+    }catch(ex){
+      f = $rootScope.myUser.imagen;
+    }
+		$http.put("/api/user", {usuarioID: $rootScope.myUser.usuarioID, username: $rootScope.myUser.username,
+      password: b, nombre: c, apellidos: d, email: e, imagen: f})
 		.success(function(loggedUser) {
-      		$rootScope.myUser=loggedUser;
+      		//$rootScope.myUser=loggedUser;
 			console.log("Post /update Successful");
 		})
 		.error(function() {

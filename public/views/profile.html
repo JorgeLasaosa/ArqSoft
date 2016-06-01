@@ -105,18 +105,18 @@
              <div class="form-group">
                 <label class="control-label col-md-5" for="email">Image:</label>
                 <div class="col-md-6">
-                   <input id="image" type="text" class="form-control" placeholder="URL Image" ng-model="formData.imagen"/>
+                   <input id="imagen" type="text" class="form-control" placeholder="URL Image" ng-model="formData.imagen"/>
                 </div>
              </div>
 
              <div class="form-group">
                 <label class="control-label col-md-5" for="password1">New password:</label>
                 <div class="col-md-6">
-                   <input id="password1" type="password" class="form-control" placeholder="New password" ng-model="formData.password">
+                   <input id="password" type="password" class="form-control" placeholder="New password" ng-model="formData.password"/>
                 </div>
              </div>
 
-             <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4" ng-click="update()">Update user</button>
+             <button type="submit" class="btn btn-primary col-md-offset-1 col-md-4" ng-click="update(formData.nombre, formData.apellidos, formData.email, formData.imagen, formData.password)">Update user</button>
              <button type="submit" class="btn btn-danger col-md-offset-1 col-md-4" data-toggle="modal" data-target="#myModalToDelete">Delete user</button>
              <!-- Modal -->
               <div class="modal fade" id="myModalToDelete" role="dialog">
@@ -197,13 +197,13 @@
       <div ng-repeat="review in reviews">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <strong>Title: </strong> {{review.titulo}}
+
+            <strong>Title: </strong><a ng-href="#/work/{{review.obraID}}">{{review.titulo}}</a>
           </div>
           <div class="panel-body">
             <strong>Text: </strong>{{review.texto}}
           </div>
           <ul class="list-group">
-            <li class="list-group-item"><strong>Work: <a ng-href="#/work/{{review.obraID}}">Ir a la obra</a>
             <li class="list-group-item"><strong>Date: </strong>{{review.fecha}}</li>
             <li class="list-group-item"><strong>Score: </strong>
               <div data-ng-repeat="i in [1,2,3,4,5]" style="display: inline">

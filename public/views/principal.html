@@ -20,7 +20,14 @@
            </strong>
          </div>
          <div class="panel-body">
-           <strong>Sinopsis: </strong>{{work1.sinopsis}}
+           <div ng-if="work1.imagen!=null" class="col-md-5">
+              <img width="180" class="img-thumbnail"  ng-src="{{work1.imagen}}" />
+          </div>
+          <div>
+              <p><strong>Sinopsis: </strong>{{work1.sinopsis}}</p>
+          </div>
+
+
          </div>
          <ul class="list-group">
            <li class="list-group-item"><strong>Date: </strong>{{work1.fecha_inicio}}-{{work1.fecha_fin}}</li>
@@ -44,6 +51,9 @@
            </strong>
          </div>
          <div class="panel-body">
+           <div ng-if="work2.imagen!=null" class="col-md-5">
+              <img width="180" class="img-thumbnail" ng-src="{{work2.imagen}}" />
+          </div>
            <strong>Sinopsis: </strong>{{work2.sinopsis}}
          </div>
          <ul class="list-group">

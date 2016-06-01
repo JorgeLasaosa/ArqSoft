@@ -102,7 +102,7 @@ UsuarioDAO.prototype.updateUsuario = function(usuarioID, new_username, new_passw
 		if (new_email != null && new_email != "") {
 			newUsuario.correo_electronico = new_email;
 		}
-		if (new_imagen != null) {
+		if (new_imagen != null && new_imagen != "") {
 			newUsuario.imagen = new_imagen;
 		}
 		conn.query("update Usuario set ? where usuarioID = ?", [newUsuario, usuarioID], function(err, rows) {

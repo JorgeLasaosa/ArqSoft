@@ -36,7 +36,7 @@ app.config(['$routeProvider', function ($routeProvider) {
           controller: 'LoginUsuarioCtrl'
         })
 
-        .when('/searchResult', {
+        .when('/searchResult/:field/:text', {
           templateUrl: 'views/searchResult.html',
           controller: 'SearchResultCtrl'
         })

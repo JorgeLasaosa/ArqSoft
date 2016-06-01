@@ -8,7 +8,7 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
         $scope.work = res.data;
       },
       function(res){
-        console.log("Work not works");
+        console.log("Error on GET /api/work");
       }
     );
   }
@@ -21,7 +21,7 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
         $scope.reviews = res.data;
       },
       function(res){
-        console.log("GET /api/workReviews not works");
+        console.log("Error on GET /api/workReviews");
       }
     );
   }
@@ -34,7 +34,7 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
         $scope.myReview = res.data;
       },
       function(res){
-        console.log("GET /api/review not works");
+        console.log("Error on GET /api/review");
       }
     );
   }
@@ -47,7 +47,7 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
         $scope.myState = res.data;
       },
       function(res){
-        console.log("WorkReviews not works");
+        console.log("Error on GET /api/state");
       }
     );
   }
@@ -61,7 +61,7 @@ app.controller('WorkCtrl', function($scope, $rootScope, $http, $routeParams, $ti
         $scope.comments[reviewID] = res.data;
       },
       function(res){
-        console.log("WorkReviews not works");
+        console.log("Error on GET /api/comment");
       }
     );
   }

@@ -22,6 +22,9 @@
         </strong>
       </div>
       <div class="panel-body">
+        <div ng-if="obra.imagen!=null" class="col-md-2">
+           <img width="180" class="img-thumbnail"  ng-src="{{obra.imagen}}" />
+       </div>
         <strong>Sinopsis: </strong>{{obra.sinopsis}}
       </div>
       <ul class="list-group">
